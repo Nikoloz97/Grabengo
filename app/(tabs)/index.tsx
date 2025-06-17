@@ -14,7 +14,7 @@ export default function HomeScreen() {
           alignItems: "center",
           justifyContent: "center",
           paddingVertical: 20,
-          backgroundColor: "#A1CEDC",
+          backgroundColor: "black",
           ...Platform.select({
             ios: {
               shadowColor: "#000",
@@ -49,8 +49,8 @@ export default function HomeScreen() {
       >
         {/* about  */}
         <ThemedView
+          type="card"
           style={{
-            backgroundColor: "white",
             borderRadius: 15,
             padding: 20,
             marginBottom: 20,
@@ -69,12 +69,11 @@ export default function HomeScreen() {
               fontSize: 20,
               fontWeight: "bold",
               marginBottom: 10,
-              color: "#333",
             }}
           >
             About Grabengo
           </ThemedText>
-          <ThemedText style={{ fontSize: 16, color: "#555", marginBottom: 10 }}>
+          <ThemedText style={{ fontSize: 16, marginBottom: 10 }}>
             Welcome to Grabengo, your go-to app for quick and easy ordering.
             Discover our mission and how were changing the way you enjoy your
             favorite items!
@@ -83,8 +82,8 @@ export default function HomeScreen() {
 
         {/* featured */}
         <ThemedView
+          type="card"
           style={{
-            backgroundColor: "white",
             borderRadius: 15,
             padding: 20,
             marginBottom: 20,
@@ -103,7 +102,6 @@ export default function HomeScreen() {
               fontSize: 20,
               fontWeight: "bold",
               marginBottom: 10,
-              color: "#333",
             }}
           >
             Featured Item: Summer Berry Refresher
@@ -120,7 +118,7 @@ export default function HomeScreen() {
             }}
             contentFit="cover"
           />
-          <ThemedText style={{ fontSize: 16, color: "#555", marginBottom: 10 }}>
+          <ThemedText style={{ fontSize: 16, marginBottom: 10 }}>
             Cool down with our Summer Berry Refresher! A delightful blend of
             fresh berries and a hint of mint. Perfect for a sunny day.
           </ThemedText>
@@ -143,8 +141,8 @@ export default function HomeScreen() {
 
         {/* coming soon */}
         <ThemedView
+          type="card"
           style={{
-            backgroundColor: "white",
             borderRadius: 15,
             padding: 20,
             marginBottom: 20,
@@ -163,7 +161,6 @@ export default function HomeScreen() {
               fontSize: 20,
               fontWeight: "bold",
               marginBottom: 10,
-              color: "#333",
             }}
           >
             Coming Soon: Spiced Pumpkin Latte
@@ -180,7 +177,7 @@ export default function HomeScreen() {
             }}
             contentFit="cover"
           />
-          <ThemedText style={{ fontSize: 16, color: "#555", marginBottom: 10 }}>
+          <ThemedText style={{ fontSize: 16, marginBottom: 10 }}>
             Get ready for the cozy season with our new Spiced Pumpkin Latte! A
             warm and comforting blend of pumpkin spice and rich espresso.
           </ThemedText>

@@ -3,17 +3,19 @@ import React from "react";
 import { View, ViewProps } from "react-native";
 
 interface ThemedViewProps extends ViewProps {
-  // TODO: add variants here eventually (e.g. type?: 'background' | 'card' | 'header';)
+  type?: "background" | "card" | "header";
 }
 
 export function ThemedView(props: ThemedViewProps) {
-  const { style, ...otherProps } = props;
+  const { style, type, ...otherProps } = props;
   const { colors } = useTheme();
 
   return (
     <View
       style={[
-        { backgroundColor: colors.background },
+        type === "background" && { backgroundColor: colors.background },
+        type === "card" && { backgroundColor: colors.card },
+        type === "header" && { backgroundColor: colors.card },
         style, // overrides
       ]}
       {...otherProps}
