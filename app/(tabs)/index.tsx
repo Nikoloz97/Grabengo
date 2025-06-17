@@ -1,12 +1,14 @@
-import { Image } from "expo-image"; // Keep expo-image as it's standard for Expo
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import { Image } from "expo-image";
 import React from "react";
-import { Platform, ScrollView, Text, View } from "react-native";
+import { Platform, ScrollView } from "react-native";
 
 export default function HomeScreen() {
   return (
-    <View style={{ flex: 1, backgroundColor: "#F0F0F0" }}>
+    <ThemedView style={{ flex: 1 }}>
       {/* header */}
-      <View
+      <ThemedView
         style={{
           flexDirection: "row",
           alignItems: "center",
@@ -26,17 +28,27 @@ export default function HomeScreen() {
           }),
         }}
       >
-        <Text style={{ fontSize: 32, fontWeight: "bold", color: "#333" }}>
+        <ThemedText
+          style={{
+            fontSize: 32,
+            fontWeight: "bold",
+            paddingTop: 40,
+          }}
+        >
           Welcome to Grabengo
-        </Text>
-      </View>
+        </ThemedText>
+      </ThemedView>
 
       {/* main */}
       <ScrollView
-        contentContainerStyle={{ paddingHorizontal: 15, paddingVertical: 10 }}
+        contentContainerStyle={{
+          paddingHorizontal: 15,
+          paddingTop: 10,
+          paddingBottom: 80,
+        }}
       >
         {/* about  */}
-        <View
+        <ThemedView
           style={{
             backgroundColor: "white",
             borderRadius: 15,
@@ -52,7 +64,7 @@ export default function HomeScreen() {
             elevation: 5, // for Android shadow
           }}
         >
-          <Text
+          <ThemedText
             style={{
               fontSize: 20,
               fontWeight: "bold",
@@ -61,16 +73,16 @@ export default function HomeScreen() {
             }}
           >
             About Grabengo
-          </Text>
-          <Text style={{ fontSize: 16, color: "#555", marginBottom: 10 }}>
+          </ThemedText>
+          <ThemedText style={{ fontSize: 16, color: "#555", marginBottom: 10 }}>
             Welcome to Grabengo, your go-to app for quick and easy ordering.
             Discover our mission and how were changing the way you enjoy your
             favorite items!
-          </Text>
-        </View>
+          </ThemedText>
+        </ThemedView>
 
         {/* featured */}
-        <View
+        <ThemedView
           style={{
             backgroundColor: "white",
             borderRadius: 15,
@@ -86,7 +98,7 @@ export default function HomeScreen() {
             elevation: 5,
           }}
         >
-          <Text
+          <ThemedText
             style={{
               fontSize: 20,
               fontWeight: "bold",
@@ -95,10 +107,10 @@ export default function HomeScreen() {
             }}
           >
             Featured Item: Summer Berry Refresher
-          </Text>
+          </ThemedText>
           <Image
             source={{
-              uri: "https://placehold.co/600x300/9BDD7F/FFFFFF?text=Featured+Item",
+              uri: "https://placehold.co/600x300/9BDD7F/FFFFFF?ThemedText=Featured+Item",
             }}
             style={{
               width: "100%",
@@ -108,11 +120,11 @@ export default function HomeScreen() {
             }}
             contentFit="cover"
           />
-          <Text style={{ fontSize: 16, color: "#555", marginBottom: 10 }}>
+          <ThemedText style={{ fontSize: 16, color: "#555", marginBottom: 10 }}>
             Cool down with our Summer Berry Refresher! A delightful blend of
             fresh berries and a hint of mint. Perfect for a sunny day.
-          </Text>
-          <Text
+          </ThemedText>
+          <ThemedText
             style={{
               backgroundColor: "#00704A", // Starbucks green
               color: "white",
@@ -126,11 +138,11 @@ export default function HomeScreen() {
             }}
           >
             Order now
-          </Text>
-        </View>
+          </ThemedText>
+        </ThemedView>
 
         {/* coming soon */}
-        <View
+        <ThemedView
           style={{
             backgroundColor: "white",
             borderRadius: 15,
@@ -146,7 +158,7 @@ export default function HomeScreen() {
             elevation: 5,
           }}
         >
-          <Text
+          <ThemedText
             style={{
               fontSize: 20,
               fontWeight: "bold",
@@ -155,10 +167,10 @@ export default function HomeScreen() {
             }}
           >
             Coming Soon: Spiced Pumpkin Latte
-          </Text>
+          </ThemedText>
           <Image
             source={{
-              uri: "https://placehold.co/600x300/FFB74D/FFFFFF?text=Coming+Soon",
+              uri: "https://placehold.co/600x300/FFB74D/FFFFFF?ThemedText=Coming+Soon",
             }}
             style={{
               width: "100%",
@@ -168,12 +180,12 @@ export default function HomeScreen() {
             }}
             contentFit="cover"
           />
-          <Text style={{ fontSize: 16, color: "#555", marginBottom: 10 }}>
+          <ThemedText style={{ fontSize: 16, color: "#555", marginBottom: 10 }}>
             Get ready for the cozy season with our new Spiced Pumpkin Latte! A
             warm and comforting blend of pumpkin spice and rich espresso.
-          </Text>
-        </View>
+          </ThemedText>
+        </ThemedView>
       </ScrollView>
-    </View>
+    </ThemedView>
   );
 }

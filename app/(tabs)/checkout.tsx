@@ -1,9 +1,16 @@
-import { Text, View } from "react-native";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
 
 export default function Checkout() {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text style={{ fontSize: 20, color: "white" }}>Checkout</Text>
-    </View>
+    <ThemedView
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <ThemedText>Checkout</ThemedText>
+    </ThemedView>
   );
 }
