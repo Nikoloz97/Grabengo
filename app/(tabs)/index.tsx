@@ -1,80 +1,179 @@
-import { Image } from "expo-image";
-import { Platform, StyleSheet } from "react-native";
-
-import { HelloWave } from "@/components/HelloWave";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
+import { Image } from "expo-image"; // Keep expo-image as it's standard for Expo
+import React from "react";
+import { Platform, ScrollView, Text, View } from "react-native";
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-      headerImage={
-        <Image
-          source={require("@/assets/images/partial-react-logo.png")}
-          style={styles.reactLogo}
-        />
-      }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Test!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit{" "}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText>{" "}
-          to see changes. Press{" "}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: "cmd + d",
-              android: "cmd + m",
-              web: "F12",
-            })}
-          </ThemedText>{" "}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">
-            npm run reset-project
-          </ThemedText>{" "}
-          to get a fresh <ThemedText type="defaultSemiBold">app</ThemedText>{" "}
-          directory. This will move the current{" "}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{" "}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={{ flex: 1, backgroundColor: "#F0F0F0" }}>
+      {/* header */}
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingVertical: 20,
+          backgroundColor: "#A1CEDC",
+          ...Platform.select({
+            ios: {
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.1,
+              shadowRadius: 3,
+            },
+            android: {
+              elevation: 5,
+            },
+          }),
+        }}
+      >
+        <Text style={{ fontSize: 32, fontWeight: "bold", color: "#333" }}>
+          Welcome to Grabengo
+        </Text>
+      </View>
+
+      {/* main */}
+      <ScrollView
+        contentContainerStyle={{ paddingHorizontal: 15, paddingVertical: 10 }}
+      >
+        {/* about  */}
+        <View
+          style={{
+            backgroundColor: "white",
+            borderRadius: 15,
+            padding: 20,
+            marginBottom: 20,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 3.84,
+            elevation: 5, // for Android shadow
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              marginBottom: 10,
+              color: "#333",
+            }}
+          >
+            About Grabengo
+          </Text>
+          <Text style={{ fontSize: 16, color: "#555", marginBottom: 10 }}>
+            Welcome to Grabengo, your go-to app for quick and easy ordering.
+            Discover our mission and how were changing the way you enjoy your
+            favorite items!
+          </Text>
+        </View>
+
+        {/* featured */}
+        <View
+          style={{
+            backgroundColor: "white",
+            borderRadius: 15,
+            padding: 20,
+            marginBottom: 20,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 3.84,
+            elevation: 5,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              marginBottom: 10,
+              color: "#333",
+            }}
+          >
+            Featured Item: Summer Berry Refresher
+          </Text>
+          <Image
+            source={{
+              uri: "https://placehold.co/600x300/9BDD7F/FFFFFF?text=Featured+Item",
+            }}
+            style={{
+              width: "100%",
+              height: 180,
+              borderRadius: 10,
+              marginBottom: 15,
+            }}
+            contentFit="cover"
+          />
+          <Text style={{ fontSize: 16, color: "#555", marginBottom: 10 }}>
+            Cool down with our Summer Berry Refresher! A delightful blend of
+            fresh berries and a hint of mint. Perfect for a sunny day.
+          </Text>
+          <Text
+            style={{
+              backgroundColor: "#00704A", // Starbucks green
+              color: "white",
+              fontWeight: "bold",
+              paddingVertical: 12,
+              paddingHorizontal: 20,
+              borderRadius: 25,
+              textAlign: "center",
+              marginTop: 10,
+              overflow: "hidden",
+            }}
+          >
+            Order now
+          </Text>
+        </View>
+
+        {/* coming soon */}
+        <View
+          style={{
+            backgroundColor: "white",
+            borderRadius: 15,
+            padding: 20,
+            marginBottom: 20,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 3.84,
+            elevation: 5,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              marginBottom: 10,
+              color: "#333",
+            }}
+          >
+            Coming Soon: Spiced Pumpkin Latte
+          </Text>
+          <Image
+            source={{
+              uri: "https://placehold.co/600x300/FFB74D/FFFFFF?text=Coming+Soon",
+            }}
+            style={{
+              width: "100%",
+              height: 180,
+              borderRadius: 10,
+              marginBottom: 15,
+            }}
+            contentFit="cover"
+          />
+          <Text style={{ fontSize: 16, color: "#555", marginBottom: 10 }}>
+            Get ready for the cozy season with our new Spiced Pumpkin Latte! A
+            warm and comforting blend of pumpkin spice and rich espresso.
+          </Text>
+        </View>
+      </ScrollView>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
-  },
-});
