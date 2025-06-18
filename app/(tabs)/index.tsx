@@ -35,7 +35,7 @@ export default function HomeScreen() {
             paddingTop: 40,
           }}
         >
-          Welcome to Grabengo
+          Grabengo
         </ThemedText>
       </ThemedView>
 
@@ -47,39 +47,6 @@ export default function HomeScreen() {
           paddingBottom: 80,
         }}
       >
-        {/* about  */}
-        <ThemedView
-          type="card"
-          style={{
-            borderRadius: 15,
-            padding: 20,
-            marginBottom: 20,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.1,
-            shadowRadius: 3.84,
-            elevation: 5, // for Android shadow
-          }}
-        >
-          <ThemedText
-            style={{
-              fontSize: 20,
-              fontWeight: "bold",
-              marginBottom: 10,
-            }}
-          >
-            About Grabengo
-          </ThemedText>
-          <ThemedText style={{ fontSize: 16, marginBottom: 10 }}>
-            Welcome to Grabengo, your go-to app for quick and easy ordering.
-            Discover our mission and how were changing the way you enjoy your
-            favorite items!
-          </ThemedText>
-        </ThemedView>
-
         {/* featured */}
         <ThemedView
           type="card"
@@ -167,6 +134,39 @@ export default function HomeScreen() {
           <ThemedText style={{ fontSize: 16, marginBottom: 10 }}>
             Get ready for the cozy season with our new Spiced Pumpkin Latte! A
             warm and comforting blend of pumpkin spice and rich espresso.
+          </ThemedText>
+        </ThemedView>
+
+        {/* about  */}
+        <ThemedView
+          type="card"
+          style={{
+            borderRadius: 15,
+            padding: 20,
+            marginBottom: 20,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 3.84,
+            elevation: 5, // for Android shadow
+          }}
+        >
+          <ThemedText
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              marginBottom: 10,
+            }}
+          >
+            About Us
+          </ThemedText>
+          <ThemedText style={{ fontSize: 16, marginBottom: 10 }}>
+            Welcome to Grabengo, your go-to app for quick and easy ordering.
+            Discover our mission and how were changing the way you enjoy your
+            favorite items!
           </ThemedText>
         </ThemedView>
       </ScrollView>

@@ -12,7 +12,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "green",
+        tabBarActiveTintColor: "green", // rgba values don't work here
         tabBarInactiveTintColor: "gray",
         tabBarActiveBackgroundColor: colors.card,
         tabBarInactiveBackgroundColor: colors.background,
@@ -20,9 +20,8 @@ export default function TabLayout() {
         tabBarButton: HapticTab,
         tabBarStyle: Platform.select({
           ios: {
+            borderTopColor: "rgb(67, 67, 67)",
             backgroundColor: colors.background,
-            borderTopColor: colors.primary,
-            // Use a transparent background on iOS to show the blur effect
             position: "absolute",
           },
           default: {},
