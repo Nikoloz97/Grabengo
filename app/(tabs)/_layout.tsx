@@ -20,7 +20,7 @@ export default function TabLayout() {
         tabBarButton: HapticTab,
         tabBarStyle: Platform.select({
           ios: {
-            backgroundColor: colors.card,
+            backgroundColor: colors.background,
             borderTopColor: colors.primary,
             // Use a transparent background on iOS to show the blur effect
             position: "absolute",
