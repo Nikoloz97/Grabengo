@@ -1,3 +1,4 @@
+import { ThemedButton } from "@/components/ThemedButton";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { Image } from "expo-image";
@@ -9,29 +10,28 @@ export default function HomeScreen() {
     <ThemedView style={{ flex: 1 }}>
       {/* header */}
       <ThemedView
+        type="card"
         style={{
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
           paddingVertical: 20,
-          backgroundColor: "black",
           ...Platform.select({
             ios: {
               shadowColor: "#000",
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.1,
-              shadowRadius: 3,
+              shadowOffset: { width: 0, height: 4 },
+              shadowOpacity: 0.2,
+              shadowRadius: 6,
             },
             android: {
-              elevation: 5,
+              elevation: 8, // shadow elevation
             },
           }),
         }}
       >
         <ThemedText
+          type="title"
           style={{
-            fontSize: 32,
-            fontWeight: "bold",
             paddingTop: 40,
           }}
         >
@@ -122,21 +122,8 @@ export default function HomeScreen() {
             Cool down with our Summer Berry Refresher! A delightful blend of
             fresh berries and a hint of mint. Perfect for a sunny day.
           </ThemedText>
-          <ThemedText
-            style={{
-              backgroundColor: "#00704A", // Starbucks green
-              color: "white",
-              fontWeight: "bold",
-              paddingVertical: 12,
-              paddingHorizontal: 20,
-              borderRadius: 25,
-              textAlign: "center",
-              marginTop: 10,
-              overflow: "hidden",
-            }}
-          >
-            Order now
-          </ThemedText>
+
+          <ThemedButton type="primary" title="Order Now" />
         </ThemedView>
 
         {/* coming soon */}

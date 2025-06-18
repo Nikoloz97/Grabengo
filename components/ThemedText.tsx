@@ -15,7 +15,11 @@ export function ThemedText(props: ThemedTextProps) {
       style={[
         { color: colors.text },
         type === "default" && { fontSize: 16 },
-        type === "title" && { fontSize: 32, fontWeight: "bold" },
+        type === "title" && {
+          fontSize: 32,
+          fontWeight: "bold",
+        },
+        ,
         type === "subtitle" && { fontSize: 20, fontWeight: "600" },
         type === "link" && {
           color: colors.primary,

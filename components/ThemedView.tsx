@@ -3,7 +3,7 @@ import React from "react";
 import { View, ViewProps } from "react-native";
 
 interface ThemedViewProps extends ViewProps {
-  type?: "background" | "card" | "header";
+  type?: "background" | "card" | "title";
 }
 
 export function ThemedView(props: ThemedViewProps) {
@@ -15,7 +15,6 @@ export function ThemedView(props: ThemedViewProps) {
       style={[
         type === "background" && { backgroundColor: colors.background },
         type === "card" && { backgroundColor: colors.card },
-        type === "header" && { backgroundColor: colors.card },
         style, // overrides
       ]}
       {...otherProps}

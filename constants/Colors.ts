@@ -7,14 +7,13 @@ import { fonts } from "./Fonts";
 
 export const colors = {
   dark: true,
-  // TODO: create one for button? If its too hard, make primary be button
   colors: {
-    primary: "rgb(0, 0, 0)",
-    background: "rgb(36, 36, 36)",
-    card: "rgba(1, 1, 1, 0.50)",
-    text: "#39FF14",
-    border: "rgb(39, 39, 41)",
-    notification: "rgb(255, 69, 58)",
+    background: "rgba(18, 18, 18, 1)",
+    card: "rgba(31, 31, 31, 1)",
+    primary: "rgba(57, 255, 20, 1)", // primary accents (buttons, key highlights, etc)
+    text: "rgba(57, 255, 20, 1)",
+    border: "rgba(40, 40, 40, 1)",
+    notification: "rgba(255, 69, 58, 1)",
   },
   fonts,
 };
