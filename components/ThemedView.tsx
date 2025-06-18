@@ -13,8 +13,23 @@ export function ThemedView(props: ThemedViewProps) {
   return (
     <View
       style={[
-        type === "background" && { backgroundColor: colors.background },
-        type === "card" && { backgroundColor: colors.card },
+        type === "background" && {
+          backgroundColor: colors.background,
+        },
+        type === "card" && {
+          backgroundColor: colors.card,
+          borderRadius: 15,
+          padding: 20,
+          marginBottom: 20,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.1,
+          shadowRadius: 3.84,
+          elevation: 5,
+        },
         style, // overrides
       ]}
       {...otherProps}

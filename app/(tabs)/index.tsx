@@ -16,6 +16,9 @@ export default function HomeScreen() {
           alignItems: "center",
           justifyContent: "center",
           paddingVertical: 20,
+          borderRadius: 0,
+          padding: 0,
+          marginBottom: 0,
           ...Platform.select({
             ios: {
               shadowColor: "#000",
@@ -48,22 +51,7 @@ export default function HomeScreen() {
         }}
       >
         {/* featured */}
-        <ThemedView
-          type="card"
-          style={{
-            borderRadius: 15,
-            padding: 20,
-            marginBottom: 20,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.1,
-            shadowRadius: 3.84,
-            elevation: 5,
-          }}
-        >
+        <ThemedView type="card">
           <ThemedText
             style={{
               fontSize: 20,
@@ -94,22 +82,7 @@ export default function HomeScreen() {
         </ThemedView>
 
         {/* coming soon */}
-        <ThemedView
-          type="card"
-          style={{
-            borderRadius: 15,
-            padding: 20,
-            marginBottom: 20,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.1,
-            shadowRadius: 3.84,
-            elevation: 5,
-          }}
-        >
+        <ThemedView type="card">
           <ThemedText
             style={{
               fontSize: 20,
@@ -138,22 +111,7 @@ export default function HomeScreen() {
         </ThemedView>
 
         {/* about  */}
-        <ThemedView
-          type="card"
-          style={{
-            borderRadius: 15,
-            padding: 20,
-            marginBottom: 20,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.1,
-            shadowRadius: 3.84,
-            elevation: 5, // for Android shadow
-          }}
-        >
+        <ThemedView type="card">
           <ThemedText
             style={{
               fontSize: 20,
