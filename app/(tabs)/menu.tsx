@@ -2,8 +2,9 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { Image } from "expo-image";
 import React, { useState } from "react";
-import { Platform, ScrollView, TouchableOpacity, View } from "react-native";
+import { Platform, TouchableOpacity, View } from "react-native";
 // TODO: eventually replace with DB fetch
+import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { menuCategories } from "@/constants/menu-items";
 
 export default function Menu() {
@@ -44,19 +45,13 @@ export default function Menu() {
           Menu
         </ThemedText>
       </ThemedView>
-
       {/* Menu list */}
-      <ScrollView
-        contentContainerStyle={{
-          paddingHorizontal: 15,
-          paddingTop: 10,
-
-          paddingBottom: 40,
-        }}
-      >
+      <ThemedScrollView>
         {menuCategories.map((category, index) => (
           <View key={index}>
-            <ThemedText type="subtitle">{category.name}</ThemedText>
+            <ThemedText type="subtitle" style={{ marginVertical: 15 }}>
+              {category.name}
+            </ThemedText>
 
             {category.items.map((item, index) => (
               <TouchableOpacity key={index}>
@@ -86,7 +81,7 @@ export default function Menu() {
             ))}
           </View>
         ))}
-      </ScrollView>
+      </ThemedScrollView>
     </ThemedView>
   );
 }

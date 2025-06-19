@@ -1,9 +1,10 @@
 import { ThemedButton } from "@/components/themed-button";
+import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { Image } from "expo-image";
 import React from "react";
-import { Platform, ScrollView } from "react-native";
+import { Platform } from "react-native";
 
 export default function HomeScreen() {
   return (
@@ -43,13 +44,7 @@ export default function HomeScreen() {
       </ThemedView>
 
       {/* main */}
-      <ScrollView
-        contentContainerStyle={{
-          paddingHorizontal: 15,
-          paddingTop: 10,
-          paddingBottom: 80,
-        }}
-      >
+      <ThemedScrollView>
         {/* featured */}
         <ThemedView type="card">
           <ThemedText
@@ -127,7 +122,7 @@ export default function HomeScreen() {
             favorite items!
           </ThemedText>
         </ThemedView>
-      </ScrollView>
+      </ThemedScrollView>
     </ThemedView>
   );
 }
