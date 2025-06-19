@@ -1,32 +1,17 @@
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
+import { ThemedText } from "@/components/themed-text";
+import { ThemedView } from "@/components/themed-view";
 import { Image } from "expo-image";
-import React from "react";
-import { Platform, ScrollView, TouchableOpacity } from "react-native";
-
-const menuItems = [
-  {
-    name: "Shakes",
-    image: "https://placehold.co/100x100/coffee?text=Shakes",
-  },
-  {
-    name: "Smoothies",
-    image: "https://placehold.co/100x100/iced?text=Smoothies",
-  },
-  {
-    name: "Beverage",
-    image: "https://placehold.co/100x100/tea?text=Beverages",
-  },
-  {
-    name: "Desserts",
-    image: "https://placehold.co/100x100/red?text=Desserts",
-  },
-];
+import React, { useState } from "react";
+import { Platform, ScrollView, TouchableOpacity, View } from "react-native";
+// TODO: eventually replace with DB fetch
+import { menuCategories } from "@/constants/menu-items";
 
 export default function Menu() {
+  const [selectedItem, setSelectedItem] = useState(null);
+
   return (
     <ThemedView style={{ flex: 1 }}>
-      {/* Header */}
+      {/* header */}
       <ThemedView
         type="card"
         style={{
@@ -69,31 +54,37 @@ export default function Menu() {
           paddingBottom: 40,
         }}
       >
-        {menuItems.map((item, index) => (
-          <TouchableOpacity key={index}>
-            <ThemedView
-              type="card"
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginBottom: 15,
-                padding: 10,
-                borderRadius: 12,
-              }}
-            >
-              <Image
-                source={{ uri: item.image }}
-                style={{
-                  width: 60,
-                  height: 60,
-                  borderRadius: 30,
-                  marginRight: 15,
-                }}
-                contentFit="cover"
-              />
-              <ThemedText style={{ fontSize: 18 }}>{item.name}</ThemedText>
-            </ThemedView>
-          </TouchableOpacity>
+        {menuCategories.map((category, index) => (
+          <View key={index}>
+            <ThemedText type="title">{category.name}</ThemedText>
+
+            {category.items.map((item, index) => (
+              <TouchableOpacity key={index}>
+                <ThemedView
+                  type="card"
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginBottom: 15,
+                    padding: 10,
+                    borderRadius: 12,
+                  }}
+                >
+                  <Image
+                    source={{ uri: item.image }}
+                    style={{
+                      width: 60,
+                      height: 60,
+                      borderRadius: 30,
+                      marginRight: 15,
+                    }}
+                    contentFit="cover"
+                  />
+                  <ThemedText style={{ fontSize: 18 }}>{item.name}</ThemedText>
+                </ThemedView>
+              </TouchableOpacity>
+            ))}
+          </View>
         ))}
       </ScrollView>
     </ThemedView>
