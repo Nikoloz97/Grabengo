@@ -79,7 +79,8 @@ export default function ItemModal({
           </ThemedText>
 
           <ThemedText style={{ color: "#999", marginVertical: 5 }}>
-            {item.calories} calories • {item.protein}g protein
+            {item.calories} calories • {item.protein}g protein • $
+            {item.price.toFixed(2)}
           </ThemedText>
 
           {/* Description */}
