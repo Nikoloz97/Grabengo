@@ -56,7 +56,7 @@ export default function Menu() {
       >
         {menuCategories.map((category, index) => (
           <View key={index}>
-            <ThemedText type="title">{category.name}</ThemedText>
+            <ThemedText type="subtitle">{category.name}</ThemedText>
 
             {category.items.map((item, index) => (
               <TouchableOpacity key={index}>

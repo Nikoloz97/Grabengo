@@ -13,24 +13,22 @@ export function ThemedText(props: ThemedTextProps) {
   return (
     <Text
       style={[
-        type === "default" && { fontSize: 16 } && { color: colors.text },
-        ,
+        type === "default" && { fontSize: 16, color: colors.text },
         type === "title" && {
           fontSize: 32,
           fontWeight: "bold",
           color: colors.primary,
         },
-        ,
-        ,
-        type === "subtitle" && { fontSize: 20, fontWeight: "600" } && {
-            color: colors.text,
-          },
+        type === "subtitle" && {
+          fontSize: 25,
+          fontWeight: "600",
+          color: colors.text,
+        },
         ,
         type === "link" && {
-            color: colors.primary,
-            textDecorationLine: "underline",
-          } && { color: colors.text },
-        ,
+          color: colors.text,
+          textDecorationLine: "underline",
+        },
         style, // override
       ]}
       {...otherProps}
