@@ -1,14 +1,15 @@
+import ItemModal from "@/components/item-modal";
+import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
+import { menuCategories } from "@/constants/menu-items";
+import { Item } from "@/types/menu";
 import { Image } from "expo-image";
 import React, { useState } from "react";
 import { Platform, TouchableOpacity, View } from "react-native";
-// TODO: eventually replace with DB fetch
-import { ThemedScrollView } from "@/components/themed-scroll-view";
-import { menuCategories } from "@/constants/menu-items";
 
 export default function Menu() {
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
   return (
     <ThemedView style={{ flex: 1 }}>
@@ -47,6 +48,7 @@ export default function Menu() {
       </ThemedView>
       {/* Menu list */}
       <ThemedScrollView>
+        {/* TODO: eventually replace with DB fetch */}
         {menuCategories.map((category, index) => (
           <View key={index}>
             <ThemedText type="subtitle" style={{ marginVertical: 15 }}>
@@ -54,15 +56,16 @@ export default function Menu() {
             </ThemedText>
 
             {category.items.map((item, index) => (
-              <TouchableOpacity key={index}>
+              <TouchableOpacity
+                key={index}
+                onPress={() => setSelectedItem(item)}
+              >
                 <ThemedView
                   type="card"
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
-                    marginBottom: 15,
                     padding: 10,
-                    borderRadius: 12,
                   }}
                 >
                   <Image
@@ -75,13 +78,19 @@ export default function Menu() {
                     }}
                     contentFit="cover"
                   />
-                  <ThemedText style={{ fontSize: 18 }}>{item.name}</ThemedText>
+                  <ThemedText>{item.name}</ThemedText>
                 </ThemedView>
               </TouchableOpacity>
             ))}
           </View>
         ))}
       </ThemedScrollView>
+      {/* Item Modal */}
+      <ItemModal
+        isVisible={selectedItem !== null}
+        item={selectedItem}
+        addToOrder={() => setSelectedItem(null)}
+      />
     </ThemedView>
   );
 }

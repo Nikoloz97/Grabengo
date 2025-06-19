@@ -1,4 +1,6 @@
-export const menuCategories = [
+import { Category } from "@/types/menu";
+
+export const menuCategories: Category[] = [
   {
     name: "Shakes",
     items: [
