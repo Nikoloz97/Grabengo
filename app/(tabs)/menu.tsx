@@ -3,12 +3,15 @@ import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { menuCategories } from "@/constants/menu-items";
+import { useCart } from "@/contexts/cart-context";
 import { Item } from "@/types/menu";
 import { Image } from "expo-image";
 import React, { useState } from "react";
 import { Platform, TouchableOpacity, View } from "react-native";
 
 export default function Menu() {
+  const { addToCart } = useCart();
+
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
   return (
@@ -89,7 +92,7 @@ export default function Menu() {
       <ItemModal
         isVisible={selectedItem !== null}
         item={selectedItem}
-        addToOrder={() => setSelectedItem(null)}
+        setItem={setSelectedItem}
       />
     </ThemedView>
   );

@@ -1,4 +1,5 @@
 import { colors } from "@/constants/Colors";
+import { CartProvider } from "@/contexts/cart-context";
 import { ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
@@ -17,10 +18,12 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colors}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
+      <CartProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </CartProvider>
       <StatusBar style="light" />
     </ThemeProvider>
   );

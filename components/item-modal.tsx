@@ -1,3 +1,4 @@
+import { useCart } from "@/contexts/cart-context";
 import { Item } from "@/types/menu";
 import { useTheme } from "@react-navigation/native";
 import { Image } from "expo-image";
@@ -10,25 +11,36 @@ import { ThemedText } from "./themed-text";
 interface ItemModalProps {
   isVisible: boolean;
   item: Item | null;
-  addToOrder: () => void;
+  setItem: (item: Item | null) => void;
 }
 
 export default function ItemModal({
   isVisible,
   item,
-  addToOrder,
+  setItem,
 }: ItemModalProps) {
   const { colors } = useTheme();
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
 
   if (!item) return null;
+
+  const resetModal = () => {
+    setItem(null);
+    setQuantity(1);
+  };
+
+  const addToOrder = (item: Item, quantity: number) => {
+    addToCart({ ...item, quantity });
+    resetModal();
+  };
 
   return (
     <Modal
       isVisible={isVisible}
-      onBackdropPress={addToOrder}
-      onBackButtonPress={addToOrder}
-      onSwipeComplete={addToOrder}
+      onBackdropPress={resetModal}
+      onBackButtonPress={resetModal}
+      onSwipeComplete={resetModal}
       swipeDirection="down"
       propagateSwipe={true}
       style={{ justifyContent: "flex-end", margin: 0 }}
@@ -104,7 +116,6 @@ export default function ItemModal({
               justifyContent: "center",
               gap: 30,
               alignItems: "center",
-              width: "90%",
               marginBottom: 30,
             }}
           >
@@ -155,7 +166,7 @@ export default function ItemModal({
               title="Add to Order"
               type="primary"
               onPress={() => {
-                addToOrder();
+                addToOrder(item, quantity);
               }}
             />
           </View>

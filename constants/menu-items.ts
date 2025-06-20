@@ -5,6 +5,7 @@ export const menuCategories: Category[] = [
     name: "Shakes",
     items: [
       {
+        id: 1,
         name: "Vanilla Banana",
         image: "https://placehold.co/100x100/text=VanillaBanana",
         description: "Banana, Vanilla, and Peanut Butter",
@@ -13,6 +14,7 @@ export const menuCategories: Category[] = [
         protein: 35,
       },
       {
+        id: 2,
         name: "Matcha Energizer",
         image: "https://placehold.co/100x100/text=MatchaEnergizer",
         description: "Matcha, Banana, Vanilla, and Peanut Butter",
@@ -21,6 +23,7 @@ export const menuCategories: Category[] = [
         protein: 35,
       },
       {
+        id: 3,
         name: "Blueberry-Banana-Acai",
         image: "https://placehold.co/100x100/text=Blueberry-Banana-Acai",
         description: "Blueberries, Banana, and Strawberry Acai",
@@ -34,6 +37,7 @@ export const menuCategories: Category[] = [
     name: "Smoothies",
     items: [
       {
+        id: 4,
         name: "Mango-Berry Blast",
         image: "https://placehold.co/100x100/text=Mango-BerryBlast",
         description: "Strawberry, Mango, Honey and Orange Juice",
@@ -42,6 +46,7 @@ export const menuCategories: Category[] = [
         protein: 5,
       },
       {
+        id: 5,
         name: "California Bliss",
         image: "https://placehold.co/100x100/text=California-Bliss",
         description:
@@ -51,6 +56,7 @@ export const menuCategories: Category[] = [
         protein: 5,
       },
       {
+        id: 6,
         name: "Green Energizer",
         image: "https://placehold.co/100x100/text=Green-Energizer",
         description:
@@ -66,6 +72,7 @@ export const menuCategories: Category[] = [
     name: "Beverages & Desserts",
     items: [
       {
+        id: 7,
         name: "Iced Matcha Green Tea",
         image: "https://placehold.co/100x100/text=Iced-Matcha-Green-Tea",
         description: "Almond Milk, Matcha Powder and Honey",
@@ -74,6 +81,7 @@ export const menuCategories: Category[] = [
         protein: 5,
       },
       {
+        id: 8,
         name: "Protein Chocolate Chip Cookie",
         image:
           "https://placehold.co/100x100/text=Protein-Chocolate-Chip-Cookie",
