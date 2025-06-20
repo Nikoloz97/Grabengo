@@ -1,38 +1,16 @@
 import { ThemedButton } from "@/components/themed-button";
+import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { Image } from "expo-image";
 import React from "react";
-import { Platform } from "react-native";
 
 export default function HomeScreen() {
   return (
     <ThemedView style={{ flex: 1 }}>
       {/* header */}
-      <ThemedView
-        type="card"
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-          paddingVertical: 20,
-          borderRadius: 0,
-          padding: 0,
-          marginBottom: 0,
-          ...Platform.select({
-            ios: {
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.2,
-              shadowRadius: 6,
-            },
-            android: {
-              elevation: 8, // shadow elevation
-            },
-          }),
-        }}
-      >
+      <ThemedHeaderView>
         <ThemedText
           type="title"
           style={{
@@ -41,7 +19,7 @@ export default function HomeScreen() {
         >
           Grabengo
         </ThemedText>
-      </ThemedView>
+      </ThemedHeaderView>
 
       {/* main */}
       <ThemedScrollView>

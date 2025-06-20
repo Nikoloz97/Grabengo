@@ -1,45 +1,21 @@
 import ItemModal from "@/components/item-modal";
+import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { menuCategories } from "@/constants/menu-items";
-import { useCart } from "@/contexts/cart-context";
 import { Item } from "@/types/menu";
 import { Image } from "expo-image";
 import React, { useState } from "react";
-import { Platform, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 export default function Menu() {
-  const { addToCart } = useCart();
-
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
   return (
     <ThemedView style={{ flex: 1 }}>
       {/* header */}
-      <ThemedView
-        type="card"
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-          paddingVertical: 20,
-          borderRadius: 0,
-          padding: 0,
-          marginBottom: 0,
-          ...Platform.select({
-            ios: {
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.2,
-              shadowRadius: 6,
-            },
-            android: {
-              elevation: 8, // shadow elevation
-            },
-          }),
-        }}
-      >
+      <ThemedHeaderView>
         <ThemedText
           type="title"
           style={{
@@ -48,7 +24,7 @@ export default function Menu() {
         >
           Menu
         </ThemedText>
-      </ThemedView>
+      </ThemedHeaderView>
       {/* Menu list */}
       <ThemedScrollView>
         {/* TODO: eventually replace with DB fetch */}
