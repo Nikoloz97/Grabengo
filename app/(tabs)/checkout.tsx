@@ -37,7 +37,7 @@ export default function CheckoutScreen() {
             type="card"
             style={{
               flexDirection: "column",
-              alignItems: "center",
+              alignItems: "flex-end",
               marginBottom: 10,
               borderRadius: 12,
             }}
@@ -55,10 +55,11 @@ export default function CheckoutScreen() {
                   height: 60,
                   borderRadius: 30,
                   marginRight: 15,
+                  backgroundColor: "orange",
                 }}
                 contentFit="cover"
               />
-              <View style={{ flex: 1 }}>
+              <View style={{ flex: 1, gap: 5 }}>
                 <ThemedText style={{ fontWeight: "600" }}>
                   {item.name} ({item.quantity})
                 </ThemedText>
@@ -66,17 +67,20 @@ export default function CheckoutScreen() {
                   {item.calories} calories • {item.protein}g protein
                 </ThemedText>
               </View>
-              <ThemedText style={{ fontWeight: "600" }}>
-                ${(item.price * item.quantity).toFixed(2)}
-              </ThemedText>
-            </View>
-            <View style={{ flexDirection: "row", gap: 10 }}>
-              <TouchableOpacity>
-                <IconSymbol size={20} name="pencil" color="green" />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <IconSymbol size={20} name="trash" color="green" />
-              </TouchableOpacity>
+
+              <View style={{ flexDirection: "column", gap: 5 }}>
+                <ThemedText style={{ fontWeight: "600" }}>
+                  ${(item.price * item.quantity).toFixed(2)}
+                </ThemedText>
+                <View style={{ flexDirection: "row", gap: 10 }}>
+                  <TouchableOpacity>
+                    <IconSymbol size={20} name="pencil" color="green" />
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <IconSymbol size={20} name="trash" color="green" />
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
           </ThemedView>
         ))}
