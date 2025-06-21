@@ -138,11 +138,13 @@ export default function CheckoutScreen() {
         </View>
       </ThemedScrollView>
       {/* Item Modal */}
-      <EditItemModal
-        isVisible={selectedItem !== null}
-        item={selectedItem}
-        setItem={setSelectedItem}
-      />
+      {selectedItem && (
+        <EditItemModal
+          isVisible={selectedItem !== null}
+          item={selectedItem}
+          setItem={setSelectedItem}
+        />
+      )}
     </ThemedView>
   );
 }
