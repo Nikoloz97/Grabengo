@@ -3,83 +3,24 @@ import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
+import { IconSymbol } from "@/components/ui/IconSymbol";
 import { useCart } from "@/contexts/cart-context";
-import { Picker } from "@react-native-picker/picker";
+import { useTheme } from "@react-navigation/native";
 import { Image } from "expo-image";
-import React, { useState } from "react";
-import { View } from "react-native";
+import React from "react";
+import { TouchableOpacity, View } from "react-native";
 
 export default function CheckoutScreen() {
   const { cart, cartTotal } = useCart();
-  const [pickupMethod, setPickupMethod] = useState("In store");
-  const [pickupTime, setPickupTime] = useState("4–7 mins");
+  const { colors } = useTheme();
 
   return (
     <ThemedView style={{ flex: 1 }}>
       {/* Header */}
-      <ThemedHeaderView
-        style={{ flexDirection: "column", gap: 20, paddingHorizontal: 20 }}
-      >
+      <ThemedHeaderView>
         <ThemedText type="title" style={{ paddingTop: 40 }}>
           Guest Checkout ({cart.length})
         </ThemedText>
-
-        {/* Pickup Method/Time Container */}
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            gap: 10,
-          }}
-        >
-          <View style={{ flex: 1 }}>
-            <ThemedText style={{ fontWeight: "bold", marginBottom: 5 }}>
-              Pickup method
-            </ThemedText>
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: "#ccc",
-                borderRadius: 8,
-                overflow: "hidden",
-              }}
-            >
-              <Picker
-                selectedValue={pickupMethod}
-                onValueChange={(value) => setPickupMethod(value)}
-                style={{ height: 40 }}
-              >
-                <Picker.Item label="In store" value="In store" />
-                <Picker.Item label="Curbside" value="Curbside" />
-                <Picker.Item label="Drive-thru" value="Drive-thru" />
-              </Picker>
-            </View>
-          </View>
-
-          <View style={{ flex: 1 }}>
-            <ThemedText style={{ fontWeight: "bold", marginBottom: 5 }}>
-              Pickup time
-            </ThemedText>
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: "#ccc",
-                borderRadius: 8,
-                overflow: "hidden",
-              }}
-            >
-              <Picker
-                selectedValue={pickupTime}
-                onValueChange={(value) => setPickupTime(value)}
-                style={{ height: 40 }}
-              >
-                <Picker.Item label="4–7 mins" value="4–7 mins" />
-                <Picker.Item label="10–15 mins" value="10–15 mins" />
-                <Picker.Item label="20+ mins" value="20+ mins" />
-              </Picker>
-            </View>
-          </View>
-        </View>
       </ThemedHeaderView>
 
       <ThemedScrollView
@@ -95,32 +36,48 @@ export default function CheckoutScreen() {
             key={index}
             type="card"
             style={{
-              flexDirection: "row",
+              flexDirection: "column",
               alignItems: "center",
-              padding: 10,
               marginBottom: 10,
               borderRadius: 12,
             }}
           >
-            <Image
-              source={{ uri: item.image }}
+            <View
               style={{
-                width: 60,
-                height: 60,
-                borderRadius: 30,
-                marginRight: 15,
+                flexDirection: "row",
+                alignItems: "center",
               }}
-              contentFit="cover"
-            />
-            <View style={{ flex: 1 }}>
-              <ThemedText style={{ fontWeight: "600" }}>{item.name}</ThemedText>
-              <ThemedText style={{ fontSize: 14, color: "#777" }}>
-                {item.calories} calories • Qty: {item.quantity}
+            >
+              <Image
+                source={{ uri: item.image }}
+                style={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: 30,
+                  marginRight: 15,
+                }}
+                contentFit="cover"
+              />
+              <View style={{ flex: 1 }}>
+                <ThemedText style={{ fontWeight: "600" }}>
+                  {item.name} ({item.quantity})
+                </ThemedText>
+                <ThemedText style={{ fontSize: 14, color: "#777" }}>
+                  {item.calories} calories • {item.protein}g protein
+                </ThemedText>
+              </View>
+              <ThemedText style={{ fontWeight: "600" }}>
+                ${(item.price * item.quantity).toFixed(2)}
               </ThemedText>
             </View>
-            <ThemedText style={{ fontWeight: "600" }}>
-              ${(item.price * item.quantity).toFixed(2)}
-            </ThemedText>
+            <View style={{ flexDirection: "row", gap: 10 }}>
+              <TouchableOpacity>
+                <IconSymbol size={20} name="pencil" color="green" />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <IconSymbol size={20} name="trash" color="green" />
+              </TouchableOpacity>
+            </View>
           </ThemedView>
         ))}
 
