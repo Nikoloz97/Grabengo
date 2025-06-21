@@ -36,13 +36,14 @@ export default function HomeScreen() {
           </ThemedText>
           <Image
             source={{
-              uri: "https://placehold.co/600x300/9BDD7F/FFFFFF?ThemedText=Featured+Item",
+              uri: "https://placehold.co/9BDD7F/FFFFFF?ThemedText=Featured+Item",
             }}
             style={{
               width: "100%",
               height: 180,
               borderRadius: 10,
               marginBottom: 15,
+              backgroundColor: "orange",
             }}
             contentFit="cover"
           />
@@ -67,13 +68,14 @@ export default function HomeScreen() {
           </ThemedText>
           <Image
             source={{
-              uri: "https://placehold.co/600x300/FFB74D/FFFFFF?ThemedText=Coming+Soon",
+              uri: "https://placehold.co/FFB74D/FFFFFF?ThemedText=Coming+Soon",
             }}
             style={{
               width: "100%",
               height: 180,
               borderRadius: 10,
               marginBottom: 15,
+              backgroundColor: "orange",
             }}
             contentFit="cover"
           />
@@ -94,6 +96,19 @@ export default function HomeScreen() {
           >
             About Us
           </ThemedText>
+          <Image
+            source={{
+              uri: "https://placehold.co/FFB74D/FFFFFF?ThemedText=Coming+Soon",
+            }}
+            style={{
+              width: "100%",
+              height: 180,
+              borderRadius: 10,
+              marginBottom: 15,
+              backgroundColor: "orange",
+            }}
+            contentFit="cover"
+          />
           <ThemedText style={{ fontSize: 16, marginBottom: 10 }}>
             Welcome to Grabengo, your go-to app for quick and easy ordering.
             Discover our mission and how were changing the way you enjoy your

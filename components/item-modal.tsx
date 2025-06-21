@@ -74,6 +74,7 @@ export default function ItemModal({
               width: 120,
               height: 120,
               borderRadius: 60,
+              backgroundColor: "orange",
             }}
             contentFit="cover"
           />

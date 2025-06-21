@@ -5,14 +5,12 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { useCart } from "@/contexts/cart-context";
-import { useTheme } from "@react-navigation/native";
 import { Image } from "expo-image";
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
 
 export default function CheckoutScreen() {
   const { cart, cartTotal } = useCart();
-  const { colors } = useTheme();
 
   return (
     <ThemedView style={{ flex: 1 }}>
@@ -26,8 +24,8 @@ export default function CheckoutScreen() {
       <ThemedScrollView
         contentContainerStyle={{
           marginTop: 20,
-          paddingBottom: 40,
           paddingHorizontal: 15,
+          paddingBottom: 100,
         }}
       >
         {/* Cart Items */}

@@ -54,6 +54,7 @@ export default function Menu() {
                       height: 60,
                       borderRadius: 30,
                       marginRight: 15,
+                      backgroundColor: "orange",
                     }}
                     contentFit="cover"
                   />
