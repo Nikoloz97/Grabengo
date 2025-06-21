@@ -1,3 +1,4 @@
+import EditItemModal from "@/components/edit-item-modal";
 import { ThemedButton } from "@/components/themed-button";
 import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
@@ -5,12 +6,14 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { useCart } from "@/contexts/cart-context";
+import { CartItem } from "@/types/cart";
 import { Image } from "expo-image";
-import React from "react";
+import React, { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 
 export default function CheckoutScreen() {
   const { cart, cartTotal } = useCart();
+  const [selectedItem, setSelectedItem] = useState<CartItem | null>(null);
 
   return (
     <ThemedView style={{ flex: 1 }}>
@@ -71,7 +74,7 @@ export default function CheckoutScreen() {
                   ${(item.price * item.quantity).toFixed(2)}
                 </ThemedText>
                 <View style={{ flexDirection: "row", gap: 10 }}>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => setSelectedItem(item)}>
                     <IconSymbol size={20} name="pencil" color="green" />
                   </TouchableOpacity>
                   <TouchableOpacity>
@@ -134,6 +137,12 @@ export default function CheckoutScreen() {
           <ThemedButton title="Place Order" type="primary" />
         </View>
       </ThemedScrollView>
+      {/* Item Modal */}
+      <EditItemModal
+        isVisible={selectedItem !== null}
+        item={selectedItem}
+        setItem={setSelectedItem}
+      />
     </ThemedView>
   );
 }
