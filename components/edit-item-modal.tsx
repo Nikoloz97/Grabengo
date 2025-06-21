@@ -10,7 +10,7 @@ import { ThemedText } from "./themed-text";
 
 interface EditItemModalProps {
   isVisible: boolean;
-  item: CartItem | null;
+  item: CartItem;
   setItem: (item: CartItem | null) => void;
 }
 
