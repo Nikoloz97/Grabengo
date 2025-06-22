@@ -13,7 +13,7 @@ export function ThemedScrollView(props: ThemedScrollViewProps) {
       contentContainerStyle={[
         type === "default" && {
           paddingHorizontal: 15,
-          paddingTop: 10,
+          paddingTop: 150,
           paddingBottom: 80,
         },
         style, // override

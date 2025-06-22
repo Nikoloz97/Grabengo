@@ -17,6 +17,7 @@ export function ThemedText(props: ThemedTextProps) {
         type === "title" && {
           fontSize: 32,
           fontWeight: "bold",
+          marginTop: 50,
           color: colors.primary,
         },
         type === "subtitle" && {

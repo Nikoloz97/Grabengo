@@ -10,17 +10,17 @@ export default function HomeScreen() {
   return (
     <ThemedView style={{ flex: 1 }}>
       {/* header */}
-      <ThemedHeaderView>
-        <ThemedText
-          type="title"
-          style={{
-            paddingTop: 40,
-          }}
-        >
-          Grabengo
-        </ThemedText>
+      <ThemedHeaderView
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1000,
+        }}
+      >
+        <ThemedText type="title">Grabengo</ThemedText>
       </ThemedHeaderView>
-
       {/* main */}
       <ThemedScrollView>
         {/* featured */}
@@ -30,6 +30,7 @@ export default function HomeScreen() {
               fontSize: 20,
               fontWeight: "bold",
               marginBottom: 10,
+              textAlign: "center",
             }}
           >
             Featured Item: Summer Berry Refresher

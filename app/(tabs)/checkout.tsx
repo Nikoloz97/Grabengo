@@ -21,15 +21,11 @@ export default function CheckoutScreen() {
     <ThemedView style={{ flex: 1 }}>
       {/* Header */}
       <ThemedHeaderView>
-        <ThemedText type="title" style={{ paddingTop: 40 }}>
-          Guest Checkout ({cart.length})
-        </ThemedText>
+        <ThemedText type="title">Guest Checkout ({cart.length})</ThemedText>
       </ThemedHeaderView>
 
       <ThemedScrollView
-        contentContainerStyle={{
-          marginTop: 20,
-          paddingHorizontal: 15,
+        style={{
           paddingBottom: 100,
         }}
       >
