@@ -8,8 +8,8 @@ import { fonts } from "./Fonts";
 export const colors = {
   dark: true,
   colors: {
-    background: "rgba(18, 18, 18, 0.95)",
-    card: "rgba(31, 31, 31, 0.5)",
+    background: "rgba(29, 29, 29, 0.95)",
+    card: "rgba(24, 24, 24, 0.7)",
     primary: "rgb(39, 192, 12)", // primary accents (buttons, headers, key highlights, etc)
     text: "rgb(252, 252, 252)",
     border: "rgba(40, 40, 40, 1)",
