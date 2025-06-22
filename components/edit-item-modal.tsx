@@ -68,11 +68,12 @@ export default function EditItemModal({
             height: 5,
             borderRadius: 2.5,
             backgroundColor: colors.primary,
-            marginBottom: 10,
           }}
         />
 
-        <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+        <ScrollView
+          contentContainerStyle={{ alignItems: "center", marginTop: 30 }}
+        >
           {/* Image */}
           <Image
             source={{ uri: item.image }}
