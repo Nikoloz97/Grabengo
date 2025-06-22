@@ -1,4 +1,4 @@
-import ItemModal from "@/components/item-modal";
+import ItemModal from "@/components/add-item-modal";
 import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";

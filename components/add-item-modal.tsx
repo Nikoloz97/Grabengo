@@ -8,7 +8,7 @@ import Modal from "react-native-modal";
 import { ThemedButton } from "./themed-button";
 import { ThemedText } from "./themed-text";
 
-interface ItemModalProps {
+interface AddItemModalProps {
   isVisible: boolean;
   item: Item | null;
   setItem: (item: Item | null) => void;
@@ -18,7 +18,7 @@ export default function ItemModal({
   isVisible,
   item,
   setItem,
-}: ItemModalProps) {
+}: AddItemModalProps) {
   const { colors } = useTheme();
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();

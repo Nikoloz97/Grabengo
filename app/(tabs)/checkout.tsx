@@ -1,3 +1,4 @@
+import DeleteItemModal from "@/components/delete-item-modal";
 import EditItemModal from "@/components/edit-item-modal";
 import { ThemedButton } from "@/components/themed-button";
 import { ThemedHeaderView } from "@/components/themed-header-view";
@@ -13,7 +14,8 @@ import { TouchableOpacity, View } from "react-native";
 
 export default function CheckoutScreen() {
   const { cart, cartTotal } = useCart();
-  const [selectedItem, setSelectedItem] = useState<CartItem | null>(null);
+  const [itemToEdit, setItemToEdit] = useState<CartItem | null>(null);
+  const [itemToDelete, setItemToDelete] = useState<CartItem | null>(null);
 
   return (
     <ThemedView style={{ flex: 1 }}>
@@ -74,10 +76,10 @@ export default function CheckoutScreen() {
                   ${(item.price * item.quantity).toFixed(2)}
                 </ThemedText>
                 <View style={{ flexDirection: "row", gap: 10 }}>
-                  <TouchableOpacity onPress={() => setSelectedItem(item)}>
+                  <TouchableOpacity onPress={() => setItemToEdit(item)}>
                     <IconSymbol size={20} name="pencil" color="green" />
                   </TouchableOpacity>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => setItemToDelete(item)}>
                     <IconSymbol size={20} name="trash" color="green" />
                   </TouchableOpacity>
                 </View>
@@ -138,11 +140,18 @@ export default function CheckoutScreen() {
         </View>
       </ThemedScrollView>
       {/* Item Modal */}
-      {selectedItem && (
+      {itemToEdit && (
         <EditItemModal
-          isVisible={selectedItem !== null}
-          item={selectedItem}
-          setItem={setSelectedItem}
+          isVisible={itemToEdit !== null}
+          item={itemToEdit}
+          setItem={setItemToEdit}
+        />
+      )}
+      {itemToDelete && (
+        <DeleteItemModal
+          isVisible={itemToDelete !== null}
+          item={itemToDelete}
+          setItem={setItemToDelete}
         />
       )}
     </ThemedView>
