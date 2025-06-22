@@ -14,8 +14,6 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: "green", // rgba values don't work here
         tabBarInactiveTintColor: "gray",
-        tabBarActiveBackgroundColor: colors.card,
-        tabBarInactiveBackgroundColor: colors.background,
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarStyle: Platform.select({
