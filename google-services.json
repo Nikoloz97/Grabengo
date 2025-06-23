@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "333411463711",
+    "project_id": "grabengo-97",
+    "storage_bucket": "grabengo-97.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333411463711:android:7adf1337ae36bd4383db2a",
+        "android_client_info": {
+          "package_name": "com.ngotsy.grabengo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7MYzSrQh1lD__EtZ0K3RPePRHdWsc5Jg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
