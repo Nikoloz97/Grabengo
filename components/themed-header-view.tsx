@@ -22,7 +22,9 @@ export function ThemedHeaderView(props: ViewProps) {
           right: 0,
           zIndex: 1000,
           marginBottom: 50,
-          overflow: "hidden", // important
+          overflow: "hidden", // for blur effect
+          borderBottomWidth: 1,
+          borderBottomColor: colors.border,
         },
         style, // overrides
       ]}

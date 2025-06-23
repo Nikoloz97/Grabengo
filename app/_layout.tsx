@@ -1,5 +1,6 @@
 import { colors } from "@/constants/Colors";
 import { CartProvider } from "@/contexts/cart-context";
+import { Inter_300Light, Inter_400Regular } from "@expo-google-fonts/inter";
 import { ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
@@ -9,10 +10,11 @@ import "react-native-reanimated";
 export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    Inter_400Regular,
+    Inter_300Light,
   });
 
   if (!loaded) {
-    // Async font loading only occurs in development.
     return null;
   }
 

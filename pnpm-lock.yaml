@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@expo-google-fonts/inter':
+        specifier: ^0.4.1
+        version: 0.4.1
       '@expo/vector-icons':
         specifier: ^14.1.0
         version: 14.1.0(expo-font@13.3.1(expo@53.0.11(@babel/core@7.27.1)(@expo/metro-runtime@5.0.4(react-native@0.79.3(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0)))(react-native-webview@13.13.5(react-native@0.79.3(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.3(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react@19.0.0))(react-native@0.79.3(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
@@ -38,6 +41,9 @@ importers:
       expo-font:
         specifier: ~13.3.1
         version: 13.3.1(expo@53.0.11(@babel/core@7.27.1)(@expo/metro-runtime@5.0.4(react-native@0.79.3(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0)))(react-native-webview@13.13.5(react-native@0.79.3(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.3(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react@19.0.0)
+      expo-google-fonts:
+        specifier: ^0.0.0
+        version: 0.0.0
       expo-haptics:
         specifier: ~14.1.4
         version: 14.1.4(expo@53.0.11(@babel/core@7.27.1)(@expo/metro-runtime@5.0.4(react-native@0.79.3(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0)))(react-native-webview@13.13.5(react-native@0.79.3(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.3(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))
@@ -669,6 +675,9 @@ packages:
   '@eslint/plugin-kit@0.3.1':
     resolution: {integrity: sha512-0J+zgWxHN+xXONWIyPWKFMgVuJoZuGiIFu8yxk7RJjxkzpGmyja5wRFqZIVtjDVOQpV+Rw0iOAjYPE2eQyjr0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@expo-google-fonts/inter@0.4.1':
+    resolution: {integrity: sha512-ypL+XokTHEG+ie/nxNj/mS38afMrY4Li4oKvTJf9k9XvH7I21qfTGCsDtlZ6nIUWEAy1odoUZISdXT1nfMh4kA==}
 
   '@expo/cli@0.24.14':
     resolution: {integrity: sha512-o+QYyfIBhSRTgaywKTLJhm2Fg5PrSeUVCXS+uQySamgoMjLNhHa8QwE64mW/FmJr5hZLiqUEQxb60FK4JcyqXg==}
@@ -1959,6 +1968,9 @@ packages:
     peerDependencies:
       expo: '*'
       react: '*'
+
+  expo-google-fonts@0.0.0:
+    resolution: {integrity: sha512-SpY1N5ZHGbNXuvN8s3E2HxjlcxR5NHWn72Uy8wl0uZJ0ueWd+JfTUXwZzfuF638WeTdgJKztRy2MWfuMORQ1yQ==}
 
   expo-haptics@14.1.4:
     resolution: {integrity: sha512-QZdE3NMX74rTuIl82I+n12XGwpDWKb8zfs5EpwsnGi/D/n7O2Jd4tO5ivH+muEG/OCJOMq5aeaVDqqaQOhTkcA==}
@@ -4607,6 +4619,8 @@ snapshots:
       '@eslint/core': 0.14.0
       levn: 0.4.1
 
+  '@expo-google-fonts/inter@0.4.1': {}
+
   '@expo/cli@0.24.14':
     dependencies:
       '@0no-co/graphql.web': 1.1.2
@@ -6368,6 +6382,8 @@ snapshots:
       expo: 53.0.11(@babel/core@7.27.1)(@expo/metro-runtime@5.0.4(react-native@0.79.3(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0)))(react-native-webview@13.13.5(react-native@0.79.3(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.3(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       fontfaceobserver: 2.3.0
       react: 19.0.0
+
+  expo-google-fonts@0.0.0: {}
 
   expo-haptics@14.1.4(expo@53.0.11(@babel/core@7.27.1)(@expo/metro-runtime@5.0.4(react-native@0.79.3(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0)))(react-native-webview@13.13.5(react-native@0.79.3(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.3(@babel/core@7.27.1)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)):
     dependencies:

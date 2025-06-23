@@ -1,6 +1,7 @@
 import { useTheme } from "@react-navigation/native";
 import React from "react";
-import { Text, TextProps } from "react-native";
+import { TextProps } from "react-native";
+import { Text } from "./index";
 
 interface ThemedTextProps extends TextProps {
   type?: "default" | "title" | "subtitle" | "link";
