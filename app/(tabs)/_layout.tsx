@@ -1,10 +1,11 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import { Platform } from "react-native";
+import { Platform, View } from "react-native";
 
 import { HapticTab } from "@/components/haptic-tab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { useTheme } from "@react-navigation/native";
+import { BlurView } from "expo-blur";
 
 export default function TabLayout() {
   const { colors } = useTheme();
@@ -12,18 +13,36 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "green", // rgba values don't work here
+        tabBarActiveTintColor: "green",
         tabBarInactiveTintColor: "gray",
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarStyle: Platform.select({
           ios: {
-            borderTopColor: "rgb(67, 67, 67)",
             backgroundColor: colors.background,
             position: "absolute",
           },
-          default: {},
         }),
+        tabBarBackground: () => (
+          <View
+            style={{
+              flex: 1,
+              ...Platform.select({
+                ios: {
+                  shadowColor: "black",
+                  shadowOffset: { width: 0, height: -10 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 12,
+                },
+                android: {
+                  elevation: 15,
+                },
+              }),
+            }}
+          >
+            <BlurView intensity={30} tint="default" style={{ flex: 1 }} />
+          </View>
+        ),
       }}
     >
       <Tabs.Screen
