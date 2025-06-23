@@ -1,11 +1,24 @@
 import { useTheme } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
 import React from "react";
-import { View, ViewProps } from "react-native";
+import { Platform, View, ViewProps } from "react-native";
 
 export function ThemedHeaderView(props: ViewProps) {
   const { style, ...otherProps } = props;
   const { colors } = useTheme();
+
+  // Shadow styles for iOS and Android
+  const shadowStyle = Platform.select({
+    ios: {
+      shadowColor: "rgba(0,0,0)",
+      shadowOffset: { width: 0, height: 10 },
+      shadowOpacity: 0.15,
+      shadowRadius: 6,
+    },
+    android: {
+      elevation: 4,
+    },
+  });
 
   return (
     <View
@@ -22,9 +35,9 @@ export function ThemedHeaderView(props: ViewProps) {
           right: 0,
           zIndex: 1000,
           marginBottom: 50,
-          overflow: "hidden", // for blur effect
           borderBottomWidth: 1,
           borderBottomColor: colors.border,
+          ...shadowStyle, // Add shadow style here
         },
         style, // overrides
       ]}
