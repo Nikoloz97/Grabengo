@@ -32,7 +32,7 @@ export default function TabLayout() {
                 ios: {
                   shadowColor: "black",
                   shadowOffset: { width: 0, height: -10 },
-                  shadowOpacity: 0.3,
+                  shadowOpacity: 0.1,
                   shadowRadius: 12,
                 },
                 android: {

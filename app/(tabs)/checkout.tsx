@@ -10,7 +10,7 @@ import { useCart } from "@/contexts/cart-context";
 import { CartItem } from "@/types/cart";
 import { Image } from "expo-image";
 import React, { useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { Platform, TouchableOpacity, View } from "react-native";
 
 export default function CheckoutScreen() {
   const { cart, cartTotal } = useCart();
@@ -39,6 +39,17 @@ export default function CheckoutScreen() {
               alignItems: "flex-end",
               marginBottom: 10,
               borderRadius: 12,
+              ...Platform.select({
+                ios: {
+                  shadowColor: "rgb(0, 0, 0)",
+                  shadowOffset: { width: 0, height: 10 },
+                  shadowOpacity: 0.1,
+                  shadowRadius: 6,
+                },
+                android: {
+                  elevation: 4,
+                },
+              }),
             }}
           >
             <View
@@ -91,6 +102,17 @@ export default function CheckoutScreen() {
             padding: 15,
             marginTop: 20,
             borderRadius: 12,
+            ...Platform.select({
+              ios: {
+                shadowColor: "rgb(0, 0, 0)",
+                shadowOffset: { width: 0, height: 10 },
+                shadowOpacity: 0.1,
+                shadowRadius: 6,
+              },
+              android: {
+                elevation: 4,
+              },
+            }),
           }}
         >
           <View
