@@ -24,26 +24,28 @@ export default function TabLayout() {
             position: "absolute",
           },
         }),
-        tabBarBackground: () => (
-          <View
-            style={{
-              flex: 1,
-              ...Platform.select({
-                ios: {
-                  shadowColor: "black",
-                  shadowOffset: { width: 0, height: -10 },
-                  shadowOpacity: 0.1,
-                  shadowRadius: 12,
-                },
-                android: {
-                  elevation: 15,
-                },
-              }),
-            }}
-          >
-            <BlurView intensity={30} tint="default" style={{ flex: 1 }} />
-          </View>
-        ),
+        tabBarBackground: () =>
+          Platform.OS === "ios" ? (
+            <View
+              style={{
+                flex: 1,
+                shadowColor: "black",
+                shadowOffset: { width: 0, height: -10 },
+                shadowOpacity: 0.1,
+                shadowRadius: 12,
+              }}
+            >
+              <BlurView intensity={30} tint="default" style={{ flex: 1 }} />
+            </View>
+          ) : (
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: "rgb(59, 59, 59)",
+                elevation: 10,
+              }}
+            />
+          ),
       }}
     >
       <Tabs.Screen

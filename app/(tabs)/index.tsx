@@ -42,7 +42,7 @@ export default function HomeScreen() {
                 shadowOffset: { width: 0, height: 4 },
                 shadowOpacity: 0.5,
                 shadowRadius: 10,
-                elevation: 8, // Android
+                elevation: 8, // android
                 backgroundColor: "white",
                 borderRadius: 15,
                 overflow: "hidden",
