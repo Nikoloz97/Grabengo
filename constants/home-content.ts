@@ -1,7 +1,7 @@
 export const homeContent = [
   {
     id: 1,
-    header: "Featured: Summer Berry Refresher",
+    header: "Featured: Vanilla Banana",
     uri: "https://placehold.co/9BDD7F/FFFFFF?ThemedText=Featured+Item",
     description:
       "Cool down with our Summer Berry Refresher! A delightful blend of fresh berries and a hint of mint. Perfect for a sunny day",

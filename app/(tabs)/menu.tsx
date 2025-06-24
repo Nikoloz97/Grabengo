@@ -7,7 +7,7 @@ import { menuCategories } from "@/constants/menu-items";
 import { Item } from "@/types/menu";
 import { Image } from "expo-image";
 import React, { useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { Platform, TouchableOpacity, View } from "react-native";
 
 export default function Menu() {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
@@ -22,7 +22,22 @@ export default function Menu() {
       <ThemedScrollView>
         {/* TODO: eventually replace with DB fetch */}
         {menuCategories.map((category, index) => (
-          <View key={index}>
+          <View
+            key={index}
+            style={{
+              ...Platform.select({
+                ios: {
+                  shadowColor: "rgb(0, 0, 0)",
+                  shadowOffset: { width: 0, height: 10 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 6,
+                },
+                android: {
+                  elevation: 4,
+                },
+              }),
+            }}
+          >
             <ThemedText type="subtitle" style={{ marginVertical: 15 }}>
               {category.name}
             </ThemedText>

@@ -1,11 +1,9 @@
-import { useTheme } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
 import React from "react";
 import { Platform, View, ViewProps } from "react-native";
 
 export function ThemedHeaderView(props: ViewProps) {
   const { style, ...otherProps } = props;
-  const { colors } = useTheme();
 
   const shadowStyle = Platform.select({
     ios: {
