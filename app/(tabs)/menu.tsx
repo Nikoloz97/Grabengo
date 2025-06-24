@@ -29,7 +29,7 @@ export default function Menu() {
                 ios: {
                   shadowColor: "rgb(0, 0, 0)",
                   shadowOffset: { width: 0, height: 10 },
-                  shadowOpacity: 0.3,
+                  shadowOpacity: 0.2,
                   shadowRadius: 6,
                 },
                 android: {

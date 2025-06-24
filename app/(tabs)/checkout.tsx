@@ -97,30 +97,11 @@ export default function CheckoutScreen() {
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
-              marginBottom: 8,
-            }}
-          >
-            <ThemedText>Subtotal</ThemedText>
-            <ThemedText>${cartTotal.toFixed(2)}</ThemedText>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginBottom: 8,
-            }}
-          >
-            <ThemedText>Tax</ThemedText>
-            <ThemedText>$0.00</ThemedText>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginTop: 10,
+              marginTop: 5,
               borderTopWidth: 1,
               borderColor: "#ccc",
               paddingTop: 10,
+              paddingHorizontal: 5,
             }}
           >
             <ThemedText style={{ fontWeight: "bold" }}>Total</ThemedText>
