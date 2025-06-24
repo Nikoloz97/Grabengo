@@ -34,10 +34,10 @@ export default function HomeScreen() {
               alignSelf: "center",
               shadowColor: "rgb(0, 0, 0)", // iOS
               shadowOffset: { width: 0, height: 4 }, // iOS
-              shadowOpacity: 1, // iOS
+              shadowOpacity: 0.75, // iOS
               shadowRadius: 10, // iOS
-              elevation: 8, // Android
-              backgroundColor: "white", // Required for iOS shadows
+              elevation: 8, // android
+              backgroundColor: "white", // required for iOS shadows
               borderRadius: 15,
             }}
           >

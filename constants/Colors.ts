@@ -10,7 +10,7 @@ export const colors = {
   colors: {
     background: "rgba(37, 37, 37, 1)",
     card: "rgba(24, 24, 24, 0.7)",
-    primary: "rgb(47, 201, 20)", // primary accents (buttons, headers, key highlights, etc)
+    primary: "rgb(49, 211, 20)", // primary accents (buttons, headers, key highlights, etc)
     text: "rgb(252, 252, 252)",
     border: "rgba(255, 255, 255, 0.05)",
     notification: "rgba(255, 69, 58, 1)",

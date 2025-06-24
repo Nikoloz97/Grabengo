@@ -118,7 +118,7 @@ export default function ItemModal({
               justifyContent: "center",
               gap: 30,
               alignItems: "center",
-              marginBottom: 30,
+              marginTop: 10,
             }}
           >
             <View
