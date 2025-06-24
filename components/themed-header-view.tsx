@@ -7,12 +7,11 @@ export function ThemedHeaderView(props: ViewProps) {
   const { style, ...otherProps } = props;
   const { colors } = useTheme();
 
-  // Shadow styles for iOS and Android
   const shadowStyle = Platform.select({
     ios: {
-      shadowColor: "rgba(0,0,0)",
+      shadowColor: "rgb(0, 0, 0)",
       shadowOffset: { width: 0, height: 10 },
-      shadowOpacity: 0.15,
+      shadowOpacity: 0.1,
       shadowRadius: 6,
     },
     android: {
@@ -24,7 +23,7 @@ export function ThemedHeaderView(props: ViewProps) {
     <View
       style={[
         {
-          backgroundColor: colors.card,
+          backgroundColor: "rgba(37, 37, 37, 0.95)",
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
@@ -35,9 +34,7 @@ export function ThemedHeaderView(props: ViewProps) {
           right: 0,
           zIndex: 1000,
           marginBottom: 50,
-          borderBottomWidth: 1,
-          borderBottomColor: colors.border,
-          ...shadowStyle, // Add shadow style here
+          ...shadowStyle,
         },
         style, // overrides
       ]}

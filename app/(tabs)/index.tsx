@@ -28,10 +28,17 @@ export default function HomeScreen() {
           <View
             key={content.id}
             style={{
-              position: "relative",
               width: "85%",
               height: 180,
               marginBottom: 100,
+              alignSelf: "center",
+              shadowColor: "rgb(0, 0, 0)", // iOS
+              shadowOffset: { width: 0, height: 4 }, // iOS
+              shadowOpacity: 1, // iOS
+              shadowRadius: 10, // iOS
+              elevation: 8, // Android
+              backgroundColor: "white", // Required for iOS shadows
+              borderRadius: 15,
             }}
           >
             <Image
@@ -63,8 +70,8 @@ export default function HomeScreen() {
               style={{
                 fontSize: 14,
                 paddingHorizontal: 10,
-                paddingVertical: 5,
-                color: "rgba(252, 252, 252, 0.8)",
+                paddingVertical: 15,
+                color: "rgba(252, 252, 252, 0.75)",
               }}
             >
               {content.description}
