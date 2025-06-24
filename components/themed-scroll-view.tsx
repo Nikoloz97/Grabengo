@@ -6,7 +6,12 @@ interface ThemedScrollViewProps extends ScrollViewProps {
 }
 
 export function ThemedScrollView(props: ThemedScrollViewProps) {
-  const { style, type = "default", ...otherProps } = props;
+  const {
+    style,
+    contentContainerStyle,
+    type = "default",
+    ...otherProps
+  } = props;
 
   return (
     <ScrollView
@@ -16,7 +21,7 @@ export function ThemedScrollView(props: ThemedScrollViewProps) {
           paddingTop: 150,
           paddingBottom: 80,
         },
-        style, // override
+        contentContainerStyle,
       ]}
       {...otherProps}
     />

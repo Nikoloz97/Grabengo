@@ -16,62 +16,71 @@ export default function HomeScreen() {
       </ThemedHeaderView>
       {/* main */}
       <ThemedScrollView
-        style={{
-          flex: 1,
+        contentContainerStyle={{
           alignItems: "center",
           marginTop: 20,
           marginBottom: 100,
-          paddingBottom: 1000, // ensures scroll doesnt cut off items
         }}
       >
         {homeContent.map((content) => (
-          <View
-            key={content.id}
-            style={{
-              width: "85%",
-              height: 180,
-              marginBottom: 120,
-              alignSelf: "center",
-              shadowColor: "rgb(0, 0, 0)", // iOS
-              shadowOffset: { width: 0, height: 4 }, // iOS
-              shadowOpacity: 0.5, // iOS
-              shadowRadius: 10, // iOS
-              elevation: 8, // android
-              backgroundColor: "white", // required for iOS shadows
-              borderRadius: 15,
-            }}
-          >
-            <Image
-              source={{
-                uri: content.uri,
-              }}
-              style={{
-                width: "100%",
-                height: "100%",
-                borderRadius: 15,
-                backgroundColor: "orange",
-              }}
-            />
+          <View key={content.id} style={{ marginBottom: 60, width: "80%" }}>
             <ThemedText
+              type="subtitle"
               style={{
-                position: "absolute",
-                bottom: 10,
-                left: 10,
-                fontSize: 20,
-                fontWeight: "bold",
-                paddingHorizontal: 8,
-                paddingVertical: 4,
-                borderRadius: 6,
+                marginBottom: 10,
               }}
             >
               {content.header}
             </ThemedText>
+
+            <View
+              style={{
+                width: "100%",
+                height: 180,
+                alignSelf: "center",
+                shadowColor: "rgb(0, 0, 0)", // iOS
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.5,
+                shadowRadius: 10,
+                elevation: 8, // Android
+                backgroundColor: "white",
+                borderRadius: 15,
+                overflow: "hidden",
+                position: "relative", // for absolute overlay
+              }}
+            >
+              <Image
+                source={{ uri: content.uri }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "orange",
+                }}
+              />
+
+              <ThemedText
+                style={{
+                  position: "absolute",
+                  bottom: 10,
+                  left: 10,
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  color: "white",
+                  paddingHorizontal: 8,
+                  paddingVertical: 4,
+                  borderRadius: 6,
+                }}
+              >
+                {content.overlay}
+              </ThemedText>
+            </View>
+
             <ThemedText
               style={{
                 fontSize: 14,
+                paddingTop: 10,
                 paddingHorizontal: 10,
-                paddingVertical: 15,
-                color: "rgba(252, 252, 252, 0.65)",
+                color: "rgba(254, 254, 254, 0.6)",
               }}
             >
               {content.description}
