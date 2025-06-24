@@ -1,6 +1,11 @@
 import { useTheme } from "@react-navigation/native";
 import React from "react";
-import { Text, TouchableOpacity, TouchableOpacityProps } from "react-native";
+import {
+  Platform,
+  Text,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from "react-native";
 
 interface ThemedButtonProps extends TouchableOpacityProps {
   title: string;
@@ -71,7 +76,24 @@ export function ThemedButton(props: ThemedButtonProps) {
   };
 
   return (
-    <TouchableOpacity style={[getButtonStyle(), style]} {...otherProps}>
+    <TouchableOpacity
+      style={[
+        getButtonStyle(),
+        style,
+        Platform.select({
+          ios: {
+            shadowColor: "rgb(0, 0, 0)",
+            shadowOffset: { width: 0, height: 10 },
+            shadowOpacity: 0.1,
+            shadowRadius: 6,
+          },
+          android: {
+            elevation: 4,
+          },
+        }),
+      ]}
+      {...otherProps}
+    >
       <Text style={[getTextStyle(), textStyle]}>{title}</Text>
     </TouchableOpacity>
   );
