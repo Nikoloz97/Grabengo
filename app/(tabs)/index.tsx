@@ -21,7 +21,7 @@ export default function HomeScreen() {
           alignItems: "center",
           marginTop: 20,
           marginBottom: 100,
-          paddingBottom: 950, // ensures scroll doesnt cut off items
+          paddingBottom: 1000, // ensures scroll doesnt cut off items
         }}
       >
         {homeContent.map((content) => (
@@ -30,7 +30,7 @@ export default function HomeScreen() {
             style={{
               width: "85%",
               height: 180,
-              marginBottom: 100,
+              marginBottom: 120,
               alignSelf: "center",
               shadowColor: "rgb(0, 0, 0)", // iOS
               shadowOffset: { width: 0, height: 4 }, // iOS
@@ -71,7 +71,7 @@ export default function HomeScreen() {
                 fontSize: 14,
                 paddingHorizontal: 10,
                 paddingVertical: 15,
-                color: "rgba(252, 252, 252, 0.75)",
+                color: "rgba(252, 252, 252, 0.65)",
               }}
             >
               {content.description}

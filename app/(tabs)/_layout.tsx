@@ -20,7 +20,7 @@ export default function TabLayout() {
         tabBarStyle: Platform.select({
           ios: {
             backgroundColor: colors.background,
-            opacity: 0.98,
+            opacity: 1,
             position: "absolute",
           },
         }),
