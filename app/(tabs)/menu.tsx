@@ -16,7 +16,7 @@ export default function Menu() {
     <ThemedView style={{ flex: 1 }}>
       {/* header */}
       <ThemedHeaderView>
-        <ThemedText type="title">Menu</ThemedText>
+        <ThemedText type="title">MENU</ThemedText>
       </ThemedHeaderView>
       {/* Menu list */}
       <ThemedScrollView>

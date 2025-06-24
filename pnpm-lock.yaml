@@ -8,9 +8,15 @@ importers:
 
   .:
     dependencies:
+      '@expo-google-fonts/dm-sans':
+        specifier: ^0.4.1
+        version: 0.4.1
       '@expo-google-fonts/inter':
         specifier: ^0.4.1
         version: 0.4.1
+      '@expo-google-fonts/roboto':
+        specifier: ^0.4.0
+        version: 0.4.0
       '@expo/vector-icons':
         specifier: ^14.1.0
         version: 14.1.0(expo-font@13.3.1(expo@53.0.12(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0)))(graphql@16.8.1)(react-native-webview@13.13.5(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react@19.0.0))(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
@@ -703,8 +709,14 @@ packages:
     resolution: {integrity: sha512-4SaFZCNfJqvk/kenHpI8xvN42DMaoycy4PzKc5otHxRswww1kAt82OlBuwRVLofCACCTZEcla2Ydxv8scMXaTg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
+  '@expo-google-fonts/dm-sans@0.4.1':
+    resolution: {integrity: sha512-LfjAZKsXJp9K6BdjD1Q1dHJp7BUk69JwsGiyRWSOm/QN2AzDrDcyy7Vdqb7Ua9MVw9e9YFiOmZ9hh0M7aH+o/w==}
+
   '@expo-google-fonts/inter@0.4.1':
     resolution: {integrity: sha512-ypL+XokTHEG+ie/nxNj/mS38afMrY4Li4oKvTJf9k9XvH7I21qfTGCsDtlZ6nIUWEAy1odoUZISdXT1nfMh4kA==}
+
+  '@expo-google-fonts/roboto@0.4.0':
+    resolution: {integrity: sha512-nODXt1mOxcTBYXbKbYw48z+SgPoyZMNajOdMEF2wN7vuypsUFKN/6HXYy6EBpR+tyZN406OyGb6xwi8JQsspfA==}
 
   '@expo/apple-utils@2.1.12':
     resolution: {integrity: sha512-ugpL2URxNFxIRw943AIpX3dcvL5rhNCumpL8XTosYqZPyQQ7JRLVNd1m8FNyPg3pmFrz8M4tSucY2pt2ATuKOA==}
@@ -5807,7 +5819,11 @@ snapshots:
       '@eslint/core': 0.15.0
       levn: 0.4.1
 
+  '@expo-google-fonts/dm-sans@0.4.1': {}
+
   '@expo-google-fonts/inter@0.4.1': {}
+
+  '@expo-google-fonts/roboto@0.4.0': {}
 
   '@expo/apple-utils@2.1.12': {}
 

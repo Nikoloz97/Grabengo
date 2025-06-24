@@ -12,7 +12,7 @@ export default function HomeScreen() {
     <ThemedView style={{ flex: 1 }}>
       {/* header */}
       <ThemedHeaderView>
-        <ThemedText type="title">Grabengo</ThemedText>
+        <ThemedText type="title">GRABENGO</ThemedText>
       </ThemedHeaderView>
       {/* main */}
       <ThemedScrollView

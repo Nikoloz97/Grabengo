@@ -21,7 +21,7 @@ export default function CheckoutScreen() {
     <ThemedView style={{ flex: 1 }}>
       {/* Header */}
       <ThemedHeaderView>
-        <ThemedText type="title">Guest Checkout ({cart.length})</ThemedText>
+        <ThemedText type="title">GUEST CHECKOUT ({cart.length})</ThemedText>
       </ThemedHeaderView>
 
       <ThemedScrollView
@@ -59,7 +59,7 @@ export default function CheckoutScreen() {
                 top: 0,
                 right: 0,
                 borderTopRightRadius: 12,
-                padding: 14,
+                padding: 15,
                 borderColor: "rgba(49, 211, 20, 0.15)",
                 borderWidth: 1,
                 zIndex: 1,
@@ -75,7 +75,7 @@ export default function CheckoutScreen() {
                 bottom: 0,
                 right: 0,
                 borderBottomRightRadius: 12,
-                padding: 14,
+                padding: 15,
                 borderTopColor: "rgba(0, 0, 0, 0)",
                 borderColor: "rgba(49, 211, 20, 0.15)",
                 borderWidth: 1,
