@@ -17,7 +17,7 @@ const MAPPING = {
   "house.fill": "home",
   "menucard.fill": "fastfood",
   "pencil.fill": "edit",
-  "trash.fill": "delete",
+  "minus.fill": "remove",
   "cart.fill": "shopping-cart",
   "person.crop.circle.fill": "account-circle",
   "chevron.left.forwardslash.chevron.right": "code",

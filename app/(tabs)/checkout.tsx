@@ -36,9 +36,9 @@ export default function CheckoutScreen() {
             type="card"
             style={{
               flexDirection: "column",
-              alignItems: "flex-end",
-              marginBottom: 10,
+              marginBottom: 30,
               borderRadius: 12,
+              position: "relative",
               ...Platform.select({
                 ios: {
                   shadowColor: "rgb(0, 0, 0)",
@@ -52,12 +52,41 @@ export default function CheckoutScreen() {
               }),
             }}
           >
-            <View
+            <TouchableOpacity
+              onPress={() => setItemToEdit(item)}
               style={{
-                flexDirection: "row",
-                alignItems: "center",
+                position: "absolute",
+                top: 0,
+                right: 0,
+                borderTopRightRadius: 12,
+                padding: 14,
+                borderColor: "rgba(49, 211, 20, 0.15)",
+                borderWidth: 1,
+                zIndex: 1,
               }}
             >
+              <IconSymbol size={20} name="pencil" color="green" />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => setItemToDelete(item)}
+              style={{
+                position: "absolute",
+                bottom: 0,
+                right: 0,
+                borderBottomRightRadius: 12,
+                padding: 14,
+                borderTopColor: "rgba(0, 0, 0, 0)",
+                borderColor: "rgba(49, 211, 20, 0.15)",
+                borderWidth: 1,
+                zIndex: 1,
+              }}
+            >
+              <IconSymbol size={20} name="minus" color="green" />
+            </TouchableOpacity>
+
+            {/* Main content */}
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Image
                 source={{ uri: item.image }}
                 style={{
@@ -71,25 +100,15 @@ export default function CheckoutScreen() {
               />
               <View style={{ flex: 1, gap: 5 }}>
                 <ThemedText style={{ fontWeight: "600" }}>
-                  {item.name} ({item.quantity})
+                  {item.name}
                 </ThemedText>
                 <ThemedText style={{ fontSize: 14, color: "#777" }}>
                   {item.calories} calories • {item.protein}g protein
                 </ThemedText>
-              </View>
-
-              <View style={{ flexDirection: "column", gap: 5 }}>
-                <ThemedText style={{ fontWeight: "600" }}>
-                  ${(item.price * item.quantity).toFixed(2)}
+                <ThemedText style={{ fontSize: 14, color: "#777" }}>
+                  Quantity: {item.quantity} • Total: $
+                  {(item.price * item.quantity).toFixed(2)}
                 </ThemedText>
-                <View style={{ flexDirection: "row", gap: 10 }}>
-                  <TouchableOpacity onPress={() => setItemToEdit(item)}>
-                    <IconSymbol size={20} name="pencil" color="green" />
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => setItemToDelete(item)}>
-                    <IconSymbol size={20} name="trash" color="green" />
-                  </TouchableOpacity>
-                </View>
               </View>
             </View>
           </ThemedView>
