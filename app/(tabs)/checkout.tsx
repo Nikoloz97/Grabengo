@@ -52,38 +52,47 @@ export default function CheckoutScreen() {
               }),
             }}
           >
-            <TouchableOpacity
-              onPress={() => setItemToEdit(item)}
+            <View
               style={{
                 position: "absolute",
+                right: 0,
                 top: 0,
-                right: 0,
-                borderTopRightRadius: 12,
-                padding: 15,
-                borderColor: "rgba(49, 211, 20, 0.15)",
-                borderWidth: 1,
-                zIndex: 1,
-              }}
-            >
-              <IconSymbol size={20} name="pencil" color="green" />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => setItemToDelete(item)}
-              style={{
-                position: "absolute",
                 bottom: 0,
-                right: 0,
-                borderBottomRightRadius: 12,
-                padding: 15,
-                borderTopColor: "rgba(0, 0, 0, 0)",
+                flexDirection: "column",
                 borderColor: "rgba(49, 211, 20, 0.15)",
                 borderWidth: 1,
+                borderTopRightRadius: 12,
+                borderBottomRightRadius: 12,
+                overflow: "hidden",
                 zIndex: 1,
               }}
             >
-              <IconSymbol size={20} name="minus" color="green" />
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => setItemToEdit(item)}
+                style={{
+                  flex: 1,
+                  paddingHorizontal: 15,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderBottomWidth: 1,
+                  borderBottomColor: "rgba(49, 211, 20, 0.15)",
+                }}
+              >
+                <IconSymbol size={20} name="pencil" color="green" />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => setItemToDelete(item)}
+                style={{
+                  flex: 1,
+                  paddingHorizontal: 15,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <IconSymbol size={20} name="minus" color="green" />
+              </TouchableOpacity>
+            </View>
 
             {/* Main content */}
             <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -98,10 +107,8 @@ export default function CheckoutScreen() {
                 }}
                 contentFit="cover"
               />
-              <View style={{ flex: 1, gap: 5 }}>
-                <ThemedText style={{ fontWeight: "600" }}>
-                  {item.name}
-                </ThemedText>
+              <View style={{ gap: 5, width: "65%" }}>
+                <ThemedText>{item.name}</ThemedText>
                 <ThemedText style={{ fontSize: 14, color: "#777" }}>
                   {item.calories} calories • {item.protein}g protein
                 </ThemedText>
@@ -114,7 +121,7 @@ export default function CheckoutScreen() {
           </ThemedView>
         ))}
 
-        {/* Summary */}
+        {/* Total */}
         <ThemedView
           type="card"
           style={{
