@@ -52,7 +52,6 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-firebase-core",
       "expo-font"
     ],
     "experiments": {

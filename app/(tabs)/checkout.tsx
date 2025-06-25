@@ -25,8 +25,8 @@ export default function CheckoutScreen() {
       </ThemedHeaderView>
 
       <ThemedScrollView
-        style={{
-          paddingBottom: 100,
+        contentContainerStyle={{
+          paddingBottom: 120,
         }}
       >
         {/* Cart Items */}
