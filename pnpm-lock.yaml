@@ -35,6 +35,9 @@ importers:
       '@react-navigation/native':
         specifier: ^7.1.14
         version: 7.1.14(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      '@stripe/stripe-react-native':
+        specifier: 0.45.0
+        version: 0.45.0(expo@53.0.12(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0)))(graphql@16.8.1)(react-native-webview@13.13.5(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       expo:
         specifier: ~53.0.12
         version: 53.0.12(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0)))(graphql@16.8.1)(react-native-webview@13.13.5(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
@@ -1442,6 +1445,16 @@ packages:
 
   '@sinonjs/fake-timers@10.3.0':
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
+
+  '@stripe/stripe-react-native@0.45.0':
+    resolution: {integrity: sha512-7ebzpzkbTrlSfwHJkxv2ixP+YhrF7rLncIr0Sxk6iOeVarB1rOoURWlLRf+Yy5G5OJYjgZDVSVpITcOddtgAVw==}
+    peerDependencies:
+      expo: '>=46.0.9'
+      react: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      expo:
+        optional: true
 
   '@tsconfig/node10@1.0.11':
     resolution: {integrity: sha512-DcRjDCujK/kCk/cUe8Xz8ZSpm8mS3mNNpta+jGCA6USEDfktlNvm1+IuZ9eTcDbNk41BHwpHHeW+N1lKCz4zOw==}
@@ -7089,6 +7102,13 @@ snapshots:
   '@sinonjs/fake-timers@10.3.0':
     dependencies:
       '@sinonjs/commons': 3.0.1
+
+  '@stripe/stripe-react-native@0.45.0(expo@53.0.12(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0)))(graphql@16.8.1)(react-native-webview@13.13.5(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      react: 19.0.0
+      react-native: 0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0)
+    optionalDependencies:
+      expo: 53.0.12(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0)))(graphql@16.8.1)(react-native-webview@13.13.5(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.3(@babel/core@7.27.4)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
 
   '@tsconfig/node10@1.0.11': {}
 

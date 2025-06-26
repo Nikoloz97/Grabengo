@@ -19,7 +19,6 @@ export default function CheckoutScreen() {
 
   return (
     <ThemedView style={{ flex: 1 }}>
-      {/* Header */}
       <ThemedHeaderView>
         <ThemedText type="title">GUEST CHECKOUT ({cart.length})</ThemedText>
       </ThemedHeaderView>
@@ -29,7 +28,7 @@ export default function CheckoutScreen() {
           paddingBottom: 120,
         }}
       >
-        {/* Cart Items */}
+        {/* cart items */}
         {cart.map((item, index) => (
           <ThemedView
             key={index}
@@ -94,7 +93,7 @@ export default function CheckoutScreen() {
               </TouchableOpacity>
             </View>
 
-            {/* Main content */}
+            {/* main content */}
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Image
                 source={{ uri: item.image }}
@@ -121,7 +120,7 @@ export default function CheckoutScreen() {
           </ThemedView>
         ))}
 
-        {/* Total */}
+        {/* total */}
         <ThemedView
           type="card"
           style={{
@@ -159,12 +158,11 @@ export default function CheckoutScreen() {
           </View>
         </ThemedView>
 
-        {/* Place Order Button */}
         <View style={{ marginTop: 30 }}>
           <ThemedButton title="Place Order" type="primary" />
         </View>
       </ThemedScrollView>
-      {/* Item Modal */}
+      {/* item modals*/}
       {itemToEdit && (
         <EditItemModal
           isVisible={itemToEdit !== null}
