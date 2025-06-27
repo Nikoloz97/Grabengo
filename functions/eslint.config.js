@@ -14,6 +14,18 @@ export default [
         ecmaVersion: "latest",
         project: "./tsconfig.json",
       },
+      globals: {
+        // node.js globals constants
+        process: "readonly",
+        global: "readonly",
+        Buffer: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+        console: "readonly",
+        module: "readonly",
+        require: "readonly",
+        exports: "readonly",
+      },
     },
     plugins: {
       "@typescript-eslint": plugin,
@@ -21,6 +33,9 @@ export default [
     rules: {
       "@typescript-eslint/no-unused-vars": "warn",
       "@typescript-eslint/no-explicit-any": "warn",
+      "no-console": "off", // allow console.log in firebase functions for debugging
+      quotes: ["error", "double"],
+      indent: ["error", 2],
     },
   },
 ];

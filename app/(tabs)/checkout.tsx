@@ -1,6 +1,6 @@
 import DeleteItemModal from "@/components/delete-item-modal";
 import EditItemModal from "@/components/edit-item-modal";
-import { ThemedButton } from "@/components/themed-button";
+import { PaymentButton } from "@/components/payment-button";
 import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
@@ -9,13 +9,41 @@ import { IconSymbol } from "@/components/ui/IconSymbol";
 import { useCart } from "@/contexts/cart-context";
 import { CartItem } from "@/types/cart";
 import { Image } from "expo-image";
+import { router } from "expo-router";
 import React, { useState } from "react";
-import { Platform, TouchableOpacity, View } from "react-native";
+import { Alert, Platform, TouchableOpacity, View } from "react-native";
 
 export default function CheckoutScreen() {
-  const { cart, cartTotal } = useCart();
+  const { cart, cartTotal, clearCart } = useCart();
   const [itemToEdit, setItemToEdit] = useState<CartItem | null>(null);
   const [itemToDelete, setItemToDelete] = useState<CartItem | null>(null);
+
+  const handlePaymentSuccess = () => {
+    clearCart();
+    Alert.alert(
+      "Order Confirmed!",
+      "Thank you for your purchase. Your order has been placed successfully.",
+      [
+        {
+          text: "OK",
+          onPress: () => {
+            // TODO: confirm this is correct for going back to home screen
+            router.push("/");
+          },
+        },
+      ]
+    );
+  };
+
+  if (cart.length === 0) {
+    return (
+      <ThemedView
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      >
+        <ThemedText>Your cart is empty :(</ThemedText>
+      </ThemedView>
+    );
+  }
 
   return (
     <ThemedView style={{ flex: 1 }}>
@@ -159,7 +187,12 @@ export default function CheckoutScreen() {
         </ThemedView>
 
         <View style={{ marginTop: 30 }}>
-          <ThemedButton title="Place Order" type="primary" />
+          {/* TODO: pass guest info props if user not signed in?? (email + name) */}
+          <PaymentButton
+            orderAmount={cartTotal}
+            currency="usd"
+            onPaymentSuccess={handlePaymentSuccess}
+          />
         </View>
       </ThemedScrollView>
       {/* item modals*/}

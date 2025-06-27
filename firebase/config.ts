@@ -1,9 +1,6 @@
 import { FirebaseApp, initializeApp } from "firebase/app";
-import { Auth, getAuth } from "firebase/auth";
-import { Firestore, getFirestore } from "firebase/firestore";
-import { FirebaseStorage, getStorage } from "firebase/storage";
+import { getFunctions } from "firebase/functions";
 
-// TODO: create respective environmental variables
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -15,8 +12,11 @@ const firebaseConfig = {
 
 const app: FirebaseApp = initializeApp(firebaseConfig);
 
-export const auth: Auth = getAuth(app);
-export const db: Firestore = getFirestore(app);
-export const storage: FirebaseStorage = getStorage(app);
+// TODO: uncomment once services added
+// export const auth: Auth = getAuth(app);
+// export const db: Firestore = getFirestore(app);
+// export const storage: FirebaseStorage = getStorage(app);
+
+export const functions = getFunctions(app);
 
 export default app;

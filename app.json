@@ -30,6 +30,14 @@
     },
     "plugins": [
       [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "merchant.com.ngotsy.grabengo",
+          "enableGooglePay": false,
+          "enableApplePay": false
+        }
+      ],
+      [
         "expo-build-properties",
         {
           "android": {

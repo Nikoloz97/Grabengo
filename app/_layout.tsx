@@ -7,6 +7,7 @@ import {
 import { Inter_700Bold } from "@expo-google-fonts/inter";
 import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { ThemeProvider } from "@react-navigation/native";
+import { StripeProvider } from "@stripe/stripe-react-native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -26,15 +27,23 @@ export default function RootLayout() {
     return null;
   }
 
+  const stripePublishableKey = process.env.EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+
+  if (!stripePublishableKey) {
+    throw new Error("Stripe publishable key is not configured");
+  }
+
   return (
-    <ThemeProvider value={colors}>
-      <CartProvider>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-      </CartProvider>
-      <StatusBar style="light" />
-    </ThemeProvider>
+    <StripeProvider publishableKey={stripePublishableKey}>
+      <ThemeProvider value={colors}>
+        <CartProvider>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </CartProvider>
+        <StatusBar style="light" />
+      </ThemeProvider>
+    </StripeProvider>
   );
 }
