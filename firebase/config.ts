@@ -17,6 +17,6 @@ const app: FirebaseApp = initializeApp(firebaseConfig);
 // export const db: Firestore = getFirestore(app);
 // export const storage: FirebaseStorage = getStorage(app);
 
-export const functions = getFunctions(app);
+export const functions = getFunctions(app, "us-central1");
 
 export default app;

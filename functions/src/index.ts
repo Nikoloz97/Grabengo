@@ -1,8 +1,9 @@
 import * as functions from "firebase-functions";
+import { defineSecret } from "firebase-functions/params";
 import { CallableRequest, onCall } from "firebase-functions/v2/https";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+const stripeSecret = defineSecret("STRIPE_SECRET_KEY");
 
 interface PaymentData {
   amount: number;
@@ -11,11 +12,14 @@ interface PaymentData {
   guestName?: string;
 }
 
-const createPaymentIntentHandler = onCall(
+export const createPaymentIntent = onCall(
+  { secrets: [stripeSecret] },
   async (request: CallableRequest<PaymentData>) => {
     try {
       const { amount, currency = "usd", guestEmail, guestName } = request.data;
       const userId = request.auth?.uid;
+
+      const stripe = new Stripe(stripeSecret.value());
 
       if (!amount || amount <= 0) {
         throw new functions.https.HttpsError(
@@ -67,5 +71,3 @@ const createPaymentIntentHandler = onCall(
     }
   }
 );
-
-exports.createPaymentIntent = createPaymentIntentHandler;

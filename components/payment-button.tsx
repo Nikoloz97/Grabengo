@@ -45,8 +45,8 @@ export const PaymentButton: React.FC<PaymentComponentProps> = ({
       if (!orderAmount || orderAmount <= 0) {
         throw new Error("Invalid order amount");
       }
-
       // creates payment intent for server (input = paymentIntentRequest; output = paymentIntentData)
+      // the string goes to corresponding index.ts function
       const createPaymentIntent = httpsCallable<
         PaymentIntentRequest,
         PaymentIntentData
