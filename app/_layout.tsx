@@ -1,4 +1,5 @@
 import { colors } from "@/constants/Colors";
+import { AuthProvider } from "@/contexts/auth-context";
 import { CartProvider } from "@/contexts/cart-context";
 import {
   DMSans_400Regular,
@@ -34,16 +35,18 @@ export default function RootLayout() {
   }
 
   return (
-    <StripeProvider publishableKey={stripePublishableKey}>
-      <ThemeProvider value={colors}>
-        <CartProvider>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
-        </CartProvider>
-        <StatusBar style="light" />
-      </ThemeProvider>
-    </StripeProvider>
+    <AuthProvider>
+      <StripeProvider publishableKey={stripePublishableKey}>
+        <ThemeProvider value={colors}>
+          <CartProvider>
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+          </CartProvider>
+          <StatusBar style="light" />
+        </ThemeProvider>
+      </StripeProvider>
+    </AuthProvider>
   );
 }

@@ -21,6 +21,9 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "compileSdkVersion": 35,
+      "targetSdkVersion": 34,
+      "buildToolsVersion": "35.0.0",
       "edgeToEdgeEnabled": true
     },
     "web": {
@@ -41,9 +44,9 @@
         "expo-build-properties",
         {
           "android": {
-            "compileSdkVersion": 34,
+            "compileSdkVersion": 35,
             "targetSdkVersion": 34,
-            "minSdkVersion": 21
+            "minSdkVersion": 24
           },
           "ios": {
             "useFrameworks": "static"
@@ -60,7 +63,8 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-dev-client"
     ],
     "experiments": {
       "typedRoutes": true
