@@ -20,15 +20,14 @@ export default function CheckoutScreen() {
 
   const handlePaymentSuccess = () => {
     clearCart();
+    router.push("/");
     Alert.alert(
       "Order Confirmed!",
       "Thank you for your purchase. Your order has been placed successfully.",
       [
         {
           text: "OK",
-          onPress: () => {
-            router.push("/");
-          },
+          onPress: () => {},
         },
       ]
     );
