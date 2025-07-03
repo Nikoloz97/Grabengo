@@ -27,7 +27,6 @@ export default function CheckoutScreen() {
         {
           text: "OK",
           onPress: () => {
-            // TODO: confirm this is correct for going back to home screen
             router.push("/");
           },
         },
