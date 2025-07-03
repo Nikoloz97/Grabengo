@@ -64,9 +64,6 @@ export const PaymentButton: React.FC<PaymentComponentProps> = ({
         paymentData.guestName = guestInfo.name;
       }
 
-      // TODO: remove this log eventually
-      console.log("Creating payment intent with data:", paymentData);
-
       const { data } = await createPaymentIntent(paymentData);
 
       if (!data?.clientSecret) {
@@ -74,9 +71,6 @@ export const PaymentButton: React.FC<PaymentComponentProps> = ({
           "Failed to create payment intent - no client secret received"
         );
       }
-
-      // TODO: remove this log eventually
-      console.log("Payment intent created successfully");
 
       const { error: initError } = await initPaymentSheet({
         merchantDisplayName: "Grabengo",
@@ -87,20 +81,21 @@ export const PaymentButton: React.FC<PaymentComponentProps> = ({
         },
         appearance: {
           colors: {
-            primary: "#007AFF",
-            background: "#ffffff",
-            componentBackground: "#f3f3f3",
-            componentBorder: "#e3e3e3",
-            componentDivider: "#e3e3e3",
-            primaryText: "#000000",
-            secondaryText: "#666666",
-            componentText: "#000000",
+            // need to use hex values (see colors constant)
+            primary: "#6bd815",
+            background: "#1f1f1f",
+            componentBackground: "#1f1f1f",
+            componentBorder: "#6bd815",
+            componentDivider: "#6bd815",
+            primaryText: "#fcfcfc",
+            secondaryText: "#fcfcfc",
+            componentText: "#fcfcfc",
             placeholderText: "#999999",
           },
           primaryButton: {
             colors: {
-              background: "#007AFF",
-              text: "#FFFFFF",
+              background: "#6bd815",
+              text: "#fcfcfc",
             },
           },
         },
@@ -126,7 +121,6 @@ export const PaymentButton: React.FC<PaymentComponentProps> = ({
         throw new Error(`Payment failed: ${presentError.message}`);
       }
 
-      Alert.alert("Success", "Payment completed successfully!");
       onPaymentSuccess?.();
     } catch (error) {
       const errorMessage =
