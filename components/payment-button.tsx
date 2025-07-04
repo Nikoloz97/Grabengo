@@ -35,12 +35,12 @@ export const PaymentButton: React.FC<PaymentComponentProps> = ({
   onPaymentError,
   guestInfo,
 }) => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
 
   const handlePlaceOrder = async (): Promise<void> => {
     try {
-      setLoading(true);
+      setIsLoading(true);
 
       if (!orderAmount || orderAmount <= 0) {
         throw new Error("Invalid order amount");
@@ -130,16 +130,16 @@ export const PaymentButton: React.FC<PaymentComponentProps> = ({
       Alert.alert("Payment Failed", errorMessage);
       onPaymentError?.(errorMessage);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   return (
     <ThemedButton
       onPress={handlePlaceOrder}
-      title={loading ? "Processing..." : "Place Order"}
+      title={isLoading ? "Processing..." : "Place Order"}
       type="primary"
-      disabled={loading || !orderAmount || orderAmount <= 0}
+      disabled={isLoading || !orderAmount || orderAmount <= 0}
     />
   );
 };

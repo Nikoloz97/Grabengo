@@ -6,13 +6,13 @@ import { ThemedView } from "@/components/themed-view";
 import { useTheme } from "@react-navigation/native";
 import { Alert, TextInput, TouchableOpacity, View } from "react-native";
 
-export default function Account() {
+export default function SignIn() {
   const { colors } = useTheme();
 
   return (
     <ThemedView style={{ flex: 1 }}>
       <ThemedHeaderView>
-        <ThemedText type="title">ACCOUNT</ThemedText>
+        <ThemedText type="title">SIGN IN</ThemedText>
       </ThemedHeaderView>
 
       <ThemedScrollView>

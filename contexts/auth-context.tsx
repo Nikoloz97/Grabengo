@@ -5,12 +5,12 @@ import { auth } from "../firebase/config";
 
 interface AuthContextType {
   user: User | null;
-  loading: boolean;
+  isLoading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
-  loading: true,
+  isLoading: true,
 });
 
 export const useAuth = () => {
@@ -27,14 +27,14 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         // User is already signed in
         setUser(user);
-        setLoading(false);
+        setIsLoading(false);
         console.log(
           "User authenticated:",
           user.uid,
@@ -53,7 +53,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           // Still set loading to false even if sign-in fails
           setUser(null);
         } finally {
-          setLoading(false);
+          setIsLoading(false);
         }
       }
     });
@@ -62,7 +62,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   // Show loading screen while authenticating
-  if (loading) {
+  if (isLoading) {
     return (
       <View
         style={{
@@ -79,7 +79,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading }}>
+    <AuthContext.Provider value={{ user, isLoading }}>
       {children}
     </AuthContext.Provider>
   );
