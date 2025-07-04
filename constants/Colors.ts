@@ -13,7 +13,7 @@ export const colors = {
     // primary = buttons, headers, key highlights
     primary: "rgba(107, 216, 21, 1)", // "#6bd815"
     text: "rgb(252, 252, 252)", // "#fcfcfc"
-    border: "rgba(255, 255, 255, 0.05)", // "#ffffff0d"
+    border: "rgba(255, 255, 255, 0.56)", // "#ffffff0d"
     notification: "rgba(255, 69, 58, 1)", // "#ff453a"
   },
   fonts,

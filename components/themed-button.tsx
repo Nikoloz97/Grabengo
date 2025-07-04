@@ -39,7 +39,7 @@ export function ThemedButton(props: ThemedButtonProps) {
         };
       case "danger":
         return {
-          backgroundColor: "#ff4444",
+          backgroundColor: colors.notification,
           paddingVertical: 12,
           paddingHorizontal: 20,
           borderRadius: 25,
