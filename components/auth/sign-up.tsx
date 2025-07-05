@@ -55,16 +55,14 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
           </TouchableOpacity>
         </View>
 
-        <ThemedView style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <ThemedButton
-            title="Sign up"
-            onPress={() => Alert.alert("Signed up!")}
-            style={{ width: "100%" }}
-          />
-        </ThemedView>
+        <ThemedButton
+          title="Sign up"
+          onPress={() => Alert.alert("Signed up!")}
+          style={{ marginTop: 20 }}
+        />
 
         <TouchableOpacity onPress={() => setIsSignUpPressed(false)}>
-          <ThemedText style={{ marginTop: 25, textAlign: "center" }}>
+          <ThemedText style={{ marginTop: 20, textAlign: "center" }}>
             Already have an account? Sign in here
           </ThemedText>
         </TouchableOpacity>

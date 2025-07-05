@@ -3,9 +3,11 @@ import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { useState } from "react";
-import { Alert, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, TouchableOpacity, View } from "react-native";
+import { ThemedTextInput } from "../themed-text-input";
 import ForgotPassword from "./forgot-password";
 import SignUp from "./sign-up";
 
@@ -13,6 +15,7 @@ export default function SignIn() {
   const { colors } = useTheme();
   const [isSignUpPressed, setIsSignUpPressed] = useState(false);
   const [isForgotPasswordPressed, setIsForgotPasswordPressed] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   if (isSignUpPressed) {
     return <SignUp setIsSignUpPressed={setIsSignUpPressed} />;
@@ -31,56 +34,45 @@ export default function SignIn() {
       </ThemedHeaderView>
 
       <ThemedScrollView>
-        <View style={{ marginBottom: 16 }}>
-          <ThemedText style={{ marginBottom: 6 }}>Email *</ThemedText>
-          <TextInput
-            style={{
-              borderColor: colors.border,
-              color: colors.text,
-              borderWidth: 1,
-              borderRadius: 10,
-              padding: 10,
-            }}
-            placeholder="Enter your email"
-            placeholderTextColor={colors.border}
-            keyboardType="email-address"
-          />
-        </View>
+        <ThemedTextInput placeholder="Email" keyboardType="email-address" />
 
-        <View style={{ marginBottom: 8 }}>
-          <ThemedText style={{ marginBottom: 6 }}>Password *</ThemedText>
-          <TextInput
-            style={{
-              borderColor: colors.border,
-              color: colors.text,
-              borderWidth: 1,
-              borderRadius: 10,
-              padding: 10,
-            }}
-            placeholderTextColor={colors.border}
-            placeholder="Enter your password"
-            secureTextEntry
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            borderWidth: 0,
+            borderBottomWidth: 1,
+            borderColor: colors.border,
+          }}
+        >
+          <ThemedTextInput
+            placeholder="Password"
+            secureTextEntry={!isPasswordVisible}
+            style={{ flex: 1, borderBottomWidth: 0, marginBottom: 0 }}
           />
+          <TouchableOpacity
+            onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+          >
+            <MaterialIcons
+              name={isPasswordVisible ? "visibility-off" : "visibility"}
+              size={22}
+              color={colors.border}
+            />
+          </TouchableOpacity>
         </View>
-
-        <ThemedText style={{ fontSize: 12, color: "#666", marginBottom: 24 }}>
-          * indicates required field
-        </ThemedText>
 
         <TouchableOpacity onPress={() => setIsForgotPasswordPressed(true)}>
-          <ThemedText style={{ marginBottom: 16 }}>Forgot password?</ThemedText>
+          <ThemedText style={{ marginTop: 20 }}>Forgot password?</ThemedText>
         </TouchableOpacity>
 
-        <ThemedView style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <ThemedButton
-            title="Sign in"
-            onPress={() => Alert.alert("Signed in!")}
-            style={{ width: "100%" }}
-          />
-        </ThemedView>
+        <ThemedButton
+          title="Sign in"
+          onPress={() => Alert.alert("Signed in!")}
+          style={{ marginTop: 20 }}
+        />
 
         <TouchableOpacity onPress={() => setIsSignUpPressed(true)}>
-          <ThemedText style={{ marginTop: 25, textAlign: "center" }}>
+          <ThemedText style={{ marginTop: 20, textAlign: "center" }}>
             Dont have an account? Sign up here
           </ThemedText>
         </TouchableOpacity>
