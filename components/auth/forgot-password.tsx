@@ -15,6 +15,9 @@ export default function ForgotPassword({
 }: ForgotPasswordProps) {
   const { colors } = useTheme();
 
+  const instructionText =
+    "Submit your email address to receive a message to update your password";
+
   return (
     <ThemedView style={{ flex: 1 }}>
       <ThemedHeaderView>
@@ -22,8 +25,12 @@ export default function ForgotPassword({
       </ThemedHeaderView>
 
       <ThemedScrollView>
-        <View style={{ marginBottom: 16 }}>
-          <ThemedText style={{ marginBottom: 6 }}>Email *</ThemedText>
+        <View>
+          <ThemedText style={{ textAlign: "center" }}>
+            {instructionText}
+          </ThemedText>
+
+          <ThemedText style={{ marginTop: 10 }}>Email *</ThemedText>
           <TextInput
             style={{
               borderColor: colors.border,
@@ -31,6 +38,7 @@ export default function ForgotPassword({
               borderWidth: 1,
               borderRadius: 10,
               padding: 10,
+              marginTop: 10,
             }}
             placeholder="Enter your email"
             placeholderTextColor={colors.border}
@@ -38,11 +46,11 @@ export default function ForgotPassword({
           />
         </View>
 
-        <ThemedView style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <ThemedView>
           <ThemedButton
             title="Submit"
             onPress={() => Alert.alert("Signed in!")}
-            style={{ width: "100%" }}
+            style={{ width: "100%", marginTop: 25 }}
           />
         </ThemedView>
         <TouchableOpacity onPress={() => setIsForgotPasswordPressed(false)}>
