@@ -13,14 +13,6 @@ const AuthContext = createContext<AuthContextType>({
   isLoading: true,
 });
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
-};
-
 interface AuthProviderProps {
   children: React.ReactNode;
 }
@@ -42,7 +34,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           user.isAnonymous
         );
       } else {
-        // No user, sign in anonymously
         try {
           console.log("No user found, signing in anonymously...");
           const userCredential = await signInAnonymously(auth);
@@ -83,4 +74,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 };

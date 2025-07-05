@@ -6,7 +6,11 @@ import { ThemedView } from "@/components/themed-view";
 import { useTheme } from "@react-navigation/native";
 import { Alert, TextInput, TouchableOpacity, View } from "react-native";
 
-export default function SignUp() {
+interface SignUpProps {
+  setIsSignUpPressed: (input: boolean) => void;
+}
+
+export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
   const { colors } = useTheme();
 
   return (
@@ -27,6 +31,7 @@ export default function SignUp() {
               padding: 10,
             }}
             placeholder="Enter your email"
+            placeholderTextColor={colors.border}
             keyboardType="email-address"
           />
         </View>
@@ -42,6 +47,7 @@ export default function SignUp() {
               padding: 10,
             }}
             placeholder="Enter your password"
+            placeholderTextColor={colors.border}
             secureTextEntry
           />
         </View>
@@ -62,9 +68,9 @@ export default function SignUp() {
           />
         </ThemedView>
 
-        <TouchableOpacity onPress={() => Alert.alert("Navigate to sign up")}>
-          <ThemedText style={{ marginTop: 32, textAlign: "center" }}>
-            Dont have an account? Sign up here
+        <TouchableOpacity onPress={() => setIsSignUpPressed(false)}>
+          <ThemedText style={{ marginTop: 25, textAlign: "center" }}>
+            Already have an account? Sign in here
           </ThemedText>
         </TouchableOpacity>
       </ThemedScrollView>

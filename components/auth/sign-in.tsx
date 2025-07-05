@@ -4,10 +4,25 @@ import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useTheme } from "@react-navigation/native";
+import { useState } from "react";
 import { Alert, TextInput, TouchableOpacity, View } from "react-native";
+import ForgotPassword from "./forgot-password";
+import SignUp from "./sign-up";
 
 export default function SignIn() {
   const { colors } = useTheme();
+  const [isSignUpPressed, setIsSignUpPressed] = useState(false);
+  const [isForgotPasswordPressed, setIsForgotPasswordPressed] = useState(false);
+
+  if (isSignUpPressed) {
+    return <SignUp setIsSignUpPressed={setIsSignUpPressed} />;
+  }
+
+  if (isForgotPasswordPressed) {
+    return (
+      <ForgotPassword setIsForgotPasswordPressed={setIsForgotPasswordPressed} />
+    );
+  }
 
   return (
     <ThemedView style={{ flex: 1 }}>
@@ -27,6 +42,7 @@ export default function SignIn() {
               padding: 10,
             }}
             placeholder="Enter your email"
+            placeholderTextColor={colors.border}
             keyboardType="email-address"
           />
         </View>
@@ -41,6 +57,7 @@ export default function SignIn() {
               borderRadius: 10,
               padding: 10,
             }}
+            placeholderTextColor={colors.border}
             placeholder="Enter your password"
             secureTextEntry
           />
@@ -50,7 +67,7 @@ export default function SignIn() {
           * indicates required field
         </ThemedText>
 
-        <TouchableOpacity onPress={() => Alert.alert("Reset password")}>
+        <TouchableOpacity onPress={() => setIsForgotPasswordPressed(true)}>
           <ThemedText style={{ marginBottom: 16 }}>Forgot password?</ThemedText>
         </TouchableOpacity>
 
@@ -62,8 +79,8 @@ export default function SignIn() {
           />
         </ThemedView>
 
-        <TouchableOpacity onPress={() => Alert.alert("Navigate to sign up")}>
-          <ThemedText style={{ marginTop: 32, textAlign: "center" }}>
+        <TouchableOpacity onPress={() => setIsSignUpPressed(true)}>
+          <ThemedText style={{ marginTop: 25, textAlign: "center" }}>
             Dont have an account? Sign up here
           </ThemedText>
         </TouchableOpacity>
