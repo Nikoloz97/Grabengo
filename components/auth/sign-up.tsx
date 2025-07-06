@@ -26,11 +26,11 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
         <ThemedText type="title">SIGN UP</ThemedText>
       </ThemedHeaderView>
 
-      <ThemedScrollView>
+      {/* paddingBottom = enough space to see sign up bottom with keyboard */}
+      <ThemedScrollView contentContainerStyle={{ paddingBottom: 350 }}>
         <ThemedTextInput placeholder="*First name" />
         <ThemedTextInput placeholder="*Last name" />
         <ThemedTextInput placeholder="*Email" keyboardType="email-address" />
-
         <View
           style={{
             flexDirection: "row",
@@ -56,7 +56,6 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
             />
           </TouchableOpacity>
         </View>
-
         <TextInputMask
           type="datetime"
           options={{
@@ -76,17 +75,20 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
             marginBottom: 16,
           }}
         />
+        <ThemedTextInput placeholder="Address Line 1" />
+        <ThemedTextInput placeholder="Address Line 2" />
+        <ThemedTextInput placeholder="Town or City" />
+        <ThemedTextInput placeholder="Zip Code" keyboardType="numeric" />
+        <ThemedTextInput placeholder="State" />
 
         <ThemedText style={{ fontSize: 12, color: colors.border }}>
           * indicates required field
         </ThemedText>
-
         <ThemedButton
           title="Sign up"
           onPress={() => Alert.alert("Signed up!")}
           style={{ marginTop: 20 }}
         />
-
         <TouchableOpacity onPress={() => setIsSignUpPressed(false)}>
           <ThemedText style={{ marginTop: 20, textAlign: "center" }}>
             Already have an account? Sign in here

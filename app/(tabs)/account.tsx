@@ -4,10 +4,8 @@ import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useAuth } from "@/contexts/auth-context";
-import { useTheme } from "@react-navigation/native";
 
 export default function Account() {
-  const { colors } = useTheme();
   const { user } = useAuth();
 
   const options = [
