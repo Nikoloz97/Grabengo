@@ -7,6 +7,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { useState } from "react";
 import { Alert, TouchableOpacity, View } from "react-native";
+import { TextInputMask } from "react-native-masked-text";
 import { ThemedTextInput } from "../themed-text-input";
 
 interface SignUpProps {
@@ -16,6 +17,7 @@ interface SignUpProps {
 export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
   const { colors } = useTheme();
 
+  const [date, setDate] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   return (
@@ -25,9 +27,9 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
       </ThemedHeaderView>
 
       <ThemedScrollView>
-        <ThemedTextInput placeholder="First name" />
-        <ThemedTextInput placeholder="Last name" />
-        <ThemedTextInput placeholder="Email" keyboardType="email-address" />
+        <ThemedTextInput placeholder="*First name" />
+        <ThemedTextInput placeholder="*Last name" />
+        <ThemedTextInput placeholder="*Email" keyboardType="email-address" />
 
         <View
           style={{
@@ -40,7 +42,7 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
           }}
         >
           <ThemedTextInput
-            placeholder="Password"
+            placeholder="*Password"
             secureTextEntry={!isPasswordVisible}
             style={{ flex: 1, borderBottomWidth: 0, marginBottom: 0 }}
           />
@@ -54,6 +56,30 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
             />
           </TouchableOpacity>
         </View>
+
+        <TextInputMask
+          type="datetime"
+          options={{
+            format: "MM/DD/YY",
+          }}
+          value={date}
+          onChangeText={(text) => setDate(text)}
+          placeholder="Birthday (MM/DD/YY)"
+          placeholderTextColor={colors.border}
+          style={{
+            fontSize: 18,
+            borderWidth: 0,
+            borderBottomWidth: 1,
+            borderColor: colors.border,
+            color: colors.text,
+            paddingVertical: 5,
+            marginBottom: 16,
+          }}
+        />
+
+        <ThemedText style={{ fontSize: 12, color: colors.border }}>
+          * indicates required field
+        </ThemedText>
 
         <ThemedButton
           title="Sign up"
