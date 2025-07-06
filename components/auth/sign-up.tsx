@@ -28,7 +28,10 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
 
       {/* paddingBottom = enough space to see sign up bottom with keyboard */}
       <ThemedScrollView contentContainerStyle={{ paddingBottom: 350 }}>
-        <ThemedTextInput placeholder="*First name" />
+        <ThemedText style={{ fontSize: 12, color: colors.border }}>
+          * indicates required field
+        </ThemedText>
+        <ThemedTextInput placeholder="*First name" style={{ marginTop: 20 }} />
         <ThemedTextInput placeholder="*Last name" />
         <ThemedTextInput placeholder="*Email" keyboardType="email-address" />
         <View
@@ -82,9 +85,6 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
         <ThemedTextInput placeholder="Zip Code" keyboardType="numeric" />
         <ThemedTextInput placeholder="State (e.g. OH)" />
 
-        <ThemedText style={{ fontSize: 12, color: colors.border }}>
-          * indicates required field
-        </ThemedText>
         <ThemedButton
           title="Sign up"
           onPress={() => Alert.alert("Signed up!")}

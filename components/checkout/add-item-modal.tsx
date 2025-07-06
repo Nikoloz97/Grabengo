@@ -1,33 +1,27 @@
 import { useCart } from "@/contexts/cart-context";
-import { CartItem } from "@/types/cart";
+import { Item } from "@/types/menu";
 import { useTheme } from "@react-navigation/native";
 import { Image } from "expo-image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
-import { ThemedButton } from "./themed-button";
-import { ThemedText } from "./themed-text";
+import { ThemedButton } from "../themed-button";
+import { ThemedText } from "../themed-text";
 
-interface EditItemModalProps {
+interface AddItemModalProps {
   isVisible: boolean;
-  item: CartItem;
-  setItem: (item: CartItem | null) => void;
+  item: Item | null;
+  setItem: (item: Item | null) => void;
 }
 
-export default function EditItemModal({
+export default function ItemModal({
   isVisible,
   item,
   setItem,
-}: EditItemModalProps) {
+}: AddItemModalProps) {
   const { colors } = useTheme();
-  const [quantity, setQuantity] = useState(item ? item.quantity : 1);
-  const { editCart } = useCart();
-
-  useEffect(() => {
-    if (item) {
-      setQuantity(item.quantity);
-    }
-  }, [item]);
+  const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
 
   if (!item) return null;
 
@@ -36,8 +30,8 @@ export default function EditItemModal({
     setQuantity(1);
   };
 
-  const editOrder = (itemId: number, quantity: number) => {
-    editCart(itemId, quantity);
+  const addToOrder = (item: Item, quantity: number) => {
+    addToCart({ ...item, quantity });
     resetModal();
   };
 
@@ -124,7 +118,7 @@ export default function EditItemModal({
               justifyContent: "center",
               gap: 30,
               alignItems: "center",
-              marginBottom: 30,
+              marginTop: 10,
             }}
           >
             <View
@@ -171,10 +165,10 @@ export default function EditItemModal({
 
             {/* Add to Order Button */}
             <ThemedButton
-              title="Edit Order"
+              title="Add to Order"
               type="primary"
               onPress={() => {
-                editOrder(item.id, quantity);
+                addToOrder(item, quantity);
               }}
             />
           </View>

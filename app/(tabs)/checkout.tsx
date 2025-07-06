@@ -1,5 +1,5 @@
-import DeleteItemModal from "@/components/delete-item-modal";
-import EditItemModal from "@/components/edit-item-modal";
+import DeleteItemModal from "@/components/checkout/delete-item-modal";
+import EditItemModal from "@/components/checkout/edit-item-modal";
 import { PaymentButton } from "@/components/payment-button";
 import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";

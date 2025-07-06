@@ -1,37 +1,35 @@
 import { useCart } from "@/contexts/cart-context";
-import { Item } from "@/types/menu";
+import { CartItem } from "@/types/cart";
 import { useTheme } from "@react-navigation/native";
 import { Image } from "expo-image";
-import React, { useState } from "react";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { ScrollView, View } from "react-native";
 import Modal from "react-native-modal";
-import { ThemedButton } from "./themed-button";
-import { ThemedText } from "./themed-text";
+import { ThemedButton } from "../themed-button";
+import { ThemedText } from "../themed-text";
 
-interface AddItemModalProps {
+interface DeleteItemModalProps {
   isVisible: boolean;
-  item: Item | null;
-  setItem: (item: Item | null) => void;
+  item: CartItem;
+  setItem: (item: CartItem | null) => void;
 }
 
-export default function ItemModal({
+export default function DeleteItemModal({
   isVisible,
   item,
   setItem,
-}: AddItemModalProps) {
+}: DeleteItemModalProps) {
   const { colors } = useTheme();
-  const [quantity, setQuantity] = useState(1);
-  const { addToCart } = useCart();
+  const { removeFromCart } = useCart();
 
   if (!item) return null;
 
   const resetModal = () => {
     setItem(null);
-    setQuantity(1);
   };
 
-  const addToOrder = (item: Item, quantity: number) => {
-    addToCart({ ...item, quantity });
+  const deleteOrder = (itemId: number) => {
+    removeFromCart(itemId);
     resetModal();
   };
 
@@ -50,6 +48,7 @@ export default function ItemModal({
           backgroundColor: colors.background,
           paddingTop: 20,
           paddingBottom: 80,
+          paddingHorizontal: 40,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
           alignItems: "center",
@@ -111,64 +110,28 @@ export default function ItemModal({
             {item.description}
           </ThemedText>
 
-          {/* Quantity + Add Button Row */}
+          <ThemedText style={{ textAlign: "center", fontWeight: "bold" }}>
+            Are you sure you want to remove this item from your cart?
+          </ThemedText>
+
+          {/* cancel/confirm buttons row */}
           <View
             style={{
               flexDirection: "row",
               justifyContent: "center",
               gap: 30,
               alignItems: "center",
-              marginTop: 10,
+              marginTop: 20,
+              marginBottom: 30,
             }}
           >
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => setQuantity((prev) => Math.max(1, prev - 1))}
-                disabled={quantity === 1}
-                style={{
-                  paddingHorizontal: 12,
-                  paddingVertical: 6,
-                  borderRadius: 5,
-                  backgroundColor: quantity === 1 ? "#ccc" : colors.primary,
-                  marginRight: 8,
-                }}
-              >
-                <ThemedText style={{ color: "#fff", fontSize: 18 }}>
-                  −
-                </ThemedText>
-              </TouchableOpacity>
+            <ThemedButton title="Cancel" type="primary" onPress={resetModal} />
 
-              <ThemedText style={{ fontSize: 16, marginHorizontal: 4 }}>
-                {quantity}
-              </ThemedText>
-
-              <TouchableOpacity
-                onPress={() => setQuantity((prev) => prev + 1)}
-                style={{
-                  paddingHorizontal: 12,
-                  paddingVertical: 6,
-                  borderRadius: 5,
-                  backgroundColor: colors.primary,
-                  marginLeft: 8,
-                }}
-              >
-                <ThemedText style={{ color: "#fff", fontSize: 18 }}>
-                  +
-                </ThemedText>
-              </TouchableOpacity>
-            </View>
-
-            {/* Add to Order Button */}
             <ThemedButton
-              title="Add to Order"
+              title="Confirm"
               type="primary"
               onPress={() => {
-                addToOrder(item, quantity);
+                deleteOrder(item.id);
               }}
             />
           </View>
