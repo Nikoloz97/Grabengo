@@ -7,25 +7,25 @@ import { ThemedText } from "../themed-text";
 
 interface DeleteAccountModalProps {
   isVisible: boolean;
-  resetModal: () => void;
+  closeModal: () => void;
 }
 
 export default function DeleteAccountModal({
   isVisible,
-  resetModal,
+  closeModal,
 }: DeleteAccountModalProps) {
   const { colors } = useTheme();
 
   const deleteAccount = () => {
-    resetModal();
+    closeModal();
   };
 
   return (
     <Modal
       isVisible={isVisible}
-      onBackdropPress={resetModal}
-      onBackButtonPress={resetModal}
-      onSwipeComplete={resetModal}
+      onBackdropPress={closeModal}
+      onBackButtonPress={closeModal}
+      onSwipeComplete={closeModal}
       swipeDirection="down"
       propagateSwipe={true}
       style={{ justifyContent: "flex-end", margin: 0 }}
@@ -59,7 +59,6 @@ export default function DeleteAccountModal({
             irreversible!
           </ThemedText>
 
-          {/* cancel/confirm buttons row */}
           <View
             style={{
               flexDirection: "row",
@@ -77,7 +76,7 @@ export default function DeleteAccountModal({
                 deleteAccount();
               }}
             />
-            <ThemedButton title="Cancel" type="primary" onPress={resetModal} />
+            <ThemedButton title="Cancel" type="primary" onPress={closeModal} />
           </View>
         </ScrollView>
       </View>

@@ -1,4 +1,5 @@
 import DeleteAccountModal from "@/components/account/delete-account-modal";
+import SignOutModal from "@/components/account/sign-out-modal";
 import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
@@ -95,14 +96,13 @@ export default function Account() {
         />
       )} */}
 
-      {/* <SignOutModal
-        isVisible={itemToDelete !== null}
-        item={itemToDelete}
-        setItem={setItemToDelete}
-      /> */}
+      <SignOutModal
+        isVisible={isSignOutModalOpen}
+        closeModal={() => setIsSignOutModalOpen(false)}
+      />
       <DeleteAccountModal
         isVisible={isDeleteAccountModalOpen}
-        resetModal={() => setIsDeleteAccountModalOpen(false)}
+        closeModal={() => setIsDeleteAccountModalOpen(false)}
       />
     </ThemedView>
   );
