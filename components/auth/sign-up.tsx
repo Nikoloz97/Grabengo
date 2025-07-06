@@ -63,7 +63,7 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
           }}
           value={date}
           onChangeText={(text) => setDate(text)}
-          placeholder="Birthday (MM/DD/YY)"
+          placeholder="Birth Date (MM/DD/YY)"
           placeholderTextColor={colors.border}
           style={{
             fontSize: 18,
@@ -73,13 +73,14 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
             color: colors.text,
             paddingVertical: 5,
             marginBottom: 16,
+            marginTop: 30,
           }}
         />
         <ThemedTextInput placeholder="Address Line 1" />
         <ThemedTextInput placeholder="Address Line 2" />
         <ThemedTextInput placeholder="Town or City" />
         <ThemedTextInput placeholder="Zip Code" keyboardType="numeric" />
-        <ThemedTextInput placeholder="State" />
+        <ThemedTextInput placeholder="State (e.g. OH)" />
 
         <ThemedText style={{ fontSize: 12, color: colors.border }}>
           * indicates required field
