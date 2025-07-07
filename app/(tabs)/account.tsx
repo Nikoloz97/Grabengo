@@ -1,4 +1,5 @@
 import DeleteAccountModal from "@/components/account/delete-account-modal";
+import RecentOrdersModal from "@/components/account/recent-orders-modal";
 import SignOutModal from "@/components/account/sign-out-modal";
 import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
@@ -87,14 +88,14 @@ export default function Account() {
           item={itemToDelete}
           setItem={setItemToDelete}
         />
-      )}
+      )}*/}
+
       {isRecentOrdersModalOpen && (
         <RecentOrdersModal
-          isVisible={itemToDelete !== null}
-          item={itemToDelete}
-          setItem={setItemToDelete}
+          isVisible={isRecentOrdersModalOpen}
+          closeModal={() => setIsRecentOrdersModalOpen(false)}
         />
-      )} */}
+      )}
 
       <SignOutModal
         isVisible={isSignOutModalOpen}

@@ -1,9 +1,9 @@
+import { functions } from "@/firebase/config";
 import { useStripe } from "@stripe/stripe-react-native";
 import { httpsCallable } from "firebase/functions";
 import React, { useState } from "react";
 import { Alert } from "react-native";
-import { functions } from "../firebase/config";
-import { ThemedButton } from "./themed-button";
+import { ThemedButton } from "../themed-button";
 
 interface PaymentIntentRequest {
   amount: number;

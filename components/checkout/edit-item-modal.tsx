@@ -1,5 +1,6 @@
 import { useCart } from "@/contexts/cart-context";
-import { CartItem } from "@/types/cart";
+import { dollarFormatter } from "@/hooks/formatters";
+import { CartItem } from "@/types/menu";
 import { useTheme } from "@react-navigation/native";
 import { Image } from "expo-image";
 import React, { useEffect, useState } from "react";
@@ -87,7 +88,7 @@ export default function EditItemModal({
           />
 
           <ThemedText
-            type="title"
+            type="subtitle"
             style={{
               marginTop: 10,
               paddingHorizontal: 10,
@@ -100,7 +101,7 @@ export default function EditItemModal({
 
           <ThemedText style={{ color: "#999", marginVertical: 5 }}>
             {item.calories} calories • {item.protein}g protein • $
-            {item.price.toFixed(2)}
+            {dollarFormatter(item.price)}
           </ThemedText>
 
           {/* Description */}

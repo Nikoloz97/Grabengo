@@ -2,7 +2,7 @@ import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-import { homeContent } from "@/constants/home-content";
+import { homeContent } from "@/constants/temporary/home-content";
 import { Image } from "expo-image";
 import React from "react";
 import { View } from "react-native";

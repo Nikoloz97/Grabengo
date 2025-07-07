@@ -19,6 +19,7 @@ const MAPPING = {
   "pencil.fill": "edit",
   "minus.fill": "remove",
   "cart.fill": "shopping-cart",
+  "plus.fill": "add",
   "person.crop.circle.fill": "account-circle",
   "chevron.left.forwardslash.chevron.right": "code",
   "chevron.right": "chevron-right",

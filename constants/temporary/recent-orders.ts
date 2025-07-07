@@ -1,0 +1,126 @@
+import { Order } from "@/types/account";
+
+export const recentOrders: Order[] = [
+  {
+    id: 1,
+    orderDate: new Date(2025, 6, 6, 9, 0, 0),
+    items: [
+      {
+        id: 1,
+        name: "Vanilla Banana",
+        image: "https://placehold.co/100x100/text=VanillaBanana",
+        description: "Banana, Vanilla, and Peanut Butter",
+        price: 9.0,
+        calories: 100,
+        protein: 35,
+        quantity: 1,
+      },
+      {
+        id: 2,
+        name: "Matcha Energizer",
+        image: "https://placehold.co/100x100/text=MatchaEnergizer",
+        description: "Matcha, Banana, Vanilla, and Peanut Butter",
+        price: 9.0,
+        calories: 100,
+        protein: 35,
+        quantity: 2,
+      },
+    ],
+    totalAmount: 27.0,
+    status: "pending",
+  },
+  {
+    id: 2,
+    orderDate: new Date(2025, 6, 6, 9, 30, 0),
+    items: [
+      {
+        id: 3,
+        name: "Blueberry-Banana-Acai",
+        image: "https://placehold.co/100x100/text=Blueberry-Banana-Acai",
+        description: "Blueberries, Banana, and Strawberry Acai",
+        price: 9.0,
+        calories: 100,
+        protein: 32,
+        quantity: 1,
+      },
+    ],
+    totalAmount: 9.0,
+    status: "paid",
+  },
+  {
+    id: 3,
+    orderDate: new Date(2025, 6, 6, 9, 30, 1),
+    items: [
+      {
+        id: 1,
+        name: "Vanilla Banana",
+        image: "https://placehold.co/100x100/text=VanillaBanana",
+        description: "Banana, Vanilla, and Peanut Butter",
+        price: 9.0,
+        calories: 100,
+        protein: 35,
+        quantity: 1,
+      },
+      {
+        id: 5,
+        name: "California Bliss",
+        image: "https://placehold.co/100x100/text=California-Bliss",
+        description:
+          "Strawberry, Blueberry, Fat-Free Greek Yogurt and Orange Juice",
+        price: 9.0,
+        calories: 205,
+        protein: 5,
+        quantity: 1,
+      },
+      {
+        id: 8,
+        name: "Protein Chocolate Chip Cookie",
+        image:
+          "https://placehold.co/100x100/text=Protein-Chocolate-Chip-Cookie",
+        description: "Butter, Coconut Sugar, Oat Flour, Whey Protein, Aquafaba",
+        price: 4.75,
+        calories: 205,
+        protein: 25,
+        quantity: 5,
+      },
+    ],
+    totalAmount: 41.75,
+    status: "refunded",
+  },
+  {
+    id: 4,
+    orderDate: new Date(2025, 5, 30, 15, 10, 0),
+    items: [
+      {
+        id: 2,
+        name: "Matcha Energizer",
+        image: "https://placehold.co/100x100/text=MatchaEnergizer",
+        description: "Matcha, Banana, Vanilla, and Peanut Butter",
+        price: 9.0,
+        calories: 100,
+        protein: 35,
+        quantity: 2,
+      },
+    ],
+    totalAmount: 18.0,
+    status: "paid",
+  },
+  {
+    id: 5,
+    orderDate: new Date(2025, 4, 5, 20, 0, 0),
+    items: [
+      {
+        id: 2,
+        name: "Matcha Energizer",
+        image: "https://placehold.co/100x100/text=MatchaEnergizer",
+        description: "Matcha, Banana, Vanilla, and Peanut Butter",
+        price: 9.0,
+        calories: 100,
+        protein: 35,
+        quantity: 2,
+      },
+    ],
+    totalAmount: 18.0,
+    status: "paid",
+  },
+];

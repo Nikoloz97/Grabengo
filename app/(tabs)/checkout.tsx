@@ -1,13 +1,15 @@
 import DeleteItemModal from "@/components/checkout/delete-item-modal";
 import EditItemModal from "@/components/checkout/edit-item-modal";
-import { PaymentButton } from "@/components/payment-button";
+import { PaymentButton } from "@/components/checkout/payment-button";
 import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { useCart } from "@/contexts/cart-context";
-import { CartItem } from "@/types/cart";
+import { dollarFormatter } from "@/hooks/formatters";
+import { CartItem } from "@/types/menu";
+import { useTheme } from "@react-navigation/native";
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import React, { useState } from "react";
@@ -17,6 +19,7 @@ export default function CheckoutScreen() {
   const { cart, cartTotal, clearCart } = useCart();
   const [itemToEdit, setItemToEdit] = useState<CartItem | null>(null);
   const [itemToDelete, setItemToDelete] = useState<CartItem | null>(null);
+  const { colors } = useTheme();
 
   const handlePaymentSuccess = () => {
     clearCart();
@@ -100,10 +103,11 @@ export default function CheckoutScreen() {
                   justifyContent: "center",
                   alignItems: "center",
                   borderBottomWidth: 1,
-                  borderBottomColor: "rgba(49, 211, 20, 0.15)",
+                  borderBottomColor: colors.background,
+                  backgroundColor: colors.primary,
                 }}
               >
-                <IconSymbol size={20} name="pencil" color="green" />
+                <IconSymbol size={20} name="pencil.fill" color="white" />
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -113,9 +117,10 @@ export default function CheckoutScreen() {
                   paddingHorizontal: 15,
                   justifyContent: "center",
                   alignItems: "center",
+                  backgroundColor: colors.primary,
                 }}
               >
-                <IconSymbol size={20} name="minus" color="green" />
+                <IconSymbol size={20} name="minus.fill" color="white" />
               </TouchableOpacity>
             </View>
 
@@ -138,8 +143,8 @@ export default function CheckoutScreen() {
                   {item.calories} calories • {item.protein}g protein
                 </ThemedText>
                 <ThemedText style={{ fontSize: 14, color: "#777" }}>
-                  Quantity: {item.quantity} • Total: $
-                  {(item.price * item.quantity).toFixed(2)}
+                  Quantity: {item.quantity} • Total:
+                  {" " + dollarFormatter(item.price * item.quantity)}
                 </ThemedText>
               </View>
             </View>
@@ -179,7 +184,7 @@ export default function CheckoutScreen() {
           >
             <ThemedText style={{ fontWeight: "bold" }}>Total</ThemedText>
             <ThemedText style={{ fontWeight: "bold" }}>
-              ${cartTotal.toFixed(2)}
+              {dollarFormatter(cartTotal)}
             </ThemedText>
           </View>
         </ThemedView>

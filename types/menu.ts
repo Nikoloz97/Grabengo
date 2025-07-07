@@ -8,6 +8,10 @@ export interface Item {
   description?: string;
 }
 
+export interface CartItem extends Item {
+  quantity: number;
+}
+
 export interface Category {
   name: string;
   items: Item[];

@@ -3,7 +3,7 @@ import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-import { menuCategories } from "@/constants/menu-items";
+import { menuCategories } from "@/constants/temporary/menu-items";
 import { Item } from "@/types/menu";
 import { Image } from "expo-image";
 import React, { useState } from "react";
