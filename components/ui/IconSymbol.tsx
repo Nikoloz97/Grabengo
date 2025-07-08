@@ -15,13 +15,14 @@ type IconSymbolName = keyof typeof MAPPING;
  */
 
 // keep button icons with no fill to work with iOS and android
+// iOS IconSymbol is handled by IconSymbol.ios.tsx
 const MAPPING = {
-  "house.fill": "home",
-  "menucard.fill": "fastfood",
   pencil: "edit",
   minus: "remove",
+  plus: "add",
+  "house.fill": "home",
+  "menucard.fill": "fastfood",
   "cart.fill": "shopping-cart",
-  "plus.fill": "add",
   "person.crop.circle.fill": "account-circle",
   "chevron.left.forwardslash.chevron.right": "code",
   "chevron.right": "chevron-right",

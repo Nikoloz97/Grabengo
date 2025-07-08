@@ -42,7 +42,6 @@ export default function RecentOrdersModal({
             backgroundColor: colors.background,
             paddingTop: 20,
             paddingBottom: 80,
-            paddingHorizontal: 40,
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
             alignItems: "center",
@@ -73,7 +72,6 @@ export default function RecentOrdersModal({
       onBackdropPress={closeModal}
       onBackButtonPress={closeModal}
       onSwipeComplete={closeModal}
-      swipeDirection="down"
       propagateSwipe={true}
       style={{ justifyContent: "flex-end", margin: 0 }}
     >
@@ -82,30 +80,28 @@ export default function RecentOrdersModal({
           backgroundColor: colors.background,
           paddingTop: 20,
           paddingBottom: 80,
-          paddingHorizontal: 40,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
           alignItems: "center",
+          flex: 1,
+          maxHeight: "80%",
+          width: "100%",
         }}
       >
-        {/* Swipe indicator */}
-        <View
-          style={{
-            width: 50,
-            height: 5,
-            borderRadius: 2.5,
-            backgroundColor: colors.primary,
-          }}
-        />
-
         <ScrollView
-          contentContainerStyle={{ alignItems: "center", marginTop: 30 }}
+          style={{ width: "100%" }}
+          contentContainerStyle={{
+            alignItems: "center",
+            marginTop: 30,
+            paddingHorizontal: 30,
+            flexGrow: 1,
+          }}
         >
           <ThemedText type="subtitle" style={{ marginBottom: 20 }}>
             Recent Orders
           </ThemedText>
           {recentOrders.map((order, index) => (
-            <View key={index} style={{ width: "95%" }}>
+            <View key={index} style={{ width: "100%" }}>
               <ThemedText style={{ color: colors.border }}>
                 {format(order.orderDate, "EEE, MMM d (h:mm aa)")}
               </ThemedText>
@@ -129,36 +125,6 @@ export default function RecentOrdersModal({
                   }),
                 }}
               >
-                {/* TODO: replace with circular button in bottom corner */}
-                <View
-                  style={{
-                    position: "absolute",
-                    right: 0,
-                    top: 0,
-                    bottom: 0,
-                    flexDirection: "column",
-                    borderColor: "rgba(49, 211, 20, 0.15)",
-                    borderWidth: 1,
-                    borderTopRightRadius: 12,
-                    borderBottomRightRadius: 12,
-                    backgroundColor: colors.primary,
-                    overflow: "hidden",
-                    zIndex: 1,
-                  }}
-                >
-                  <TouchableOpacity
-                    onPress={addToOrder}
-                    style={{
-                      flex: 1,
-                      paddingHorizontal: 15,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <IconSymbol size={20} name="plus.fill" color="white" />
-                  </TouchableOpacity>
-                </View>
-
                 {/* main content */}
                 <View
                   style={{
@@ -169,25 +135,52 @@ export default function RecentOrdersModal({
                   <ThemedText style={{ color: colors.border }}>
                     Items
                   </ThemedText>
-                  <ThemedText
-                    style={{ flex: 1, marginTop: 5 }}
-                    numberOfLines={2}
-                    ellipsizeMode="tail"
-                  >
-                    {order.items.map((item) => item.name).join(", ")}
-                  </ThemedText>
+                  <ThemedView style={{ flex: 1, marginTop: 5 }}>
+                    {order.items.map((item, index) => (
+                      <ThemedText
+                        key={index}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                      >
+                        {`•  ${item.quantity} - ${item.name}`}
+                      </ThemedText>
+                    ))}
+                  </ThemedView>
                   <ThemedText style={{ color: colors.border, marginTop: 10 }}>
                     Total
                   </ThemedText>
-                  <ThemedText style={{ flex: 1, marginTop: 5, marginLeft: 5 }}>
+                  <ThemedText style={{ flex: 1, marginTop: 5 }}>
                     {dollarFormatter(order.totalAmount)}
                   </ThemedText>
                   <ThemedText style={{ color: colors.border, marginTop: 10 }}>
                     Status
                   </ThemedText>
-                  <ThemedText style={{ flex: 1, marginTop: 5 }}>
-                    {order.status}
-                  </ThemedText>
+                  <View style={{ flexDirection: "row" }}>
+                    <ThemedText style={{ flex: 1, marginTop: 5 }}>
+                      {order.status}
+                    </ThemedText>
+                    <View
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 20,
+                        borderColor: "rgba(49, 211, 20, 0.15)",
+                        backgroundColor: colors.primary,
+                      }}
+                    >
+                      <TouchableOpacity
+                        onPress={addToOrder}
+                        style={{
+                          flex: 1,
+                          justifyContent: "center",
+                          alignItems: "center",
+                          borderRadius: 20,
+                        }}
+                      >
+                        <IconSymbol size={20} name="plus" color="white" />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
                 </View>
               </ThemedView>
             </View>
