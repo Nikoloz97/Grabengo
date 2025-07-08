@@ -13,11 +13,13 @@ type IconSymbolName = keyof typeof MAPPING;
  * - see Material Icons in the [Icons Directory](https://icons.expo.fyi).
  * - see SF Symbols in the [SF Symbols](https://developer.apple.com/sf-symbols/) app.
  */
+
+// keep button icons with no fill to work with iOS and android
 const MAPPING = {
   "house.fill": "home",
   "menucard.fill": "fastfood",
-  "pencil.fill": "edit",
-  "minus.fill": "remove",
+  pencil: "edit",
+  minus: "remove",
   "cart.fill": "shopping-cart",
   "plus.fill": "add",
   "person.crop.circle.fill": "account-circle",
@@ -35,6 +37,7 @@ export function IconSymbol({
   size = 24,
   color,
   style,
+  weight,
 }: {
   name: IconSymbolName;
   size?: number;
@@ -48,6 +51,7 @@ export function IconSymbol({
       size={size}
       name={MAPPING[name]}
       style={style}
+      weight={weight}
     />
   );
 }

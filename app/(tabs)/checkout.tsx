@@ -107,7 +107,7 @@ export default function CheckoutScreen() {
                   backgroundColor: colors.primary,
                 }}
               >
-                <IconSymbol size={20} name="pencil.fill" color="white" />
+                <IconSymbol size={20} name="pencil" color="white" />
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -120,7 +120,7 @@ export default function CheckoutScreen() {
                   backgroundColor: colors.primary,
                 }}
               >
-                <IconSymbol size={20} name="minus.fill" color="white" />
+                <IconSymbol size={20} name="minus" color="white" />
               </TouchableOpacity>
             </View>
 

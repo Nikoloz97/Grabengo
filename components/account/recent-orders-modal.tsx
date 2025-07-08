@@ -101,8 +101,11 @@ export default function RecentOrdersModal({
         <ScrollView
           contentContainerStyle={{ alignItems: "center", marginTop: 30 }}
         >
+          <ThemedText type="subtitle" style={{ marginBottom: 20 }}>
+            Recent Orders
+          </ThemedText>
           {recentOrders.map((order, index) => (
-            <View key={index} style={{ width: "100%" }}>
+            <View key={index} style={{ width: "95%" }}>
               <ThemedText style={{ color: colors.border }}>
                 {format(order.orderDate, "EEE, MMM d (h:mm aa)")}
               </ThemedText>
@@ -168,7 +171,7 @@ export default function RecentOrdersModal({
                   </ThemedText>
                   <ThemedText
                     style={{ flex: 1, marginTop: 5 }}
-                    numberOfLines={1}
+                    numberOfLines={2}
                     ellipsizeMode="tail"
                   >
                     {order.items.map((item) => item.name).join(", ")}
@@ -178,6 +181,12 @@ export default function RecentOrdersModal({
                   </ThemedText>
                   <ThemedText style={{ flex: 1, marginTop: 5, marginLeft: 5 }}>
                     {dollarFormatter(order.totalAmount)}
+                  </ThemedText>
+                  <ThemedText style={{ color: colors.border, marginTop: 10 }}>
+                    Status
+                  </ThemedText>
+                  <ThemedText style={{ flex: 1, marginTop: 5 }}>
+                    {order.status}
                   </ThemedText>
                 </View>
               </ThemedView>
