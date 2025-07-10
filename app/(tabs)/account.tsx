@@ -1,4 +1,5 @@
 import DeleteAccountModal from "@/components/account/delete-account-modal";
+import PaymentMethodsModal from "@/components/account/payment-methods-modal";
 import RecentOrdersModal from "@/components/account/recent-orders-modal";
 import SignOutModal from "@/components/account/sign-out-modal";
 import { ThemedHeaderView } from "@/components/themed-header-view";
@@ -81,21 +82,17 @@ export default function Account() {
           item={itemToEdit}
           setItem={setItemToEdit}
         />
-      )}
-      {isPaymentMethodsModalOpen && (
-        <PaymentMethodsModal
-          isVisible={itemToDelete !== null}
-          item={itemToDelete}
-          setItem={setItemToDelete}
-        />
-      )}*/}
+      )} */}
 
-      {isRecentOrdersModalOpen && (
-        <RecentOrdersModal
-          isVisible={isRecentOrdersModalOpen}
-          closeModal={() => setIsRecentOrdersModalOpen(false)}
-        />
-      )}
+      <PaymentMethodsModal
+        isVisible={isPaymentMethodsModalOpen}
+        closeModal={() => setIsPaymentMethodsModalOpen(false)}
+      />
+
+      <RecentOrdersModal
+        isVisible={isRecentOrdersModalOpen}
+        closeModal={() => setIsRecentOrdersModalOpen(false)}
+      />
 
       <SignOutModal
         isVisible={isSignOutModalOpen}

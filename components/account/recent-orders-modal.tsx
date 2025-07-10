@@ -43,7 +43,7 @@ export default function RecentOrdersModal({
       isVisible={isVisible}
       onClose={closeModal}
       showSwipeIndicator={false}
-      innerViewStyle={{ paddingHorizontal: 0, maxHeight: "80%" }}
+      innerViewStyle={{ paddingHorizontal: 10, maxHeight: "80%" }}
     >
       <ScrollView
         style={{ width: "100%" }}
