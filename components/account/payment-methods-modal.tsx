@@ -52,6 +52,15 @@ export default function PaymentMethodsModal({
               justifyContent: "space-between",
               marginBottom: 12,
               width: "100%",
+              ...{
+                ...(method.isDefault && {
+                  borderColor: "rgba(255, 255, 255, 0.5)",
+                  borderWidth: 1,
+                }),
+              },
+            }}
+            onPress={() => {
+              // logic to edit payment details
             }}
           >
             <View
@@ -70,7 +79,11 @@ export default function PaymentMethodsModal({
               >
                 {capitalizeWord(method.card.brand)} ••••{method.card.last4}
               </Text>
+              {method.isDefault && (
+                <ThemedText type="faint">Default</ThemedText>
+              )}
             </View>
+
             <Ionicons name="chevron-forward" size={20} color={colors.text} />
           </TouchableOpacity>
         ))}

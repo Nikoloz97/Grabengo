@@ -4,7 +4,7 @@ import { TextProps } from "react-native";
 import { Text } from "./index";
 
 interface ThemedTextProps extends TextProps {
-  type?: "default" | "title" | "subtitle" | "link";
+  type?: "default" | "title" | "subtitle" | "link" | "faint";
 }
 
 export function ThemedText(props: ThemedTextProps) {
@@ -30,6 +30,9 @@ export function ThemedText(props: ThemedTextProps) {
         type === "link" && {
           color: colors.text,
           textDecorationLine: "underline",
+        },
+        type === "faint" && {
+          color: colors.border,
         },
         style, // override
       ]}

@@ -45,7 +45,7 @@ export const userPaymentMethods = [
       name: "Jane Doe",
       email: "jane@example.com",
     },
-    isDefault: true,
+    isDefault: false,
   },
   {
     id: "pm_1NXABC1234567890angdoigad", // stripe payment method Id
@@ -61,7 +61,7 @@ export const userPaymentMethods = [
       name: "Jane Doe",
       email: "jane@example.com",
     },
-    isDefault: true,
+    isDefault: false,
   },
   {
     id: "pm_1NXABC1234567890angdoigad", // stripe payment method Id
@@ -77,7 +77,7 @@ export const userPaymentMethods = [
       name: "Jane Doe",
       email: "jane@example.com",
     },
-    isDefault: true,
+    isDefault: false,
   },
   {
     id: "pm_1NXABC1234567890angdoigad", // stripe payment method Id
@@ -93,7 +93,7 @@ export const userPaymentMethods = [
       name: "Jane Doe",
       email: "jane@example.com",
     },
-    isDefault: true,
+    isDefault: false,
   },
   {
     id: "pm_1NXABC1234567890angdoigad", // stripe payment method Id
@@ -109,7 +109,7 @@ export const userPaymentMethods = [
       name: "Jane Doe",
       email: "jane@example.com",
     },
-    isDefault: true,
+    isDefault: false,
   },
   {
     id: "pm_1NXABC1234567890angdoigad", // stripe payment method Id
@@ -125,7 +125,7 @@ export const userPaymentMethods = [
       name: "Jane Doe",
       email: "jane@example.com",
     },
-    isDefault: true,
+    isDefault: false,
   },
   {
     id: "pm_1NXABC1234567890angdoigad", // stripe payment method Id
@@ -141,7 +141,7 @@ export const userPaymentMethods = [
       name: "Jane Doe",
       email: "jane@example.com",
     },
-    isDefault: true,
+    isDefault: false,
   },
   {
     id: "pm_1NXABC1234567890angdoigad", // stripe payment method Id
@@ -157,7 +157,7 @@ export const userPaymentMethods = [
       name: "Jane Doe",
       email: "jane@example.com",
     },
-    isDefault: true,
+    isDefault: false,
   },
   {
     id: "pm_1NXABC1234567890angdoigad", // stripe payment method Id
@@ -173,6 +173,6 @@ export const userPaymentMethods = [
       name: "Jane Doe",
       email: "jane@example.com",
     },
-    isDefault: true,
+    isDefault: false,
   },
 ];
