@@ -18,7 +18,7 @@ export default function DeleteAccountModal({
   };
 
   return (
-    <ThemedModal isVisible={isVisible} onClose={closeModal} showSwipeIndicator>
+    <ThemedModal isVisible={isVisible} onClose={closeModal}>
       <ScrollView
         contentContainerStyle={{ alignItems: "center", marginTop: 30 }}
       >

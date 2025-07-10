@@ -1,8 +1,8 @@
 import { useTheme } from "@react-navigation/native";
 import React from "react";
 import { ScrollView, View } from "react-native";
-import Modal from "react-native-modal";
 import { ThemedButton } from "../themed-button";
+import { ThemedModal } from "../themed-modal";
 import { ThemedText } from "../themed-text";
 
 interface SignOutModalProps {
@@ -21,64 +21,33 @@ export default function SignOutModal({
   };
 
   return (
-    <Modal
-      isVisible={isVisible}
-      onBackdropPress={closeModal}
-      onBackButtonPress={closeModal}
-      onSwipeComplete={closeModal}
-      swipeDirection="down"
-      propagateSwipe={true}
-      style={{ justifyContent: "flex-end", margin: 0 }}
-    >
-      <View
-        style={{
-          backgroundColor: colors.background,
-          paddingTop: 20,
-          paddingBottom: 80,
-          paddingHorizontal: 40,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-          alignItems: "center",
-        }}
+    <ThemedModal isVisible={isVisible} onClose={closeModal}>
+      <ScrollView
+        contentContainerStyle={{ alignItems: "center", marginTop: 30 }}
       >
-        {/* Swipe indicator */}
+        <ThemedText style={{ textAlign: "center", fontWeight: "bold" }}>
+          Are you sure you want to sign out?
+        </ThemedText>
         <View
           style={{
-            width: 50,
-            height: 5,
-            borderRadius: 2.5,
-            backgroundColor: colors.primary,
+            flexDirection: "row",
+            justifyContent: "center",
+            gap: 30,
+            alignItems: "center",
+            marginTop: 20,
+            marginBottom: 30,
           }}
-        />
-
-        <ScrollView
-          contentContainerStyle={{ alignItems: "center", marginTop: 30 }}
         >
-          <ThemedText style={{ textAlign: "center", fontWeight: "bold" }}>
-            Are you sure you want to sign out?
-          </ThemedText>
-
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              gap: 30,
-              alignItems: "center",
-              marginTop: 20,
-              marginBottom: 30,
+          <ThemedButton
+            title="Confirm"
+            type="primary"
+            onPress={() => {
+              signOut();
             }}
-          >
-            <ThemedButton
-              title="Confirm"
-              type="primary"
-              onPress={() => {
-                signOut();
-              }}
-            />
-            <ThemedButton title="Cancel" type="primary" onPress={closeModal} />
-          </View>
-        </ScrollView>
-      </View>
-    </Modal>
+          />
+          <ThemedButton title="Cancel" type="primary" onPress={closeModal} />
+        </View>
+      </ScrollView>
+    </ThemedModal>
   );
 }
