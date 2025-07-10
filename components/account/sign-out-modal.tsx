@@ -1,4 +1,3 @@
-import { useTheme } from "@react-navigation/native";
 import React from "react";
 import { ScrollView, View } from "react-native";
 import { ThemedButton } from "../themed-button";
@@ -14,8 +13,6 @@ export default function SignOutModal({
   isVisible,
   closeModal,
 }: SignOutModalProps) {
-  const { colors } = useTheme();
-
   const signOut = () => {
     closeModal();
   };
