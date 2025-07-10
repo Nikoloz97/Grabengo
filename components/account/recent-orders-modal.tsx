@@ -27,7 +27,7 @@ export default function RecentOrdersModal({
 
   if (recentOrders.length === 0) {
     return (
-      // TODO: make modal, view, and modal elements a reusable wrapper
+      // TODO: make modal, view, (conditional) view elements a reusable wrapper
       <Modal
         isVisible={isVisible}
         onBackdropPress={closeModal}
