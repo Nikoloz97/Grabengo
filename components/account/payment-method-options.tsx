@@ -5,17 +5,14 @@ import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { ThemedButton } from "../themed-button";
 import { ThemedText } from "../themed-text";
 
 interface PaymentMethodOptionsProps {
   setSelectedPaymentMethod: (method: PaymentMethod) => void;
-  closeModal: () => void;
 }
 
 export default function PaymentMethodsOptions({
   setSelectedPaymentMethod,
-  closeModal,
 }: PaymentMethodOptionsProps) {
   const { colors } = useTheme();
 
@@ -103,9 +100,7 @@ export default function PaymentMethodsOptions({
           marginTop: 20,
           marginBottom: 30,
         }}
-      >
-        <ThemedButton title="Close" type="primary" onPress={closeModal} />
-      </View>
+      ></View>
     </View>
   );
 }

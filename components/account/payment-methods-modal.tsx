@@ -1,6 +1,8 @@
 import { PaymentMethod } from "@/types/user";
+import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "@react-navigation/native";
 import React, { useState } from "react";
-import { Alert, ScrollView } from "react-native";
+import { Alert, ScrollView, TouchableOpacity, View } from "react-native";
 import { ThemedModal } from "../themed-modal";
 import { EditPaymentMethodForm } from "./edit-payment-method";
 import PaymentMethodOptions from "./payment-method-options";
@@ -14,6 +16,8 @@ export default function PaymentMethodsModal({
   isVisible,
   closeModal,
 }: PaymentMethodsModalProps) {
+  const { colors } = useTheme();
+
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
     useState<PaymentMethod | null>(null);
 
@@ -36,6 +40,34 @@ export default function PaymentMethodsModal({
       showSwipeIndicator={false}
       innerViewStyle={{ paddingHorizontal: 10, height: "80%" }}
     >
+      {selectedPaymentMethod ? (
+        <View
+          style={{
+            width: "100%",
+            alignItems: "flex-start",
+            marginLeft: 30,
+            marginBottom: 10,
+          }}
+        >
+          <TouchableOpacity onPress={() => setSelectedPaymentMethod(null)}>
+            <Ionicons name="arrow-back" size={25} color={colors.primary} />
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View
+          style={{
+            width: "100%",
+            alignItems: "flex-end",
+            marginRight: 30,
+            marginBottom: 10,
+          }}
+        >
+          <TouchableOpacity onPress={closeModal}>
+            <Ionicons name="close" size={25} color={colors.primary} />
+          </TouchableOpacity>
+        </View>
+      )}
+
       <ScrollView
         style={{ width: "100%" }}
         contentContainerStyle={{
@@ -46,7 +78,6 @@ export default function PaymentMethodsModal({
         {selectedPaymentMethod ? (
           <EditPaymentMethodForm
             paymentMethod={selectedPaymentMethod}
-            onBack={() => setSelectedPaymentMethod(null)}
             onSave={updatePaymentMethod}
             onRemove={removePaymentMethod}
             onSetDefault={setDefaultPaymentMethod}
@@ -54,7 +85,6 @@ export default function PaymentMethodsModal({
         ) : (
           <PaymentMethodOptions
             setSelectedPaymentMethod={setSelectedPaymentMethod}
-            closeModal={closeModal}
           />
         )}
       </ScrollView>

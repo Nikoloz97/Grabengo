@@ -1,10 +1,10 @@
 import { recentOrders } from "@/constants/temporary/recent-orders";
 import { dollarFormatter } from "@/hooks/formatters";
+import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { format } from "date-fns";
 import React from "react";
 import { Platform, ScrollView, TouchableOpacity, View } from "react-native";
-import { ThemedButton } from "../themed-button";
 import { ThemedModal } from "../themed-modal";
 import { ThemedText } from "../themed-text";
 import { ThemedView } from "../themed-view";
@@ -45,6 +45,18 @@ export default function RecentOrdersModal({
       showSwipeIndicator={false}
       innerViewStyle={{ paddingHorizontal: 10, maxHeight: "80%" }}
     >
+      <View
+        style={{
+          width: "100%",
+          alignItems: "flex-end",
+          marginRight: 30,
+          marginBottom: 10,
+        }}
+      >
+        <TouchableOpacity onPress={closeModal}>
+          <Ionicons name="close" size={25} color={colors.primary} />
+        </TouchableOpacity>
+      </View>
       <ScrollView
         style={{ width: "100%" }}
         contentContainerStyle={{
@@ -140,18 +152,6 @@ export default function RecentOrdersModal({
             </ThemedView>
           </View>
         ))}
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            gap: 30,
-            alignItems: "center",
-            marginTop: 20,
-            marginBottom: 30,
-          }}
-        >
-          <ThemedButton title="Close" type="primary" onPress={closeModal} />
-        </View>
       </ScrollView>
     </ThemedModal>
   );

@@ -1,15 +1,13 @@
 import { capitalizeWord } from "@/hooks/formatters";
 import { PaymentMethod } from "@/types/user";
-import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import React, { useState } from "react";
-import { TextInput, TouchableOpacity, View } from "react-native";
+import { TextInput, View } from "react-native";
 import { ThemedButton } from "../themed-button";
 import { ThemedText } from "../themed-text";
 
 interface EditPaymentMethodFormProps {
   paymentMethod: PaymentMethod;
-  onBack: () => void;
   onSave: (updates: any) => void;
   onRemove: () => void;
   onSetDefault: () => void;
@@ -17,7 +15,6 @@ interface EditPaymentMethodFormProps {
 
 export function EditPaymentMethodForm({
   paymentMethod,
-  onBack,
   onSave,
   onRemove,
   onSetDefault,
@@ -42,11 +39,11 @@ export function EditPaymentMethodForm({
       >
         Edit Payment Method
       </ThemedText>
-      <TouchableOpacity onPress={onBack} style={{ marginBottom: 20 }}>
-        <Ionicons name="arrow-back" size={20} color={colors.primary} />
-      </TouchableOpacity>
 
-      <ThemedText type="subtitle" style={{ marginBottom: 20 }}>
+      <ThemedText
+        type="faint"
+        style={{ fontSize: 25, fontWeight: "600", marginBottom: 20 }}
+      >
         {capitalizeWord(paymentMethod.card.brand)} ••••
         {paymentMethod.card.last4}
       </ThemedText>
@@ -119,7 +116,6 @@ export function EditPaymentMethodForm({
 
       <ThemedButton
         title="Save Changes"
-        type="primary"
         onPress={() =>
           onSave({
             name,
@@ -139,11 +135,11 @@ export function EditPaymentMethodForm({
       >
         <ThemedButton
           title="Set as Default"
-          type="primary"
+          type="secondary"
           onPress={onSetDefault}
         />
 
-        <ThemedButton title="Remove Card" type="primary" onPress={onRemove} />
+        <ThemedButton title="Remove Card" type="secondary" onPress={onRemove} />
       </View>
     </View>
   );
