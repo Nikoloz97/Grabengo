@@ -26,8 +26,11 @@ export function EditPaymentMethodForm({
     String(paymentMethod.card.exp_month)
   );
   const [expYear, setExpYear] = useState(String(paymentMethod.card.exp_year));
-  const [address, setAddress] = useState(
+  const [addressLineOne, setAddressLineOne] = useState(
     paymentMethod.billing_details.address?.line1 || ""
+  );
+  const [addressLineTwo, setAddressLineTwo] = useState(
+    paymentMethod.billing_details.address?.line2 || ""
   );
 
   return (
@@ -100,10 +103,25 @@ export function EditPaymentMethodForm({
 
       {/* Billing Address */}
       <TextInput
-        placeholder="Billing Address"
+        placeholder="Billing Address Line 1"
         placeholderTextColor={colors.border}
-        value={address}
-        onChangeText={setAddress}
+        value={addressLineOne}
+        onChangeText={setAddressLineOne}
+        style={{
+          borderWidth: 1,
+          borderColor: colors.border,
+          color: colors.text,
+          borderRadius: 8,
+          padding: 10,
+          marginBottom: 20,
+        }}
+      />
+
+      <TextInput
+        placeholder="Billing Address Line 2"
+        placeholderTextColor={colors.border}
+        value={addressLineTwo}
+        onChangeText={setAddressLineTwo}
         style={{
           borderWidth: 1,
           borderColor: colors.border,
@@ -121,7 +139,8 @@ export function EditPaymentMethodForm({
             name,
             expMonth,
             expYear,
-            address,
+            addressLineOne,
+            addressLineTwo,
           })
         }
       />
