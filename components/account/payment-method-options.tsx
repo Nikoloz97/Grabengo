@@ -9,10 +9,12 @@ import { ThemedText } from "../themed-text";
 
 interface PaymentMethodOptionsProps {
   setSelectedPaymentMethod: (method: PaymentMethod) => void;
+  setIsAddPaymentChosen: (isChosen: boolean) => void;
 }
 
 export default function PaymentMethodsOptions({
   setSelectedPaymentMethod,
+  setIsAddPaymentChosen,
 }: PaymentMethodOptionsProps) {
   const { colors } = useTheme();
 
@@ -82,9 +84,7 @@ export default function PaymentMethodsOptions({
           shadowRadius: 5,
           elevation: 1,
         }}
-        onPress={() => {
-          // TODO: logic to add new payment
-        }}
+        onPress={() => setIsAddPaymentChosen(true)}
       >
         <Ionicons name="add-circle-outline" size={20} color={colors.text} />
         <Text style={{ fontSize: 16, fontWeight: "500", color: colors.text }}>

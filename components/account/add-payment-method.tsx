@@ -1,41 +1,28 @@
-import { capitalizeWord } from "@/hooks/formatters";
-import { PaymentMethod } from "@/types/user";
+import { NewCardDetails } from "@/types/user";
 import React, { useState } from "react";
 import { View } from "react-native";
 import { ThemedButton } from "../themed-button";
+import { ThemedSecureTextInput } from "../themed-secure-text-input";
 import { ThemedText } from "../themed-text";
 import { ThemedTextInput } from "../themed-text-input";
 
-interface EditPaymentMethodFormProps {
-  paymentMethod: PaymentMethod;
-  onSave: (updates: any) => void;
-  onRemove: () => void;
-  onSetDefault: () => void;
+interface AddPaymentMethodFormProps {
+  onAdd: (newCardDetails: NewCardDetails) => void;
 }
 
-export default function EditPaymentMethodForm({
-  paymentMethod,
-  onSave,
-  onRemove,
-  onSetDefault,
-}: EditPaymentMethodFormProps) {
-  const [name, setName] = useState(paymentMethod.billing_details.name || "");
-  const [expMonth, setExpMonth] = useState(
-    String(paymentMethod.card.exp_month)
-  );
-  const [expYear, setExpYear] = useState(String(paymentMethod.card.exp_year));
-  const [addressLineOne, setAddressLineOne] = useState(
-    paymentMethod.billing_details.address?.line1 || ""
-  );
-  const [addressLineTwo, setAddressLineTwo] = useState(
-    paymentMethod.billing_details.address?.line2 || ""
-  );
-  const [state, setState] = useState(
-    paymentMethod.billing_details.address.state || ""
-  );
-  const [postalCode, setPostalCode] = useState(
-    paymentMethod.billing_details.address.postal_code || ""
-  );
+export default function AddPaymentMethodForm({
+  onAdd,
+}: AddPaymentMethodFormProps) {
+  const [cardNumber, setCardNumber] = useState("");
+  const [securityCode, setSecurityCode] = useState("");
+  const [name, setName] = useState("");
+  const [expMonth, setExpMonth] = useState("");
+  const [expYear, setExpYear] = useState("");
+  const [addressLineOne, setAddressLineOne] = useState("");
+  const [addressLineTwo, setAddressLineTwo] = useState("");
+  const [state, setState] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [country, setCountry] = useState("");
   const [isDefault, setIsDefault] = useState(false);
 
   return (
@@ -45,16 +32,22 @@ export default function EditPaymentMethodForm({
         type="subtitle"
         style={{ marginBottom: 20, textAlign: "center" }}
       >
-        Edit Payment Method
+        Add Payment Method
       </ThemedText>
 
-      <ThemedText
-        type="faint"
-        style={{ fontSize: 25, fontWeight: "600", marginBottom: 20 }}
-      >
-        {capitalizeWord(paymentMethod.card.brand)} ••••
-        {paymentMethod.card.last4}
-      </ThemedText>
+      <ThemedSecureTextInput
+        placeholder="Card Number"
+        keyboardType="numeric"
+        value={cardNumber}
+        onChangeText={setCardNumber}
+      />
+
+      <ThemedSecureTextInput
+        placeholder="Security Code"
+        keyboardType="numeric"
+        value={securityCode}
+        onChangeText={setSecurityCode}
+      />
 
       <ThemedTextInput
         placeholder="Cardholder Name"
@@ -62,7 +55,6 @@ export default function EditPaymentMethodForm({
         onChangeText={setName}
       />
 
-      {/* Expiration Date */}
       <View style={{ flexDirection: "row", gap: 10 }}>
         <ThemedTextInput
           placeholder="MM"
@@ -105,27 +97,46 @@ export default function EditPaymentMethodForm({
         onChangeText={setPostalCode}
       />
 
+      <ThemedTextInput
+        placeholder="Country"
+        value={country}
+        onChangeText={setCountry}
+      />
+
+      {/* TODO: add toggle here */}
       <ThemedButton
-        title="Save Changes"
+        title={"Set as Default? "}
+        type="secondary"
+        onPress={() => setIsDefault(!isDefault)}
+      />
+
+      <ThemedButton
+        title="Add Card"
+        style={{ marginTop: 20 }}
         onPress={() =>
-          onSave({
+          onAdd({
+            cardNumber,
+            securityCode,
             name,
             expMonth,
             expYear,
             addressLineOne,
             addressLineTwo,
+            state,
+            postalCode,
+            country,
+            isDefault,
           })
         }
       />
 
-      {/* TODO: create default toggle */}
-      <ThemedButton
-        title="Set as Default"
-        type="secondary"
-        onPress={onSetDefault}
-      />
-
-      <ThemedButton title="Remove Card" type="danger" onPress={onRemove} />
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginTop: 20,
+        }}
+      ></View>
     </View>
   );
 }

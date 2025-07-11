@@ -1,3 +1,17 @@
+export interface NewCardDetails {
+  cardNumber: string;
+  securityCode: string;
+  name: string;
+  expMonth: string;
+  expYear: string;
+  addressLineOne: string;
+  addressLineTwo: string;
+  state: string;
+  postalCode: string;
+  country: string;
+  isDefault: boolean;
+}
+
 export interface CardDetails {
   brand: string;
   last4: string;

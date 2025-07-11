@@ -4,7 +4,8 @@ import { useTheme } from "@react-navigation/native";
 import React, { useState } from "react";
 import { Alert, ScrollView, TouchableOpacity, View } from "react-native";
 import { ThemedModal } from "../themed-modal";
-import { EditPaymentMethodForm } from "./edit-payment-method";
+import AddPaymentMethodForm from "./add-payment-method";
+import EditPaymentMethodForm from "./edit-payment-method";
 import PaymentMethodOptions from "./payment-method-options";
 
 interface PaymentMethodsModalProps {
@@ -21,6 +22,12 @@ export default function PaymentMethodsModal({
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
     useState<PaymentMethod | null>(null);
 
+  const [isAddPaymentChosen, setIsAddPaymentChosen] = useState<boolean>(false);
+
+  const addPaymentMethod = () => {
+    Alert.alert("Payment Method Added!");
+  };
+
   const updatePaymentMethod = () => {
     Alert.alert("Payment Method Updated!");
   };
@@ -33,6 +40,11 @@ export default function PaymentMethodsModal({
     Alert.alert("Payment Method Set as Default!");
   };
 
+  const handleBack = () => {
+    setSelectedPaymentMethod(null);
+    setIsAddPaymentChosen(false);
+  };
+
   return (
     <ThemedModal
       isVisible={isVisible}
@@ -40,7 +52,7 @@ export default function PaymentMethodsModal({
       showSwipeIndicator={false}
       innerViewStyle={{ paddingHorizontal: 10, height: "80%" }}
     >
-      {selectedPaymentMethod ? (
+      {selectedPaymentMethod || isAddPaymentChosen ? (
         <View
           style={{
             width: "100%",
@@ -49,7 +61,7 @@ export default function PaymentMethodsModal({
             marginBottom: 10,
           }}
         >
-          <TouchableOpacity onPress={() => setSelectedPaymentMethod(null)}>
+          <TouchableOpacity onPress={() => handleBack()}>
             <Ionicons name="arrow-back" size={25} color={colors.primary} />
           </TouchableOpacity>
         </View>
@@ -71,7 +83,6 @@ export default function PaymentMethodsModal({
       <ScrollView
         style={{ width: "100%" }}
         contentContainerStyle={{
-          marginTop: 30,
           paddingHorizontal: 30,
         }}
       >
@@ -82,9 +93,12 @@ export default function PaymentMethodsModal({
             onRemove={removePaymentMethod}
             onSetDefault={setDefaultPaymentMethod}
           />
+        ) : isAddPaymentChosen ? (
+          <AddPaymentMethodForm onAdd={addPaymentMethod} />
         ) : (
           <PaymentMethodOptions
             setSelectedPaymentMethod={setSelectedPaymentMethod}
+            setIsAddPaymentChosen={setIsAddPaymentChosen}
           />
         )}
       </ScrollView>

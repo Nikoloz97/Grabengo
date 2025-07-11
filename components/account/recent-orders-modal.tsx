@@ -27,7 +27,6 @@ export default function RecentOrdersModal({
 
   if (recentOrders.length === 0) {
     return (
-      // TODO: make modal, view, (conditional) view elements a reusable wrapper
       <ThemedModal isVisible={isVisible} onClose={closeModal}>
         <ThemedView
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
