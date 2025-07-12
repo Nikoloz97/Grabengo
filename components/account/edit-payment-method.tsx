@@ -1,23 +1,22 @@
 import { capitalizeWord } from "@/hooks/formatters";
 import { PaymentMethod } from "@/types/user";
 import React, { useState } from "react";
-import { View } from "react-native";
+import { Switch, View } from "react-native";
 import { ThemedButton } from "../themed-button";
 import { ThemedText } from "../themed-text";
 import { ThemedTextInput } from "../themed-text-input";
+import { ThemedView } from "../themed-view";
 
 interface EditPaymentMethodFormProps {
   paymentMethod: PaymentMethod;
   onSave: (updates: any) => void;
   onRemove: () => void;
-  onSetDefault: () => void;
 }
 
 export default function EditPaymentMethodForm({
   paymentMethod,
   onSave,
   onRemove,
-  onSetDefault,
 }: EditPaymentMethodFormProps) {
   const [name, setName] = useState(paymentMethod.billing_details.name || "");
   const [expMonth, setExpMonth] = useState(
@@ -36,7 +35,7 @@ export default function EditPaymentMethodForm({
   const [postalCode, setPostalCode] = useState(
     paymentMethod.billing_details.address.postal_code || ""
   );
-  const [isDefault, setIsDefault] = useState(false);
+  const [isDefault, setIsDefault] = useState(paymentMethod.isDefault || false);
 
   return (
     // margin gives user room to select buttons when keyboard is open
@@ -105,8 +104,20 @@ export default function EditPaymentMethodForm({
         onChangeText={setPostalCode}
       />
 
+      <ThemedView
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginTop: 20,
+        }}
+      >
+        <ThemedText>Set as Default?</ThemedText>
+        <Switch onValueChange={setIsDefault} value={isDefault} />
+      </ThemedView>
+
       <ThemedButton
         title="Save Changes"
+        style={{ marginTop: 20 }}
         onPress={() =>
           onSave({
             name,
@@ -114,18 +125,17 @@ export default function EditPaymentMethodForm({
             expYear,
             addressLineOne,
             addressLineTwo,
+            isDefault,
           })
         }
       />
 
-      {/* TODO: create default toggle */}
       <ThemedButton
-        title="Set as Default"
-        type="secondary"
-        onPress={onSetDefault}
+        title="Remove Card"
+        type="danger"
+        onPress={onRemove}
+        style={{ marginTop: 20 }}
       />
-
-      <ThemedButton title="Remove Card" type="danger" onPress={onRemove} />
     </View>
   );
 }

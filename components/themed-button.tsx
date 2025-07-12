@@ -94,7 +94,15 @@ export function ThemedButton(props: ThemedButtonProps) {
       ]}
       {...otherProps}
     >
-      <Text style={[getTextStyle(), textStyle]}>{title}</Text>
+      <Text
+        style={[
+          getTextStyle(),
+          textStyle,
+          { fontFamily: "DMSans_600SemiBold" },
+        ]}
+      >
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 }

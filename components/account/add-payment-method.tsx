@@ -1,10 +1,11 @@
 import { NewCardDetails } from "@/types/user";
 import React, { useState } from "react";
-import { View } from "react-native";
+import { Switch, View } from "react-native";
 import { ThemedButton } from "../themed-button";
 import { ThemedSecureTextInput } from "../themed-secure-text-input";
 import { ThemedText } from "../themed-text";
 import { ThemedTextInput } from "../themed-text-input";
+import { ThemedView } from "../themed-view";
 
 interface AddPaymentMethodFormProps {
   onAdd: (newCardDetails: NewCardDetails) => void;
@@ -103,12 +104,16 @@ export default function AddPaymentMethodForm({
         onChangeText={setCountry}
       />
 
-      {/* TODO: add toggle here */}
-      <ThemedButton
-        title={"Set as Default? "}
-        type="secondary"
-        onPress={() => setIsDefault(!isDefault)}
-      />
+      <ThemedView
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginTop: 20,
+        }}
+      >
+        <ThemedText>Set as Default?</ThemedText>
+        <Switch onValueChange={setIsDefault} value={isDefault} />
+      </ThemedView>
 
       <ThemedButton
         title="Add Card"

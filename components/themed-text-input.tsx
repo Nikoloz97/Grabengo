@@ -11,6 +11,7 @@ export function ThemedTextInput(props: TextInputProps) {
       style={[
         {
           fontSize: 18,
+          fontFamily: "DMSans_600SemiBold",
           borderWidth: 0,
           borderBottomWidth: 1,
           borderColor: colors.border,

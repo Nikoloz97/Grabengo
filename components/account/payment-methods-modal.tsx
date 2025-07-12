@@ -36,10 +36,6 @@ export default function PaymentMethodsModal({
     Alert.alert("Payment Method Removed!");
   };
 
-  const setDefaultPaymentMethod = () => {
-    Alert.alert("Payment Method Set as Default!");
-  };
-
   const handleBack = () => {
     setSelectedPaymentMethod(null);
     setIsAddPaymentChosen(false);
@@ -91,7 +87,6 @@ export default function PaymentMethodsModal({
             paymentMethod={selectedPaymentMethod}
             onSave={updatePaymentMethod}
             onRemove={removePaymentMethod}
-            onSetDefault={setDefaultPaymentMethod}
           />
         ) : isAddPaymentChosen ? (
           <AddPaymentMethodForm onAdd={addPaymentMethod} />
