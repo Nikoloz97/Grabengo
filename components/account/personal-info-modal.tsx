@@ -74,16 +74,20 @@ export default function PersonalInfoModal({
         >
           Personal Info
         </ThemedText>
-        <ThemedTextInput
-          placeholder="First Name"
-          value={firstName}
-          onChangeText={setFirstName}
-        />
-        <ThemedTextInput
-          placeholder="Last Name"
-          value={lastName}
-          onChangeText={setLastName}
-        />
+        <View style={{ flexDirection: "row", gap: 10 }}>
+          <ThemedTextInput
+            placeholder="First Name"
+            value={firstName}
+            onChangeText={setFirstName}
+            style={{ flex: 1 }}
+          />
+          <ThemedTextInput
+            placeholder="Last Name"
+            value={lastName}
+            onChangeText={setLastName}
+            style={{ flex: 1 }}
+          />
+        </View>
         <ThemedTextInput
           placeholder="Birth Date"
           value={birthDate}
@@ -99,21 +103,28 @@ export default function PersonalInfoModal({
           value={addressLineTwo}
           onChangeText={setAddressLineTwo}
         />
-        <ThemedTextInput
-          placeholder="City"
-          value={city}
-          onChangeText={setCity}
-        />
-        <ThemedTextInput
-          placeholder="Postal Code"
-          value={postalCode}
-          onChangeText={setPostalCode}
-        />
-        <ThemedTextInput
-          placeholder="State"
-          value={state}
-          onChangeText={setState}
-        />
+
+        <View style={{ flexDirection: "row", gap: 10 }}>
+          <ThemedTextInput
+            placeholder="City"
+            value={city}
+            onChangeText={setCity}
+            style={{ flex: 1 }}
+          />
+          <ThemedTextInput
+            placeholder="State"
+            value={state}
+            onChangeText={setState}
+            style={{ flex: 1 }}
+          />
+          <ThemedTextInput
+            placeholder="Postal Code"
+            value={postalCode}
+            onChangeText={setPostalCode}
+            style={{ flex: 1 }}
+          />
+        </View>
+
         <ThemedTextInput
           placeholder="Country"
           value={country}
