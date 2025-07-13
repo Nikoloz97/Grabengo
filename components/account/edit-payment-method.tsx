@@ -61,7 +61,6 @@ export default function EditPaymentMethodForm({
         onChangeText={setName}
       />
 
-      {/* Expiration Date */}
       <View style={{ flexDirection: "row", gap: 10 }}>
         <ThemedTextInput
           placeholder="MM"

@@ -43,3 +43,16 @@ export interface PaymentMethod {
   billing_details: BillingDetails;
   isDefault: boolean;
 }
+
+export interface User {
+  id?: string;
+  firstName: string;
+  lastName: string;
+  birthDate: Date;
+  addressLineOne: string;
+  addressLineTwo: string | null;
+  city: string;
+  postalCode: string;
+  state: string;
+  country: string;
+}

@@ -1,18 +1,16 @@
 import DeleteAccountModal from "@/components/account/delete-account-modal";
 import PaymentMethodsModal from "@/components/account/payment-methods-modal";
+import PersonalInfoModal from "@/components/account/personal-info-modal";
 import RecentOrdersModal from "@/components/account/recent-orders-modal";
 import SignOutModal from "@/components/account/sign-out-modal";
 import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-import { useAuth } from "@/contexts/auth-context";
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 
 export default function Account() {
-  const { user } = useAuth();
-
   const [isPersonalInfoModalOpen, setIsPersonalInfoModalOpen] = useState(false);
   const [isPaymentMethodsModalOpen, setIsPaymentMethodsModalOpen] =
     useState(false);
@@ -76,13 +74,10 @@ export default function Account() {
       </ThemedScrollView>
 
       {/* modals*/}
-      {/* {isPersonalInfoModalOpen && (
-        <PersonalInfoModal
-          isVisible={itemToEdit !== null}
-          item={itemToEdit}
-          setItem={setItemToEdit}
-        />
-      )} */}
+      <PersonalInfoModal
+        isVisible={isPersonalInfoModalOpen}
+        closeModal={() => setIsPersonalInfoModalOpen(false)}
+      />
 
       <PaymentMethodsModal
         isVisible={isPaymentMethodsModalOpen}

@@ -4,7 +4,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { format } from "date-fns";
 import React from "react";
-import { Platform, ScrollView, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Platform,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { ThemedModal } from "../themed-modal";
 import { ThemedText } from "../themed-text";
 import { ThemedView } from "../themed-view";
@@ -22,7 +28,7 @@ export default function RecentOrdersModal({
   const { colors } = useTheme();
 
   const addToOrder = () => {
-    closeModal();
+    Alert.alert("Added to order!");
   };
 
   if (recentOrders.length === 0) {
@@ -60,7 +66,6 @@ export default function RecentOrdersModal({
         style={{ width: "100%" }}
         contentContainerStyle={{
           alignItems: "center",
-          marginTop: 30,
           paddingHorizontal: 30,
           flexGrow: 1,
         }}

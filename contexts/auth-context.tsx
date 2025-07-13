@@ -4,6 +4,8 @@ import { ActivityIndicator, Text, View } from "react-native";
 import { auth } from "../firebase/config";
 
 interface AuthContextType {
+  // TODO: user type needs additional properties
+  // firstName, lastName, email, password, birthDate, addressLineOne, addressLineTwo, city, zipCode, state, country
   user: User | null;
   isLoading: boolean;
 }
@@ -52,7 +54,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return unsubscribe;
   }, []);
 
-  // Show loading screen while authenticating
   if (isLoading) {
     return (
       <View
@@ -60,7 +61,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           flex: 1,
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#000", // Match your app's background
+          backgroundColor: "#000",
         }}
       >
         <ActivityIndicator size="large" color="#fff" />
