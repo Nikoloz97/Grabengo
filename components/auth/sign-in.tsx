@@ -3,20 +3,23 @@ import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-import { MaterialIcons } from "@expo/vector-icons";
-import { useTheme } from "@react-navigation/native";
 import { useState } from "react";
-import { Alert, TouchableOpacity, View } from "react-native";
+import { Alert, TouchableOpacity } from "react-native";
+import { ThemedSecureTextInput } from "../themed-secure-text-input";
 import { ThemedTextInput } from "../themed-text-input";
 import ForgotPassword from "./forgot-password";
 import SignUp from "./sign-up";
 
 export default function SignIn() {
-  const { colors } = useTheme();
-  // TODO: create form
   const [isSignUpPressed, setIsSignUpPressed] = useState(false);
   const [isForgotPasswordPressed, setIsForgotPasswordPressed] = useState(false);
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignIn = () => {
+    Alert.alert("Signed in!");
+  };
 
   if (isSignUpPressed) {
     return <SignUp setIsSignUpPressed={setIsSignUpPressed} />;
@@ -35,32 +38,18 @@ export default function SignIn() {
       </ThemedHeaderView>
 
       <ThemedScrollView>
-        <ThemedTextInput placeholder="Email" keyboardType="email-address" />
+        <ThemedTextInput
+          placeholder="Email"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+        />
 
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            borderWidth: 0,
-            borderBottomWidth: 1,
-            borderColor: colors.border,
-          }}
-        >
-          <ThemedTextInput
-            placeholder="Password"
-            secureTextEntry={!isPasswordVisible}
-            style={{ flex: 1, borderBottomWidth: 0, marginBottom: 0 }}
-          />
-          <TouchableOpacity
-            onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-          >
-            <MaterialIcons
-              name={isPasswordVisible ? "visibility-off" : "visibility"}
-              size={22}
-              color={colors.border}
-            />
-          </TouchableOpacity>
-        </View>
+        <ThemedSecureTextInput
+          placeholder="*Password"
+          value={password}
+          onChangeText={setPassword}
+        />
 
         <TouchableOpacity onPress={() => setIsForgotPasswordPressed(true)}>
           <ThemedText style={{ marginTop: 20 }}>Forgot password?</ThemedText>
@@ -68,7 +57,7 @@ export default function SignIn() {
 
         <ThemedButton
           title="Sign in"
-          onPress={() => Alert.alert("Signed in!")}
+          onPress={handleSignIn}
           style={{ marginTop: 20 }}
         />
 
