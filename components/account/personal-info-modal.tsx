@@ -8,6 +8,7 @@ import { ThemedButton } from "../themed-button";
 import { ThemedModal } from "../themed-modal";
 import { ThemedText } from "../themed-text";
 import { ThemedTextInput } from "../themed-text-input";
+import { ThemedTextInputMask } from "../themed-text-input-mask";
 
 interface PersonalInfoModalProps {
   isVisible: boolean;
@@ -26,7 +27,6 @@ export default function PersonalInfoModal({
 
   const [firstName, setFirstName] = useState(user.firstName || "");
   const [lastName, setLastName] = useState(user.lastName || "");
-  // TODO: maybe change this to individual month, day, and year states
   const [birthDate, setBirthDate] = useState(
     format(user.birthDate, "MM/dd/yyyy") || ""
   );
@@ -88,10 +88,18 @@ export default function PersonalInfoModal({
             style={{ flex: 1 }}
           />
         </View>
-        <ThemedTextInput
-          placeholder="Birth Date"
+        <ThemedTextInputMask
+          type="datetime"
+          options={{
+            format: "MM/DD/YYYY",
+          }}
+          keyboardType="numeric"
           value={birthDate}
-          onChangeText={setBirthDate}
+          onChangeText={(text) => setBirthDate(text)}
+          placeholder="Birth Date (MM/DD/YYYY)"
+          style={{
+            marginTop: 30,
+          }}
         />
         <ThemedTextInput
           placeholder="Address Line 1"

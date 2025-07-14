@@ -6,9 +6,9 @@ import { ThemedView } from "@/components/themed-view";
 import { useTheme } from "@react-navigation/native";
 import { useState } from "react";
 import { Alert, TouchableOpacity, View } from "react-native";
-import { TextInputMask } from "react-native-masked-text";
 import { ThemedSecureTextInput } from "../themed-secure-text-input";
 import { ThemedTextInput } from "../themed-text-input";
+import { ThemedTextInputMask } from "../themed-text-input-mask";
 
 interface SignUpProps {
   setIsSignUpPressed: (input: boolean) => void;
@@ -21,7 +21,6 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  // TODO: maybe change this to individual month, day, and year states
   const [birthDate, setBirthDate] = useState("");
   const [addressLineOne, setAddressLineOne] = useState("");
   const [addressLineTwo, setAddressLineTwo] = useState("");
@@ -71,25 +70,16 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
             style={{ flex: 1 }}
           />
         </View>
-        <TextInputMask
+        <ThemedTextInputMask
           type="datetime"
           options={{
-            format: "MM/DD/YY",
+            format: "MM/DD/YYYY",
           }}
+          keyboardType="numeric"
           value={birthDate}
           onChangeText={(text) => setBirthDate(text)}
-          placeholder="Birth Date (MM/DD/YY)"
-          placeholderTextColor={colors.border}
+          placeholder="Birth Date (MM/DD/YYYY)"
           style={{
-            fontFamily: "DMSans_600SemiBold",
-
-            fontSize: 18,
-            borderWidth: 0,
-            borderBottomWidth: 1,
-            borderColor: colors.border,
-            color: colors.text,
-            paddingVertical: 5,
-            marginBottom: 16,
             marginTop: 30,
           }}
         />
