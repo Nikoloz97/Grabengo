@@ -118,7 +118,7 @@ export default function PersonalInfoModal({
             style={{ flex: 1 }}
           />
           <ThemedTextInput
-            placeholder="Postal Code"
+            placeholder="Zipcode"
             value={postalCode}
             onChangeText={setPostalCode}
             style={{ flex: 1 }}

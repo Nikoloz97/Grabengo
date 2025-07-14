@@ -3,11 +3,11 @@ import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
-import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { useState } from "react";
 import { Alert, TouchableOpacity, View } from "react-native";
 import { TextInputMask } from "react-native-masked-text";
+import { ThemedSecureTextInput } from "../themed-secure-text-input";
 import { ThemedTextInput } from "../themed-text-input";
 
 interface SignUpProps {
@@ -17,8 +17,22 @@ interface SignUpProps {
 export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
   const { colors } = useTheme();
 
-  const [date, setDate] = useState("");
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  // TODO: maybe change this to individual month, day, and year states
+  const [birthDate, setBirthDate] = useState("");
+  const [addressLineOne, setAddressLineOne] = useState("");
+  const [addressLineTwo, setAddressLineTwo] = useState("");
+  const [city, setCity] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [state, setState] = useState("");
+  const [country, setCountry] = useState("");
+
+  const handleSignup = () => {
+    Alert.alert("Signed up!");
+  };
 
   return (
     <ThemedView style={{ flex: 1 }}>
@@ -28,47 +42,47 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
 
       {/* paddingBottom = enough space to see sign up bottom with keyboard */}
       <ThemedScrollView contentContainerStyle={{ paddingBottom: 350 }}>
-        <ThemedText style={{ fontSize: 12, color: colors.border }}>
+        <ThemedText style={{ color: colors.border }}>
           * indicates required field
         </ThemedText>
-        <ThemedTextInput placeholder="*First name" style={{ marginTop: 20 }} />
-        <ThemedTextInput placeholder="*Last name" />
-        <ThemedTextInput placeholder="*Email" keyboardType="email-address" />
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            borderWidth: 0,
-            borderBottomWidth: 1,
-            borderColor: colors.border,
-            marginBottom: 16,
-          }}
-        >
+        <ThemedTextInput
+          placeholder="*Email"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+          style={{ marginTop: 20 }}
+        />
+        <ThemedSecureTextInput
+          placeholder="*Password"
+          value={password}
+          onChangeText={setPassword}
+        />
+        <View style={{ flexDirection: "row", gap: 10 }}>
           <ThemedTextInput
-            placeholder="*Password"
-            secureTextEntry={!isPasswordVisible}
-            style={{ flex: 1, borderBottomWidth: 0, marginBottom: 0 }}
+            placeholder="First Name"
+            value={firstName}
+            onChangeText={setFirstName}
+            style={{ flex: 1 }}
           />
-          <TouchableOpacity
-            onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-          >
-            <MaterialIcons
-              name={isPasswordVisible ? "visibility-off" : "visibility"}
-              size={22}
-              color={colors.border}
-            />
-          </TouchableOpacity>
+          <ThemedTextInput
+            placeholder="Last Name"
+            value={lastName}
+            onChangeText={setLastName}
+            style={{ flex: 1 }}
+          />
         </View>
         <TextInputMask
           type="datetime"
           options={{
             format: "MM/DD/YY",
           }}
-          value={date}
-          onChangeText={(text) => setDate(text)}
+          value={birthDate}
+          onChangeText={(text) => setBirthDate(text)}
           placeholder="Birth Date (MM/DD/YY)"
           placeholderTextColor={colors.border}
           style={{
+            fontFamily: "DMSans_600SemiBold",
+
             fontSize: 18,
             borderWidth: 0,
             borderBottomWidth: 1,
@@ -79,15 +93,50 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
             marginTop: 30,
           }}
         />
-        <ThemedTextInput placeholder="Address Line 1" />
-        <ThemedTextInput placeholder="Address Line 2" />
-        <ThemedTextInput placeholder="Town or City" />
-        <ThemedTextInput placeholder="Zip Code" keyboardType="numeric" />
-        <ThemedTextInput placeholder="State (e.g. OH)" />
+        <ThemedTextInput
+          placeholder="Address Line 1"
+          value={addressLineOne}
+          onChangeText={setAddressLineOne}
+        />
+        <ThemedTextInput
+          placeholder="Address Line 2"
+          value={addressLineTwo}
+          onChangeText={setAddressLineTwo}
+        />
+        <View style={{ flexDirection: "row", gap: 10 }}>
+          <ThemedTextInput
+            placeholder="City"
+            value={city}
+            onChangeText={setCity}
+            style={{ flex: 1 }}
+          />
+          {/* TODO: dropdown options */}
+          <ThemedTextInput
+            placeholder="State"
+            value={state}
+            onChangeText={setState}
+            style={{ flex: 1 }}
+          />
+        </View>
+
+        <View style={{ flexDirection: "row", gap: 10 }}>
+          <ThemedTextInput
+            placeholder="Zipcode"
+            value={postalCode}
+            onChangeText={setPostalCode}
+            style={{ flex: 1 }}
+          />
+          <ThemedTextInput
+            placeholder="Country"
+            value={country}
+            onChangeText={setCountry}
+            style={{ flex: 1 }}
+          />
+        </View>
 
         <ThemedButton
           title="Sign up"
-          onPress={() => Alert.alert("Signed up!")}
+          onPress={handleSignup}
           style={{ marginTop: 20 }}
         />
         <TouchableOpacity onPress={() => setIsSignUpPressed(false)}>
