@@ -1,9 +1,12 @@
 import { user } from "@/constants/temporary/user";
+import useFormValidation from "@/hooks/useFormValidation";
+import { personalInfoSchema } from "@/schemas/personalInfo";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { format } from "date-fns";
 import React, { useState } from "react";
 import { Alert, ScrollView, TouchableOpacity, View } from "react-native";
+import { z } from "zod";
 import { ThemedButton } from "../themed-button";
 import { ThemedModal } from "../themed-modal";
 import { ThemedText } from "../themed-text";
@@ -15,15 +18,13 @@ interface PersonalInfoModalProps {
   closeModal: () => void;
 }
 
+type PersonalInfoFields = z.infer<typeof personalInfoSchema>;
+
 export default function PersonalInfoModal({
   isVisible,
   closeModal,
 }: PersonalInfoModalProps) {
   const { colors } = useTheme();
-
-  const editPersonalInfo = (updatedUser: any) => {
-    Alert.alert("Personal Info Edited!");
-  };
 
   const [firstName, setFirstName] = useState(user.firstName || "");
   const [lastName, setLastName] = useState(user.lastName || "");
@@ -40,6 +41,26 @@ export default function PersonalInfoModal({
   const [postalCode, setPostalCode] = useState(user.postalCode || "");
   const [state, setState] = useState(user.state || "");
   const [country, setCountry] = useState(user.country || "");
+
+  const { errors, validateForm, clearFieldError } =
+    useFormValidation<PersonalInfoFields>();
+
+  const handlePersonalInfoEdit = (updatedUser: any) => {
+    const validatedData = validateForm(personalInfoSchema, {
+      firstName,
+      lastName,
+      birthDate,
+      addressLineOne,
+      addressLineTwo,
+      city,
+      postalCode,
+      state,
+      country,
+    });
+    if (!validatedData) return;
+
+    Alert.alert("Personal Info Edited!");
+  };
 
   return (
     <ThemedModal
@@ -78,13 +99,21 @@ export default function PersonalInfoModal({
           <ThemedTextInput
             placeholder="First Name"
             value={firstName}
-            onChangeText={setFirstName}
+            onChangeText={(text) => {
+              setFirstName(text);
+              clearFieldError("firstName");
+            }}
+            error={errors.firstName}
             style={{ flex: 1 }}
           />
           <ThemedTextInput
             placeholder="Last Name"
             value={lastName}
-            onChangeText={setLastName}
+            onChangeText={(text) => {
+              setLastName(text);
+              clearFieldError("lastName");
+            }}
+            error={errors.lastName}
             style={{ flex: 1 }}
           />
         </View>
@@ -93,39 +122,63 @@ export default function PersonalInfoModal({
           options={{
             format: "MM/DD/YYYY",
           }}
+          placeholder="Birth Date (MM/DD/YYYY)"
           keyboardType="numeric"
           value={birthDate}
-          onChangeText={(text) => setBirthDate(text)}
-          placeholder="Birth Date (MM/DD/YYYY)"
+          onChangeText={(text) => {
+            setBirthDate(text);
+            clearFieldError("birthDate");
+          }}
+          error={errors.birthDate}
         />
         <ThemedTextInput
           placeholder="Address Line 1"
           value={addressLineOne}
-          onChangeText={setAddressLineOne}
+          onChangeText={(text) => {
+            setAddressLineOne(text);
+            clearFieldError("addressLineOne");
+          }}
+          error={errors.addressLineOne}
         />
         <ThemedTextInput
-          placeholder="Address Line 2 (Optional)"
+          placeholder="Address Line 2"
           value={addressLineTwo}
-          onChangeText={setAddressLineTwo}
+          onChangeText={(text) => {
+            setAddressLineTwo(text);
+            clearFieldError("addressLineTwo");
+          }}
+          error={errors.addressLineTwo}
         />
 
         <View style={{ flexDirection: "row", gap: 10 }}>
           <ThemedTextInput
             placeholder="City"
             value={city}
-            onChangeText={setCity}
+            onChangeText={(text) => {
+              setCity(text);
+              clearFieldError("city");
+            }}
+            error={errors.city}
             style={{ flex: 1 }}
           />
           <ThemedTextInput
             placeholder="State"
             value={state}
-            onChangeText={setState}
+            onChangeText={(text) => {
+              setState(text);
+              clearFieldError("state");
+            }}
+            error={errors.state}
             style={{ flex: 1 }}
           />
           <ThemedTextInput
             placeholder="Zipcode"
             value={postalCode}
-            onChangeText={setPostalCode}
+            onChangeText={(text) => {
+              setPostalCode(text);
+              clearFieldError("postalCode");
+            }}
+            error={errors.postalCode}
             style={{ flex: 1 }}
           />
         </View>
@@ -133,13 +186,17 @@ export default function PersonalInfoModal({
         <ThemedTextInput
           placeholder="Country"
           value={country}
-          onChangeText={setCountry}
+          onChangeText={(text) => {
+            setCountry(text);
+            clearFieldError("country");
+          }}
+          error={errors.country}
         />
         <ThemedButton
           title="Save Changes"
           style={{ marginTop: 20 }}
           onPress={() =>
-            editPersonalInfo({
+            handlePersonalInfoEdit({
               firstName,
               lastName,
               birthDate,

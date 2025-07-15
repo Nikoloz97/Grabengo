@@ -161,6 +161,7 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
               setCity(text);
               clearFieldError("city");
             }}
+            error={errors.city}
             style={{ flex: 1 }}
           />
           {/* TODO: dropdown options */}

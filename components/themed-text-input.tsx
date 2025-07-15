@@ -37,7 +37,7 @@ export function ThemedTextInput(props: ThemedTextInputProps) {
         ]}
         {...otherProps}
       />
-      <View style={{ height: 20, marginBottom: 16 }}>
+      <View style={{ minHeight: 20, marginBottom: 16 }}>
         {error && <ThemedText style={{ color: "red" }}>{error}</ThemedText>}
       </View>
     </View>

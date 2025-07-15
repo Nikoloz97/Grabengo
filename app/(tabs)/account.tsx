@@ -3,7 +3,6 @@ import PaymentMethodsModal from "@/components/account/payment-methods-modal";
 import PersonalInfoModal from "@/components/account/personal-info-modal";
 import RecentOrdersModal from "@/components/account/recent-orders-modal";
 import SignOutModal from "@/components/account/sign-out-modal";
-import SignIn from "@/components/auth/sign-in";
 import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
@@ -47,9 +46,9 @@ export default function Account() {
   ];
 
   // TODO: uncomment
-  if (user === null || user.isAnonymous) {
-    return <SignIn />;
-  }
+  // if (user === null || user.isAnonymous) {
+  //   return <SignIn />;
+  // }
 
   return (
     <ThemedView style={{ flex: 1 }}>
