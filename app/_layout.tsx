@@ -91,7 +91,12 @@ export default function RootLayout() {
           </ThemeProvider>
         </StripeProvider>
       </AuthProvider>
-      <Toast config={toastConfig} bottomOffset={100} />
+      <Toast
+        config={toastConfig}
+        bottomOffset={100}
+        position="bottom"
+        visibilityTime={3000}
+      />
     </>
   );
 }

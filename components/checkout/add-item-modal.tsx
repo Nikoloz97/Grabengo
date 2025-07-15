@@ -38,8 +38,6 @@ export default function ItemModal({
     Toast.show({
       type: "success",
       text2: `${item.name} has been added to your order!`,
-      position: "bottom",
-      visibilityTime: 3000,
     });
   };
 
