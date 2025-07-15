@@ -5,7 +5,7 @@ import { TextInputMask, TextInputMaskProps } from "react-native-masked-text";
 import { ThemedText } from "./themed-text";
 
 interface ThemedTextInputMaskProps extends TextInputMaskProps {
-  error?: string;
+  error: string | undefined;
 }
 
 export function ThemedTextInputMask(props: ThemedTextInputMaskProps) {

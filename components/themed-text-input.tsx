@@ -4,7 +4,7 @@ import { TextInput, TextInputProps, View } from "react-native";
 import { ThemedText } from "./themed-text";
 
 interface ThemedTextInputProps extends TextInputProps {
-  error?: string;
+  error: string | undefined;
 }
 
 export function ThemedTextInput(props: ThemedTextInputProps) {

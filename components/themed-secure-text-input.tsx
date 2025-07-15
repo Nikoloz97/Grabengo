@@ -10,7 +10,7 @@ import {
 import { ThemedText } from "./themed-text";
 
 interface ThemedSecureTextInputProps extends TextInputProps {
-  error?: string;
+  error: string | undefined;
 }
 
 export function ThemedSecureTextInput(props: ThemedSecureTextInputProps) {

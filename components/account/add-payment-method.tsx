@@ -1,30 +1,34 @@
-import { NewCardDetails } from "@/types/user";
+import useFormValidation from "@/hooks/useFormValidation";
+import { addPaymentMethodSchema } from "@/schemas/addPaymentMethod";
 import React, { useState } from "react";
-import { Switch, View } from "react-native";
+import { Alert, Switch, View } from "react-native";
+import { z } from "zod";
 import { ThemedButton } from "../themed-button";
 import { ThemedSecureTextInput } from "../themed-secure-text-input";
 import { ThemedText } from "../themed-text";
 import { ThemedTextInput } from "../themed-text-input";
 import { ThemedView } from "../themed-view";
 
-interface AddPaymentMethodFormProps {
-  onAdd: (newCardDetails: NewCardDetails) => void;
-}
+type AddPaymentMethodFields = z.infer<typeof addPaymentMethodSchema>;
 
-export default function AddPaymentMethodForm({
-  onAdd,
-}: AddPaymentMethodFormProps) {
+export default function AddPaymentMethodForm() {
   const [cardNumber, setCardNumber] = useState("");
   const [securityCode, setSecurityCode] = useState("");
   const [name, setName] = useState("");
   const [expMonth, setExpMonth] = useState("");
   const [expYear, setExpYear] = useState("");
-  const [addressLineOne, setAddressLineOne] = useState("");
-  const [addressLineTwo, setAddressLineTwo] = useState("");
-  const [state, setState] = useState("");
   const [postalCode, setPostalCode] = useState("");
-  const [country, setCountry] = useState("");
   const [isDefault, setIsDefault] = useState(false);
+
+  const { errors, validateForm, clearFieldError } =
+    useFormValidation<AddPaymentMethodFields>();
+
+  const addPaymentMethod = (input: AddPaymentMethodFields) => {
+    const validatedData = validateForm(addPaymentMethodSchema, input);
+    if (!validatedData) return;
+
+    Alert.alert("Payment Method Added!");
+  };
 
   return (
     // margin gives user room to select buttons when keyboard is open
@@ -40,68 +44,68 @@ export default function AddPaymentMethodForm({
         placeholder="Card Number"
         keyboardType="numeric"
         value={cardNumber}
-        onChangeText={setCardNumber}
+        onChangeText={(text) => {
+          setCardNumber(text);
+          clearFieldError("cardNumber");
+        }}
+        error={errors.cardNumber}
       />
 
       <ThemedSecureTextInput
         placeholder="Security Code"
         keyboardType="numeric"
         value={securityCode}
-        onChangeText={setSecurityCode}
+        onChangeText={(text) => {
+          setSecurityCode(text);
+          clearFieldError("securityCode");
+        }}
+        error={errors.securityCode}
       />
 
       <ThemedTextInput
         placeholder="Cardholder Name"
         value={name}
-        onChangeText={setName}
+        onChangeText={(text) => {
+          setName(text);
+          clearFieldError("name");
+        }}
+        error={errors.name}
       />
 
       <View style={{ flexDirection: "row", gap: 10 }}>
         <ThemedTextInput
           placeholder="MM"
-          value={expMonth}
-          onChangeText={setExpMonth}
           keyboardType="numeric"
+          value={expMonth}
+          onChangeText={(text) => {
+            setExpMonth(text);
+            clearFieldError("expMonth");
+          }}
+          error={errors.expMonth}
           style={{ flex: 1, padding: 10 }}
         />
 
         <ThemedTextInput
           placeholder="YYYY"
           value={expYear}
-          onChangeText={setExpYear}
           keyboardType="numeric"
+          onChangeText={(text) => {
+            setExpYear(text);
+            clearFieldError("expYear");
+          }}
+          error={errors.expYear}
           style={{ flex: 2, padding: 10 }}
         />
       </View>
 
       <ThemedTextInput
-        placeholder="Address Line 1"
-        value={addressLineOne}
-        onChangeText={setAddressLineOne}
-      />
-
-      <ThemedTextInput
-        placeholder="Address Line 2 (Optional)"
-        value={addressLineTwo}
-        onChangeText={setAddressLineTwo}
-      />
-
-      <ThemedTextInput
-        placeholder="State"
-        value={state}
-        onChangeText={setState}
-      />
-
-      <ThemedTextInput
         placeholder="Postal Code"
         value={postalCode}
-        onChangeText={setPostalCode}
-      />
-
-      <ThemedTextInput
-        placeholder="Country"
-        value={country}
-        onChangeText={setCountry}
+        onChangeText={(text) => {
+          setPostalCode(text);
+          clearFieldError("postalCode");
+        }}
+        error={errors.postalCode}
       />
 
       <ThemedView
@@ -119,17 +123,13 @@ export default function AddPaymentMethodForm({
         title="Add Card"
         style={{ marginTop: 20 }}
         onPress={() =>
-          onAdd({
+          addPaymentMethod({
             cardNumber,
             securityCode,
             name,
             expMonth,
             expYear,
-            addressLineOne,
-            addressLineTwo,
-            state,
             postalCode,
-            country,
             isDefault,
           })
         }

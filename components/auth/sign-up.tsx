@@ -38,21 +38,8 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
   const { errors, validateForm, clearFieldError } =
     useFormValidation<SignUpFields>();
 
-  const handleSignup = () => {
-    const validatedData = validateForm(signUpSchema, {
-      email,
-      password,
-      confirmPassword,
-      firstName,
-      lastName,
-      birthDate,
-      addressLineOne,
-      addressLineTwo,
-      city,
-      postalCode,
-      state,
-      country,
-    });
+  const handleSignup = (input: SignUpFields) => {
+    const validatedData = validateForm(signUpSchema, input);
     if (!validatedData) return;
 
     Alert.alert("Signed up!");
@@ -202,7 +189,22 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
 
         <ThemedButton
           title="Sign up"
-          onPress={handleSignup}
+          onPress={() =>
+            handleSignup({
+              email,
+              password,
+              confirmPassword,
+              firstName,
+              lastName,
+              birthDate,
+              addressLineOne,
+              addressLineTwo,
+              city,
+              postalCode,
+              state,
+              country,
+            })
+          }
           style={{ marginTop: 20 }}
         />
         <TouchableOpacity onPress={() => setIsSignUpPressed(false)}>

@@ -24,10 +24,6 @@ export default function PaymentMethodsModal({
 
   const [isAddPaymentChosen, setIsAddPaymentChosen] = useState<boolean>(false);
 
-  const addPaymentMethod = () => {
-    Alert.alert("Payment Method Added!");
-  };
-
   const updatePaymentMethod = () => {
     Alert.alert("Payment Method Updated!");
   };
@@ -89,7 +85,7 @@ export default function PaymentMethodsModal({
             onRemove={removePaymentMethod}
           />
         ) : isAddPaymentChosen ? (
-          <AddPaymentMethodForm onAdd={addPaymentMethod} />
+          <AddPaymentMethodForm />
         ) : (
           <PaymentMethodOptions
             setSelectedPaymentMethod={setSelectedPaymentMethod}
