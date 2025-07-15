@@ -5,10 +5,20 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useState } from "react";
 import { Alert, TouchableOpacity } from "react-native";
+import { z } from "zod";
 import { ThemedSecureTextInput } from "../themed-secure-text-input";
 import { ThemedTextInput } from "../themed-text-input";
 import ForgotPassword from "./forgot-password";
 import SignUp from "./sign-up";
+
+const signInSchema = z.object({
+  email: z.email({ message: "Invalid email address" }),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters" }),
+});
+
+type SignInFields = z.infer<typeof signInSchema>;
 
 export default function SignIn() {
   const [isSignUpPressed, setIsSignUpPressed] = useState(false);
@@ -17,7 +27,29 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof SignInFields, string>>
+  >({});
+
   const handleSignIn = () => {
+    const result = signInSchema.safeParse({ email, password });
+
+    // TODO: Make this reusable??
+    if (!result.success) {
+      const fieldErrors: Partial<Record<keyof SignInFields, string>> = {};
+
+      for (const issue of result.error.issues) {
+        const field = issue.path[0] as keyof SignInFields;
+        if (!fieldErrors[field]) {
+          fieldErrors[field] = issue.message;
+        }
+      }
+
+      setErrors(fieldErrors);
+      return;
+    }
+
+    setErrors({});
     Alert.alert("Signed in!");
   };
 
@@ -42,13 +74,21 @@ export default function SignIn() {
           placeholder="Email"
           keyboardType="email-address"
           value={email}
-          onChangeText={setEmail}
+          onChangeText={(text) => {
+            setEmail(text);
+            setErrors((prev) => ({ ...prev, email: undefined }));
+          }}
+          error={errors.email}
         />
 
         <ThemedSecureTextInput
           placeholder="*Password"
           value={password}
-          onChangeText={setPassword}
+          onChangeText={(text) => {
+            setPassword(text);
+            setErrors((prev) => ({ ...prev, password: undefined }));
+          }}
+          error={errors.password}
         />
 
         <TouchableOpacity onPress={() => setIsForgotPasswordPressed(true)}>

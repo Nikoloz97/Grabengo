@@ -125,6 +125,9 @@ importers:
       react-native-webview:
         specifier: 13.13.5
         version: 13.13.5(react-native@0.79.3(@babel/core@7.27.7)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      zod:
+        specifier: ^4.0.5
+        version: 4.0.5
     devDependencies:
       '@babel/core':
         specifier: ^7.27.4
@@ -5118,6 +5121,9 @@ packages:
 
   zod@3.25.67:
     resolution: {integrity: sha512-idA2YXwpCdqUSKRCACDE6ItZD9TZzy3OZMtpfLoh6oPR47lipysRrJfjzMqFxQ3uJuUPyUeWe1r9vLH33xO/Qw==}
+
+  zod@4.0.5:
+    resolution: {integrity: sha512-/5UuuRPStvHXu7RS+gmvRf4NXrNxpSllGwDnCBcJZtQsKrviYXm54yDGV2KYNLT5kq0lHGcl7lqWJLgSaG+tgA==}
 
 snapshots:
 
@@ -11373,3 +11379,5 @@ snapshots:
   yocto-queue@0.1.0: {}
 
   zod@3.25.67: {}
+
+  zod@4.0.5: {}

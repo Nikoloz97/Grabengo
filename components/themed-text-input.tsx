@@ -1,30 +1,46 @@
 import { useTheme } from "@react-navigation/native";
 import React from "react";
-import { TextInput, TextInputProps } from "react-native";
+import { TextInput, TextInputProps, View } from "react-native";
+import { ThemedText } from "./themed-text";
 
-export function ThemedTextInput(props: TextInputProps) {
-  const { style, placeholder, keyboardType = "default", ...otherProps } = props;
+interface ThemedTextInputProps extends TextInputProps {
+  error?: string;
+}
+
+export function ThemedTextInput(props: ThemedTextInputProps) {
+  const {
+    style,
+    placeholder,
+    keyboardType = "default",
+    error,
+    ...otherProps
+  } = props;
   const { colors } = useTheme();
 
   return (
-    <TextInput
-      style={[
-        {
-          fontSize: 18,
-          fontFamily: "DMSans_600SemiBold",
-          borderWidth: 0,
-          borderBottomWidth: 1,
-          borderColor: colors.border,
-          color: colors.text,
-          paddingVertical: 5,
-          marginBottom: 16,
-        },
-        style, // overrides
-      ]}
-      placeholderTextColor={colors.border}
-      placeholder={placeholder}
-      keyboardType={keyboardType}
-      {...otherProps}
-    />
+    <View style={{ flex: 1 }}>
+      <TextInput
+        placeholderTextColor={colors.border}
+        placeholder={placeholder}
+        keyboardType={keyboardType}
+        style={[
+          {
+            fontSize: 18,
+            fontFamily: "DMSans_600SemiBold",
+            borderWidth: 0,
+            borderBottomWidth: 1,
+            borderColor: colors.border,
+            color: colors.text,
+            paddingVertical: 5,
+            marginBottom: 16,
+          },
+          style, // overrides
+        ]}
+        {...otherProps}
+      />
+      <View style={{ height: 20 }}>
+        {error && <ThemedText style={{ color: "red" }}>{error}</ThemedText>}
+      </View>
+    </View>
   );
 }

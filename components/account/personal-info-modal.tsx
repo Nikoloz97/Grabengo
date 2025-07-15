@@ -97,9 +97,6 @@ export default function PersonalInfoModal({
           value={birthDate}
           onChangeText={(text) => setBirthDate(text)}
           placeholder="Birth Date (MM/DD/YYYY)"
-          style={{
-            marginTop: 30,
-          }}
         />
         <ThemedTextInput
           placeholder="Address Line 1"
