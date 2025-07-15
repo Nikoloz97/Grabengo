@@ -4,7 +4,7 @@ import { personalInfoSchema } from "@/schemas/personal-info";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { format } from "date-fns";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Alert, ScrollView, TouchableOpacity, View } from "react-native";
 import { z } from "zod";
 import { ThemedButton } from "../themed-button";
@@ -45,18 +45,48 @@ export default function PersonalInfoModal({
   const { errors, validateForm, clearFieldError } =
     useFormValidation<PersonalInfoFields>();
 
-  const handlePersonalInfoEdit = (updatedUser: any) => {
-    const validatedData = validateForm(personalInfoSchema, {
-      firstName,
-      lastName,
-      birthDate,
-      addressLineOne,
-      addressLineTwo,
-      city,
-      postalCode,
-      state,
-      country,
-    });
+  const originalValues = useMemo(
+    () => ({
+      firstName: user.firstName || "",
+      lastName: user.lastName || "",
+      birthDate: format(user.birthDate, "MM/dd/yyyy") || "",
+      addressLineOne: user.addressLineOne || "",
+      addressLineTwo: user.addressLineTwo || "",
+      city: user.city || "",
+      postalCode: user.postalCode || "",
+      state: user.state || "",
+      country: user.country || "",
+    }),
+    []
+  );
+
+  const hasChanges = useMemo(() => {
+    return (
+      firstName !== originalValues.firstName ||
+      lastName !== originalValues.lastName ||
+      birthDate !== originalValues.birthDate ||
+      addressLineOne !== originalValues.addressLineOne ||
+      addressLineTwo !== originalValues.addressLineTwo ||
+      city !== originalValues.city ||
+      postalCode !== originalValues.postalCode ||
+      state !== originalValues.state ||
+      country !== originalValues.country
+    );
+  }, [
+    firstName,
+    lastName,
+    birthDate,
+    addressLineOne,
+    addressLineTwo,
+    city,
+    postalCode,
+    state,
+    country,
+    originalValues,
+  ]);
+
+  const handlePersonalInfoEdit = (updatedUser: PersonalInfoFields) => {
+    const validatedData = validateForm(personalInfoSchema, updatedUser);
     if (!validatedData) return;
 
     Alert.alert("Personal Info Edited!");
@@ -195,6 +225,7 @@ export default function PersonalInfoModal({
         <ThemedButton
           title="Save Changes"
           style={{ marginTop: 20 }}
+          disabled={!hasChanges}
           onPress={() =>
             handlePersonalInfoEdit({
               firstName,
