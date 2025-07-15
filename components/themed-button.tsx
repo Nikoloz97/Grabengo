@@ -14,7 +14,14 @@ interface ThemedButtonProps extends TouchableOpacityProps {
 }
 
 export function ThemedButton(props: ThemedButtonProps) {
-  const { style, type = "primary", title, textStyle, ...otherProps } = props;
+  const {
+    style,
+    type = "primary",
+    title,
+    textStyle,
+    disabled = false,
+    ...otherProps
+  } = props;
   const { colors } = useTheme();
 
   const getButtonStyle = () => {
@@ -80,6 +87,7 @@ export function ThemedButton(props: ThemedButtonProps) {
       style={[
         getButtonStyle(),
         style,
+        disabled && { opacity: 0.5 },
         Platform.select({
           ios: {
             shadowColor: "rgb(0, 0, 0)",
@@ -92,6 +100,7 @@ export function ThemedButton(props: ThemedButtonProps) {
           },
         }),
       ]}
+      disabled={disabled}
       {...otherProps}
     >
       <Text

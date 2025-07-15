@@ -2,7 +2,7 @@ import { capitalizeWord } from "@/hooks/formatters";
 import useFormValidation from "@/hooks/useFormValidation";
 import { editPaymentMethodSchema } from "@/schemas/edit-payment-method";
 import { PaymentMethod } from "@/types/user";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Alert, Switch, View } from "react-native";
 import { z } from "zod";
 import { ThemedButton } from "../themed-button";
@@ -37,6 +37,28 @@ export default function EditPaymentMethodForm({
 
   const { errors, validateForm, clearFieldError } =
     useFormValidation<EditPaymentMethodFields>();
+
+  const originalValues = useMemo(
+    () => ({
+      name: selectedPaymentMethod.billing_details.name || "",
+      expMonth: String(selectedPaymentMethod.card.exp_month),
+      expYear: String(selectedPaymentMethod.card.exp_year),
+      postalCode:
+        selectedPaymentMethod.billing_details.address.postal_code || "",
+      isDefault: selectedPaymentMethod.isDefault || false,
+    }),
+    [selectedPaymentMethod]
+  );
+
+  const hasChanges = useMemo(() => {
+    return (
+      name !== originalValues.name ||
+      expMonth !== originalValues.expMonth ||
+      expYear !== originalValues.expYear ||
+      postalCode !== originalValues.postalCode ||
+      isDefault !== originalValues.isDefault
+    );
+  }, [name, expMonth, expYear, postalCode, isDefault, originalValues]);
 
   const handleEditPaymentMethod = (
     paymentMethodInput: EditPaymentMethodFields
@@ -132,6 +154,7 @@ export default function EditPaymentMethodForm({
       <ThemedButton
         title="Save Changes"
         style={{ marginTop: 20 }}
+        disabled={!hasChanges}
         onPress={() =>
           handleEditPaymentMethod({
             name,
