@@ -13,9 +13,6 @@ import SignUp from "./sign-up";
 
 const signInSchema = z.object({
   email: z.email({ message: "Invalid email address" }),
-  password: z
-    .string()
-    .min(6, { message: "Password must be at least 6 characters" }),
 });
 
 type SignInFields = z.infer<typeof signInSchema>;
@@ -32,7 +29,7 @@ export default function SignIn() {
   >({});
 
   const handleSignIn = () => {
-    const result = signInSchema.safeParse({ email, password });
+    const result = signInSchema.safeParse({ email });
 
     // TODO: Make this reusable??
     if (!result.success) {
@@ -84,11 +81,7 @@ export default function SignIn() {
         <ThemedSecureTextInput
           placeholder="*Password"
           value={password}
-          onChangeText={(text) => {
-            setPassword(text);
-            setErrors((prev) => ({ ...prev, password: undefined }));
-          }}
-          error={errors.password}
+          onChangeText={(text) => setPassword(text)}
         />
 
         <TouchableOpacity onPress={() => setIsForgotPasswordPressed(true)}>
