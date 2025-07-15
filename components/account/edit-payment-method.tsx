@@ -1,41 +1,58 @@
 import { capitalizeWord } from "@/hooks/formatters";
+import useFormValidation from "@/hooks/useFormValidation";
+import { editPaymentMethodSchema } from "@/schemas/editPaymentMethod";
 import { PaymentMethod } from "@/types/user";
 import React, { useState } from "react";
-import { Switch, View } from "react-native";
+import { Alert, Switch, View } from "react-native";
+import { z } from "zod";
 import { ThemedButton } from "../themed-button";
 import { ThemedText } from "../themed-text";
 import { ThemedTextInput } from "../themed-text-input";
 import { ThemedView } from "../themed-view";
 
 interface EditPaymentMethodFormProps {
-  paymentMethod: PaymentMethod;
-  onSave: (updates: any) => void;
-  onRemove: () => void;
+  selectedPaymentMethod: PaymentMethod;
 }
 
+type EditPaymentMethodFields = z.infer<typeof editPaymentMethodSchema>;
+
 export default function EditPaymentMethodForm({
-  paymentMethod,
-  onSave,
-  onRemove,
+  selectedPaymentMethod,
 }: EditPaymentMethodFormProps) {
-  const [name, setName] = useState(paymentMethod.billing_details.name || "");
+  const [name, setName] = useState(
+    selectedPaymentMethod.billing_details.name || ""
+  );
   const [expMonth, setExpMonth] = useState(
-    String(paymentMethod.card.exp_month)
+    String(selectedPaymentMethod.card.exp_month)
   );
-  const [expYear, setExpYear] = useState(String(paymentMethod.card.exp_year));
-  const [addressLineOne, setAddressLineOne] = useState(
-    paymentMethod.billing_details.address?.line1 || ""
-  );
-  const [addressLineTwo, setAddressLineTwo] = useState(
-    paymentMethod.billing_details.address?.line2 || ""
-  );
-  const [state, setState] = useState(
-    paymentMethod.billing_details.address.state || ""
+  const [expYear, setExpYear] = useState(
+    String(selectedPaymentMethod.card.exp_year)
   );
   const [postalCode, setPostalCode] = useState(
-    paymentMethod.billing_details.address.postal_code || ""
+    selectedPaymentMethod.billing_details.address.postal_code || ""
   );
-  const [isDefault, setIsDefault] = useState(paymentMethod.isDefault || false);
+  const [isDefault, setIsDefault] = useState(
+    selectedPaymentMethod.isDefault || false
+  );
+
+  const { errors, validateForm, clearFieldError } =
+    useFormValidation<EditPaymentMethodFields>();
+
+  const handleEditPaymentMethod = (
+    paymentMethodInput: EditPaymentMethodFields
+  ) => {
+    const validatedData = validateForm(
+      editPaymentMethodSchema,
+      paymentMethodInput
+    );
+    if (!validatedData) return;
+
+    Alert.alert("Payment Method Edited!");
+  };
+
+  const handleDeletePaymentMethod = (paymentMethodId: string) => {
+    Alert.alert("Payment Method Removed!");
+  };
 
   return (
     // margin gives user room to select buttons when keyboard is open
@@ -51,56 +68,54 @@ export default function EditPaymentMethodForm({
         type="faint"
         style={{ fontSize: 25, fontWeight: "600", marginBottom: 20 }}
       >
-        {capitalizeWord(paymentMethod.card.brand)} ••••
-        {paymentMethod.card.last4}
+        {capitalizeWord(selectedPaymentMethod.card.brand)} ••••
+        {selectedPaymentMethod.card.last4}
       </ThemedText>
 
       <ThemedTextInput
         placeholder="Cardholder Name"
         value={name}
-        onChangeText={setName}
+        onChangeText={(text) => {
+          setName(text);
+          clearFieldError("name");
+        }}
+        error={errors.name}
       />
 
       <View style={{ flexDirection: "row", gap: 10 }}>
         <ThemedTextInput
           placeholder="MM"
           value={expMonth}
-          onChangeText={setExpMonth}
           keyboardType="numeric"
+          onChangeText={(text) => {
+            setExpMonth(text);
+            clearFieldError("expMonth");
+          }}
+          error={errors.expMonth}
           style={{ flex: 1, padding: 10 }}
         />
 
         <ThemedTextInput
           placeholder="YYYY"
           value={expYear}
-          onChangeText={setExpYear}
           keyboardType="numeric"
+          onChangeText={(text) => {
+            setExpYear(text);
+            clearFieldError("expYear");
+          }}
+          error={errors.expYear}
           style={{ flex: 2, padding: 10 }}
         />
       </View>
 
       <ThemedTextInput
-        placeholder="Address Line 1"
-        value={addressLineOne}
-        onChangeText={setAddressLineOne}
-      />
-
-      <ThemedTextInput
-        placeholder="Address Line 2 (Optional)"
-        value={addressLineTwo}
-        onChangeText={setAddressLineTwo}
-      />
-
-      <ThemedTextInput
-        placeholder="State"
-        value={state}
-        onChangeText={setState}
-      />
-
-      <ThemedTextInput
         placeholder="Postal Code"
         value={postalCode}
-        onChangeText={setPostalCode}
+        onChangeText={(text) => {
+          setPostalCode(text);
+          clearFieldError("postalCode");
+        }}
+        error={errors.postalCode}
       />
 
       <ThemedView
@@ -118,12 +133,11 @@ export default function EditPaymentMethodForm({
         title="Save Changes"
         style={{ marginTop: 20 }}
         onPress={() =>
-          onSave({
+          handleEditPaymentMethod({
             name,
             expMonth,
             expYear,
-            addressLineOne,
-            addressLineTwo,
+            postalCode,
             isDefault,
           })
         }
@@ -132,7 +146,7 @@ export default function EditPaymentMethodForm({
       <ThemedButton
         title="Remove Card"
         type="danger"
-        onPress={onRemove}
+        onPress={() => handleDeletePaymentMethod(selectedPaymentMethod.id)}
         style={{ marginTop: 20 }}
       />
     </View>

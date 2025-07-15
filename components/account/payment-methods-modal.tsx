@@ -2,7 +2,7 @@ import { PaymentMethod } from "@/types/user";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import React, { useState } from "react";
-import { Alert, ScrollView, TouchableOpacity, View } from "react-native";
+import { ScrollView, TouchableOpacity, View } from "react-native";
 import { ThemedModal } from "../themed-modal";
 import AddPaymentMethodForm from "./add-payment-method";
 import EditPaymentMethodForm from "./edit-payment-method";
@@ -23,14 +23,6 @@ export default function PaymentMethodsModal({
     useState<PaymentMethod | null>(null);
 
   const [isAddPaymentChosen, setIsAddPaymentChosen] = useState<boolean>(false);
-
-  const updatePaymentMethod = () => {
-    Alert.alert("Payment Method Updated!");
-  };
-
-  const removePaymentMethod = () => {
-    Alert.alert("Payment Method Removed!");
-  };
 
   const handleBack = () => {
     setSelectedPaymentMethod(null);
@@ -80,9 +72,7 @@ export default function PaymentMethodsModal({
       >
         {selectedPaymentMethod ? (
           <EditPaymentMethodForm
-            paymentMethod={selectedPaymentMethod}
-            onSave={updatePaymentMethod}
-            onRemove={removePaymentMethod}
+            selectedPaymentMethod={selectedPaymentMethod}
           />
         ) : isAddPaymentChosen ? (
           <AddPaymentMethodForm />
