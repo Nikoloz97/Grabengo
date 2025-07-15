@@ -3,7 +3,7 @@ import { dollarFormatter } from "@/hooks/formatters";
 import { CartItem } from "@/types/menu";
 import { useTheme } from "@react-navigation/native";
 import { Image } from "expo-image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { ThemedButton } from "../themed-button";
 import { ThemedModal } from "../themed-modal";
@@ -23,6 +23,10 @@ export default function EditItemModal({
   const { colors } = useTheme();
   const [quantity, setQuantity] = useState(item ? item.quantity : 1);
   const { editCart } = useCart();
+
+  const hasChanges = useMemo(() => {
+    return quantity !== item.quantity;
+  }, [quantity, item]);
 
   useEffect(() => {
     if (item) {
@@ -131,10 +135,11 @@ export default function EditItemModal({
               <ThemedText style={{ color: "#fff", fontSize: 18 }}>+</ThemedText>
             </TouchableOpacity>
           </View>
-          {/* Add to Order Button */}
+          {/* Edit Order Button */}
           <ThemedButton
             title="Edit Order"
             type="primary"
+            disabled={!hasChanges}
             onPress={() => {
               editOrder(item.id, quantity);
             }}
