@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { trimmedString } from ".";
 
 const birthDateSchema = z
   .string()
@@ -6,6 +7,8 @@ const birthDateSchema = z
   .refine(
     (value) => {
       if (!value || value.trim() === "") return true; // allow empty
+
+      if (value.includes(" ")) return false; // don't allow spaces
 
       // check if string matches expected MM/DD/YYYY format
       const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
@@ -42,13 +45,13 @@ const birthDateSchema = z
   );
 
 export const personalInfoSchema = z.object({
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
+  firstName: trimmedString(undefined, 50).optional(),
+  lastName: trimmedString(undefined, 50).optional(),
   birthDate: birthDateSchema,
-  addressLineOne: z.string().optional(),
-  addressLineTwo: z.string().optional(),
-  city: z.string().optional(),
-  postalCode: z.string().optional(),
-  state: z.string().optional(),
-  country: z.string().optional(),
+  addressLineOne: trimmedString(undefined, 100).optional(),
+  addressLineTwo: trimmedString(undefined, 100).optional(),
+  city: trimmedString(undefined, 50).optional(),
+  postalCode: trimmedString(undefined, 10).optional(),
+  state: trimmedString(undefined, 50).optional(),
+  country: trimmedString(undefined, 56).optional(),
 });

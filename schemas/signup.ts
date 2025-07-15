@@ -1,9 +1,11 @@
 import { z } from "zod";
+import { trimmedString } from ".";
 
 const passwordSchema = z
   .string()
   .min(8, { message: "Password must be at least 8 characters" })
   .max(128, { message: "Password must be less than 128 characters" })
+  .refine((value) => !value.includes(" "), { message: "No spaces allowed" })
   .refine((value) => /[a-z]/.test(value), {
     message: "Password must contain at least one lowercase letter",
   })
@@ -28,15 +30,17 @@ const birthDateSchema = z
     (value) => {
       if (!value || value.trim() === "") return true; // allow empty
 
+      if (value.includes(" ")) return false; // don't allow spaces
+
       // check if string matches expected MM/DD/YYYY format
       const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
       if (!dateRegex.test(value)) return false;
 
-      // Parse date
+      // parse date
       const [month, day, year] = value.split("/").map(Number);
       const date = new Date(year, month - 1, day);
 
-      // Check if it's a valid date
+      // check if it's a valid date
       return (
         date.getFullYear() === year &&
         date.getMonth() === month - 1 &&
@@ -50,6 +54,8 @@ const birthDateSchema = z
   .refine(
     (value) => {
       if (!value || value.trim() === "") return true; // allow empty/optional
+
+      if (value.includes(" ")) return false; // don't allow spaces
 
       const [month, day, year] = value.split("/").map(Number);
       const date = new Date(year, month - 1, day);
@@ -67,15 +73,15 @@ export const signUpSchema = z
     email: z.email({ message: "Invalid email address" }),
     password: passwordSchema,
     confirmPassword: z.string(),
-    firstName: z.string().optional(),
-    lastName: z.string().optional(),
+    firstName: trimmedString(undefined, 50).optional(),
+    lastName: trimmedString(undefined, 50).optional(),
     birthDate: birthDateSchema,
-    addressLineOne: z.string().optional(),
-    addressLineTwo: z.string().optional(),
-    city: z.string().optional(),
-    postalCode: z.string().optional(),
-    state: z.string().optional(),
-    country: z.string().optional(),
+    addressLineOne: trimmedString(undefined, 100).optional(),
+    addressLineTwo: trimmedString(undefined, 100).optional(),
+    city: trimmedString(undefined, 50).optional(),
+    postalCode: trimmedString(undefined, 10).optional(),
+    state: trimmedString(undefined, 50).optional(),
+    country: trimmedString(undefined, 56).optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
