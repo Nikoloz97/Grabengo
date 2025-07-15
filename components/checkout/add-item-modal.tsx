@@ -5,6 +5,7 @@ import { useTheme } from "@react-navigation/native";
 import { Image } from "expo-image";
 import React, { useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { ThemedButton } from "../themed-button";
 import { ThemedModal } from "../themed-modal";
 import { ThemedText } from "../themed-text";
@@ -34,6 +35,12 @@ export default function ItemModal({
   const addToOrder = (item: Item, quantity: number) => {
     addToCart({ ...item, quantity });
     resetModal();
+    Toast.show({
+      type: "success",
+      text2: `${item.name} has been added to your order!`,
+      position: "bottom",
+      visibilityTime: 3000,
+    });
   };
 
   return (
