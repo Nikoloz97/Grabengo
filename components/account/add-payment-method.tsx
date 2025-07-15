@@ -1,5 +1,5 @@
 import useFormValidation from "@/hooks/useFormValidation";
-import { addPaymentMethodSchema } from "@/schemas/addPaymentMethod";
+import { addPaymentMethodSchema } from "@/schemas/add-payment-method";
 import React, { useState } from "react";
 import { Alert, Switch, View } from "react-native";
 import { z } from "zod";

@@ -1,6 +1,6 @@
 import { capitalizeWord } from "@/hooks/formatters";
 import useFormValidation from "@/hooks/useFormValidation";
-import { editPaymentMethodSchema } from "@/schemas/editPaymentMethod";
+import { editPaymentMethodSchema } from "@/schemas/edit-payment-method";
 import { PaymentMethod } from "@/types/user";
 import React, { useState } from "react";
 import { Alert, Switch, View } from "react-native";

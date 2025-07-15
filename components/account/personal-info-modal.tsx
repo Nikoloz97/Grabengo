@@ -1,6 +1,6 @@
 import { user } from "@/constants/temporary/user";
 import useFormValidation from "@/hooks/useFormValidation";
-import { personalInfoSchema } from "@/schemas/personalInfo";
+import { personalInfoSchema } from "@/schemas/personal-info";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { format } from "date-fns";
