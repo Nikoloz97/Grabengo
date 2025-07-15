@@ -33,7 +33,6 @@ export function ThemedSecureTextInput(props: ThemedSecureTextInputProps) {
           borderWidth: 0,
           borderBottomWidth: 1,
           borderColor: colors.border,
-          marginBottom: 16,
           width: "100%",
         }}
       >
@@ -46,10 +45,7 @@ export function ThemedSecureTextInput(props: ThemedSecureTextInputProps) {
             fontFamily: "DMSans_600SemiBold",
             flex: 1,
             width: "100%",
-            borderBottomWidth: 0,
-            marginBottom: 0,
             fontSize: 18,
-            borderWidth: 0,
             borderColor: colors.border,
             color: colors.text,
             paddingVertical: 5,
@@ -67,7 +63,7 @@ export function ThemedSecureTextInput(props: ThemedSecureTextInputProps) {
           />
         </TouchableOpacity>
       </View>
-      <View style={{ height: 20 }}>
+      <View style={{ minHeight: 20, marginBottom: 16 }}>
         {error && <ThemedText style={{ color: "red" }}>{error}</ThemedText>}
       </View>
     </View>

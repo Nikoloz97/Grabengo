@@ -32,13 +32,12 @@ export function ThemedTextInput(props: ThemedTextInputProps) {
             borderColor: colors.border,
             color: colors.text,
             paddingVertical: 5,
-            marginBottom: 16,
           },
           style, // overrides
         ]}
         {...otherProps}
       />
-      <View style={{ height: 20 }}>
+      <View style={{ height: 20, marginBottom: 16 }}>
         {error && <ThemedText style={{ color: "red" }}>{error}</ThemedText>}
       </View>
     </View>

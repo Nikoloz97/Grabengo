@@ -3,6 +3,7 @@ import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
+import useFormValidation from "@/hooks/useFormValidation";
 import { useState } from "react";
 import { Alert, TouchableOpacity } from "react-native";
 import { z } from "zod";
@@ -24,29 +25,14 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [errors, setErrors] = useState<
-    Partial<Record<keyof SignInFields, string>>
-  >({});
+  const { errors, validateForm, clearFieldError } =
+    useFormValidation<SignInFields>();
 
   const handleSignIn = () => {
-    const result = signInSchema.safeParse({ email });
+    const validatedData = validateForm(signInSchema, { email });
 
-    // TODO: Make this reusable??
-    if (!result.success) {
-      const fieldErrors: Partial<Record<keyof SignInFields, string>> = {};
+    if (!validatedData) return;
 
-      for (const issue of result.error.issues) {
-        const field = issue.path[0] as keyof SignInFields;
-        if (!fieldErrors[field]) {
-          fieldErrors[field] = issue.message;
-        }
-      }
-
-      setErrors(fieldErrors);
-      return;
-    }
-
-    setErrors({});
     Alert.alert("Signed in!");
   };
 
@@ -73,7 +59,7 @@ export default function SignIn() {
           value={email}
           onChangeText={(text) => {
             setEmail(text);
-            setErrors((prev) => ({ ...prev, email: undefined }));
+            clearFieldError("email");
           }}
           error={errors.email}
         />
@@ -81,7 +67,7 @@ export default function SignIn() {
         <ThemedSecureTextInput
           placeholder="*Password"
           value={password}
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={setPassword}
         />
 
         <TouchableOpacity onPress={() => setIsForgotPasswordPressed(true)}>
