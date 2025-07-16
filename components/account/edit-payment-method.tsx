@@ -3,7 +3,7 @@ import useFormValidation from "@/hooks/useFormValidation";
 import { editPaymentMethodSchema } from "@/schemas/edit-payment-method";
 import { PaymentMethod } from "@/types/user";
 import React, { useMemo, useState } from "react";
-import { Switch, View } from "react-native";
+import { Alert, Switch, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { z } from "zod";
 import { ThemedButton } from "../themed-button";
@@ -90,21 +90,34 @@ export default function EditPaymentMethodForm({
   };
 
   const handleDeletePaymentMethod = (paymentMethodId: string) => {
-    try {
-      Toast.show({
-        type: "success",
-        text1: "Success",
-        text2: "Payment Method Removed!",
-      });
-    } catch (error) {
-      Toast.show({
-        type: "error",
-        text1: "Error",
-        text2: "Failed to process. Please try again.",
-      });
-    } finally {
-      closeModal();
-    }
+    Alert.alert("Are you sure?", "This action cannot be undone", [
+      {
+        text: "Cancel",
+        onPress: () => {
+          return;
+        },
+      },
+      {
+        text: "Confirm",
+        onPress: () => {
+          try {
+            Toast.show({
+              type: "success",
+              text1: "Success",
+              text2: "Payment Method Removed!",
+            });
+          } catch (error) {
+            Toast.show({
+              type: "error",
+              text1: "Error",
+              text2: "Failed to process. Please try again.",
+            });
+          } finally {
+            closeModal();
+          }
+        },
+      },
+    ]);
   };
 
   return (
