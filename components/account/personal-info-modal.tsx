@@ -4,8 +4,9 @@ import { personalInfoSchema } from "@/schemas/personal-info";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { format } from "date-fns";
-import React, { useMemo, useState } from "react";
-import { Alert, ScrollView, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useMemo, useState } from "react";
+import { ScrollView, TouchableOpacity, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { z } from "zod";
 import { ThemedButton } from "../themed-button";
 import { ThemedModal } from "../themed-modal";
@@ -60,6 +61,21 @@ export default function PersonalInfoModal({
     []
   );
 
+  // Reset form fields when modal opens
+  useEffect(() => {
+    if (isVisible) {
+      setFirstName(originalValues.firstName);
+      setLastName(originalValues.lastName);
+      setBirthDate(originalValues.birthDate);
+      setAddressLineOne(originalValues.addressLineOne);
+      setAddressLineTwo(originalValues.addressLineTwo);
+      setCity(originalValues.city);
+      setPostalCode(originalValues.postalCode);
+      setState(originalValues.state);
+      setCountry(originalValues.country);
+    }
+  }, [isVisible, originalValues]);
+
   const hasChanges = useMemo(() => {
     return (
       firstName !== originalValues.firstName ||
@@ -88,8 +104,21 @@ export default function PersonalInfoModal({
   const handlePersonalInfoEdit = (updatedUser: PersonalInfoFields) => {
     const validatedData = validateForm(personalInfoSchema, updatedUser);
     if (!validatedData) return;
-
-    Alert.alert("Personal Info Edited!");
+    try {
+      closeModal();
+      Toast.show({
+        type: "success",
+        text1: "Success",
+        text2: "Personal info updated!",
+      });
+    } catch (error) {
+      closeModal();
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Failed to process. Please try again.",
+      });
+    }
   };
 
   return (
