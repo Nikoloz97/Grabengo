@@ -1,5 +1,6 @@
 import React from "react";
 import { ScrollView, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { ThemedButton } from "../themed-button";
 import { ThemedModal } from "../themed-modal";
 import { ThemedText } from "../themed-text";
@@ -13,8 +14,22 @@ export default function SignOutModal({
   isVisible,
   closeModal,
 }: SignOutModalProps) {
-  const signOut = () => {
-    closeModal();
+  const handleSignOut = () => {
+    try {
+      Toast.show({
+        type: "success",
+        text1: "Success",
+        text2: "Signed out!",
+      });
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Failed to process. Please try again.",
+      });
+    } finally {
+      closeModal();
+    }
   };
 
   return (
@@ -38,9 +53,7 @@ export default function SignOutModal({
           <ThemedButton
             title="Confirm"
             type="primary"
-            onPress={() => {
-              signOut();
-            }}
+            onPress={handleSignOut}
           />
           <ThemedButton title="Cancel" type="primary" onPress={closeModal} />
         </View>
