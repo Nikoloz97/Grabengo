@@ -73,9 +73,10 @@ export default function PaymentMethodsModal({
         {selectedPaymentMethod ? (
           <EditPaymentMethodForm
             selectedPaymentMethod={selectedPaymentMethod}
+            closeModal={closeModal}
           />
         ) : isAddPaymentChosen ? (
-          <AddPaymentMethodForm />
+          <AddPaymentMethodForm closeModal={closeModal} />
         ) : (
           <PaymentMethodOptions
             setSelectedPaymentMethod={setSelectedPaymentMethod}

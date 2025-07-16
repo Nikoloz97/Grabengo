@@ -1,7 +1,8 @@
 import useFormValidation from "@/hooks/useFormValidation";
 import { addPaymentMethodSchema } from "@/schemas/add-payment-method";
 import React, { useState } from "react";
-import { Alert, Switch, View } from "react-native";
+import { Switch, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { z } from "zod";
 import { ThemedButton } from "../themed-button";
 import { ThemedSecureTextInput } from "../themed-secure-text-input";
@@ -9,9 +10,15 @@ import { ThemedText } from "../themed-text";
 import { ThemedTextInput } from "../themed-text-input";
 import { ThemedView } from "../themed-view";
 
+interface AddPaymentMethodFormProps {
+  closeModal: () => void;
+}
+
 type AddPaymentMethodFields = z.infer<typeof addPaymentMethodSchema>;
 
-export default function AddPaymentMethodForm() {
+export default function AddPaymentMethodForm({
+  closeModal,
+}: AddPaymentMethodFormProps) {
   const [cardNumber, setCardNumber] = useState("");
   const [securityCode, setSecurityCode] = useState("");
   const [name, setName] = useState("");
@@ -27,7 +34,21 @@ export default function AddPaymentMethodForm() {
     const validatedData = validateForm(addPaymentMethodSchema, input);
     if (!validatedData) return;
 
-    Alert.alert("Payment Method Added!");
+    try {
+      Toast.show({
+        type: "success",
+        text1: "Success",
+        text2: "Payment Method Added!",
+      });
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Failed to process. Please try again.",
+      });
+    } finally {
+      closeModal();
+    }
   };
 
   return (
@@ -99,6 +120,7 @@ export default function AddPaymentMethodForm() {
       </View>
 
       <ThemedTextInput
+        keyboardType="numeric"
         placeholder="Postal Code"
         value={postalCode}
         onChangeText={(text) => {

@@ -3,7 +3,8 @@ import useFormValidation from "@/hooks/useFormValidation";
 import { editPaymentMethodSchema } from "@/schemas/edit-payment-method";
 import { PaymentMethod } from "@/types/user";
 import React, { useMemo, useState } from "react";
-import { Alert, Switch, View } from "react-native";
+import { Switch, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { z } from "zod";
 import { ThemedButton } from "../themed-button";
 import { ThemedText } from "../themed-text";
@@ -12,12 +13,14 @@ import { ThemedView } from "../themed-view";
 
 interface EditPaymentMethodFormProps {
   selectedPaymentMethod: PaymentMethod;
+  closeModal: () => void;
 }
 
 type EditPaymentMethodFields = z.infer<typeof editPaymentMethodSchema>;
 
 export default function EditPaymentMethodForm({
   selectedPaymentMethod,
+  closeModal,
 }: EditPaymentMethodFormProps) {
   const [name, setName] = useState(
     selectedPaymentMethod.billing_details.name || ""
@@ -69,11 +72,39 @@ export default function EditPaymentMethodForm({
     );
     if (!validatedData) return;
 
-    Alert.alert("Payment Method Edited!");
+    try {
+      Toast.show({
+        type: "success",
+        text1: "Success",
+        text2: "Payment Method Edited!",
+      });
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Failed to process. Please try again.",
+      });
+    } finally {
+      closeModal();
+    }
   };
 
   const handleDeletePaymentMethod = (paymentMethodId: string) => {
-    Alert.alert("Payment Method Removed!");
+    try {
+      Toast.show({
+        type: "success",
+        text1: "Success",
+        text2: "Payment Method Removed!",
+      });
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Failed to process. Please try again.",
+      });
+    } finally {
+      closeModal();
+    }
   };
 
   return (
@@ -131,6 +162,7 @@ export default function EditPaymentMethodForm({
       </View>
 
       <ThemedTextInput
+        keyboardType="numeric"
         placeholder="Postal Code"
         value={postalCode}
         onChangeText={(text) => {
@@ -140,16 +172,19 @@ export default function EditPaymentMethodForm({
         error={errors.postalCode}
       />
 
-      <ThemedView
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginTop: 20,
-        }}
-      >
-        <ThemedText>Set as Default?</ThemedText>
-        <Switch onValueChange={setIsDefault} value={isDefault} />
-      </ThemedView>
+      {/* remove ability to remove a default payment */}
+      {!isDefault && (
+        <ThemedView
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: 20,
+          }}
+        >
+          <ThemedText>Set as Default?</ThemedText>
+          <Switch onValueChange={setIsDefault} value={isDefault} />
+        </ThemedView>
+      )}
 
       <ThemedButton
         title="Save Changes"

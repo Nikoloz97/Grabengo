@@ -35,7 +35,6 @@ export default function ItemModal({
   const addToOrder = (item: Item, quantity: number) => {
     try {
       addToCart({ ...item, quantity });
-      resetModal();
       Toast.show({
         type: "success",
         text1: "Success",
@@ -47,6 +46,8 @@ export default function ItemModal({
         text1: "Error",
         text2: "Failed to process. Please try again.",
       });
+    } finally {
+      resetModal();
     }
   };
 
