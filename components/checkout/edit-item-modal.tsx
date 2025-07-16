@@ -5,6 +5,7 @@ import { useTheme } from "@react-navigation/native";
 import { Image } from "expo-image";
 import React, { useEffect, useMemo, useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { ThemedButton } from "../themed-button";
 import { ThemedModal } from "../themed-modal";
 import { ThemedText } from "../themed-text";
@@ -42,8 +43,21 @@ export default function EditItemModal({
   };
 
   const editOrder = (itemId: number, quantity: number) => {
-    editCart(itemId, quantity);
-    resetModal();
+    try {
+      editCart(itemId, quantity);
+      resetModal();
+      Toast.show({
+        type: "success",
+        text1: "Success",
+        text2: `${item.name} edited!`,
+      });
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Failed to add item to order. Please try again.",
+      });
+    }
   };
 
   return (

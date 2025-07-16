@@ -33,12 +33,21 @@ export default function ItemModal({
   };
 
   const addToOrder = (item: Item, quantity: number) => {
-    addToCart({ ...item, quantity });
-    resetModal();
-    Toast.show({
-      type: "success",
-      text2: `${item.name} has been added to your order!`,
-    });
+    try {
+      addToCart({ ...item, quantity });
+      resetModal();
+      Toast.show({
+        type: "success",
+        text1: "Success",
+        text2: `${item.name} added to cart!`,
+      });
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Failed to add item to order. Please try again.",
+      });
+    }
   };
 
   return (
