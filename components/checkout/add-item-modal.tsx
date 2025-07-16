@@ -45,7 +45,7 @@ export default function ItemModal({
       Toast.show({
         type: "error",
         text1: "Error",
-        text2: "Failed to add item to order. Please try again.",
+        text2: "Failed to process. Please try again.",
       });
     }
   };

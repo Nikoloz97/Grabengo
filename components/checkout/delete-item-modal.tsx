@@ -4,6 +4,7 @@ import { CartItem } from "@/types/menu";
 import { Image } from "expo-image";
 import React from "react";
 import { ScrollView, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { ThemedButton } from "../themed-button";
 import { ThemedModal } from "../themed-modal";
 import { ThemedText } from "../themed-text";
@@ -27,9 +28,22 @@ export default function DeleteItemModal({
     setItem(null);
   };
 
-  const deleteOrder = (itemId: number) => {
-    removeFromCart(itemId);
-    resetModal();
+  const handleItemRemoval = (itemId: number, itemName: string) => {
+    try {
+      removeFromCart(itemId);
+      resetModal();
+      Toast.show({
+        type: "success",
+        text1: "Success",
+        text2: `${itemName} removed from cart!`,
+      });
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Failed to process. Please try again.",
+      });
+    }
   };
 
   return (
@@ -95,7 +109,7 @@ export default function DeleteItemModal({
             title="Confirm"
             type="primary"
             onPress={() => {
-              deleteOrder(item.id);
+              handleItemRemoval(item.id, item.name);
             }}
           />
         </View>
