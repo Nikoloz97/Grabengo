@@ -1,5 +1,6 @@
+import { router } from "expo-router";
 import React from "react";
-import { ScrollView, View } from "react-native";
+import { Alert, ScrollView, View } from "react-native";
 import { ThemedButton } from "../themed-button";
 import { ThemedModal } from "../themed-modal";
 import { ThemedText } from "../themed-text";
@@ -15,6 +16,17 @@ export default function DeleteAccountModal({
 }: DeleteAccountModalProps) {
   const deleteAccount = () => {
     closeModal();
+    router.push("/");
+    Alert.alert(
+      "Account Deleted!",
+      "If this was a mistake, please contact support",
+      [
+        {
+          text: "OK",
+          onPress: () => {},
+        },
+      ]
+    );
   };
 
   return (
