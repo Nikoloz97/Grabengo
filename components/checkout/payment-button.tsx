@@ -46,11 +46,10 @@ export const PaymentButton: React.FC<PaymentComponentProps> = ({
         throw new Error("Invalid order amount");
       }
       // creates payment intent for server (input = paymentIntentRequest; output = paymentIntentData)
-      // string = corresponding index.ts function
       const createPaymentIntent = httpsCallable<
         PaymentIntentRequest,
         PaymentIntentData
-      >(functions, "createPaymentIntent");
+      >(functions, "createPaymentIntent"); // string input = corresponding index.ts function
 
       const paymentData: PaymentIntentRequest = {
         amount: orderAmount,
@@ -82,11 +81,11 @@ export const PaymentButton: React.FC<PaymentComponentProps> = ({
         appearance: {
           colors: {
             // need to use hex values (see colors constant)
-            primary: "#6bd815",
+            primary: "#fcfcfc",
             background: "#1f1f1f",
             componentBackground: "#1f1f1f",
-            componentBorder: "#6bd815",
-            componentDivider: "#6bd815",
+            componentBorder: "#fcfcfc",
+            componentDivider: "#fcfcfc",
             primaryText: "#fcfcfc",
             secondaryText: "#fcfcfc",
             componentText: "#fcfcfc",
