@@ -4,13 +4,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { format } from "date-fns";
 import React from "react";
-import {
-  Alert,
-  Platform,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Platform, ScrollView, TouchableOpacity, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { ThemedModal } from "../themed-modal";
 import { ThemedText } from "../themed-text";
 import { ThemedView } from "../themed-view";
@@ -27,8 +22,22 @@ export default function RecentOrdersModal({
 }: RecentOrdersModalProps) {
   const { colors } = useTheme();
 
-  const addToOrder = () => {
-    Alert.alert("Added to order!");
+  const handleAddToOrder = () => {
+    try {
+      Toast.show({
+        type: "success",
+        text1: "Success",
+        text2: "Order added to cart!",
+      });
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Failed to process. Please try again.",
+      });
+    } finally {
+      closeModal();
+    }
   };
 
   if (recentOrders.length === 0) {
@@ -140,7 +149,7 @@ export default function RecentOrdersModal({
                     }}
                   >
                     <TouchableOpacity
-                      onPress={addToOrder}
+                      onPress={handleAddToOrder}
                       style={{
                         flex: 1,
                         justifyContent: "center",
