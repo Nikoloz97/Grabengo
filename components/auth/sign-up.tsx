@@ -229,7 +229,7 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
 
         <ThemedButton
           title="Sign up"
-          disabled={isLoading}
+          isLoading={isLoading}
           onPress={() =>
             handleSignup({
               email,

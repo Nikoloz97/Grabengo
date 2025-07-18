@@ -11,6 +11,7 @@ interface ThemedButtonProps extends TouchableOpacityProps {
   title: string;
   type?: "primary" | "secondary" | "danger";
   textStyle?: any;
+  isLoading?: boolean;
 }
 
 export function ThemedButton(props: ThemedButtonProps) {
@@ -20,6 +21,7 @@ export function ThemedButton(props: ThemedButtonProps) {
     title,
     textStyle,
     disabled = false,
+    isLoading,
     ...otherProps
   } = props;
   const { colors } = useTheme();
@@ -100,10 +102,10 @@ export function ThemedButton(props: ThemedButtonProps) {
           },
         }),
       ]}
-      disabled={disabled}
+      disabled={disabled || isLoading}
       {...otherProps}
     >
-      {disabled === null ? (
+      {isLoading === null ? (
         <Text
           style={[
             getTextStyle(),
@@ -121,7 +123,7 @@ export function ThemedButton(props: ThemedButtonProps) {
             { fontFamily: "DMSans_600SemiBold" },
           ]}
         >
-          {disabled ? "Processing..." : title}
+          {isLoading ? "Processing..." : title}
         </Text>
       )}
     </TouchableOpacity>
