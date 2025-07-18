@@ -9,6 +9,7 @@ import { stringToDate } from "@/hooks/formatters";
 import useFormValidation from "@/hooks/useFormValidation";
 import { signUpSchema } from "@/schemas/signup";
 import { useTheme } from "@react-navigation/native";
+import { router } from "expo-router";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
@@ -40,12 +41,19 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const { errors, validateForm, clearFieldError } =
     useFormValidation<SignUpFields>();
 
   const handleSignup = async (userData: SignUpFields) => {
+    setIsLoading(true);
     const validatedData = validateForm(signUpSchema, userData);
-    if (!validatedData) return;
+    if (!validatedData) {
+      errorToast(null, "Please address invalid form input");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -67,10 +75,13 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
         state: userData.state,
         country: userData.country,
       });
+      router.push("/");
       successToast("Signed up!");
       setIsSignUpPressed(false);
     } catch (error) {
       errorToast(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -218,6 +229,7 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
 
         <ThemedButton
           title="Sign up"
+          disabled={isLoading}
           onPress={() =>
             handleSignup({
               email,

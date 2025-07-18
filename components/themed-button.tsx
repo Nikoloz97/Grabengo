@@ -103,15 +103,27 @@ export function ThemedButton(props: ThemedButtonProps) {
       disabled={disabled}
       {...otherProps}
     >
-      <Text
-        style={[
-          getTextStyle(),
-          textStyle,
-          { fontFamily: "DMSans_600SemiBold" },
-        ]}
-      >
-        {title}
-      </Text>
+      {disabled === null ? (
+        <Text
+          style={[
+            getTextStyle(),
+            textStyle,
+            { fontFamily: "DMSans_600SemiBold" },
+          ]}
+        >
+          {title}
+        </Text>
+      ) : (
+        <Text
+          style={[
+            getTextStyle(),
+            textStyle,
+            { fontFamily: "DMSans_600SemiBold" },
+          ]}
+        >
+          {disabled ? "Processing..." : title}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 }
