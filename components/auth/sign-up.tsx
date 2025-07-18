@@ -3,11 +3,15 @@ import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
+import { auth, db } from "@/firebase/config";
+import { errorToast, successToast } from "@/hooks/default-toasts";
 import useFormValidation from "@/hooks/useFormValidation";
 import { signUpSchema } from "@/schemas/signup";
 import { useTheme } from "@react-navigation/native";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
-import { Alert, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { z } from "zod";
 import { ThemedSecureTextInput } from "../themed-secure-text-input";
 import { ThemedTextInput } from "../themed-text-input";
@@ -38,11 +42,35 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
   const { errors, validateForm, clearFieldError } =
     useFormValidation<SignUpFields>();
 
-  const handleSignup = (input: SignUpFields) => {
-    const validatedData = validateForm(signUpSchema, input);
+  const handleSignup = async (userData: SignUpFields) => {
+    const validatedData = validateForm(signUpSchema, userData);
     if (!validatedData) return;
 
-    Alert.alert("Signed up!");
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        birthDate: userData.birthDate,
+        addressLineOne: userData.addressLineOne,
+        addressLineTwo: userData.addressLineTwo,
+        city: userData.city,
+        postalCode: userData.postalCode,
+        state: userData.state,
+        country: userData.country,
+      });
+      successToast(`${process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID}`);
+      setIsSignUpPressed(false);
+    } catch (error) {
+      errorToast(error);
+    }
   };
 
   return (

@@ -3,6 +3,7 @@ import PaymentMethodsModal from "@/components/account/payment-methods-modal";
 import PersonalInfoModal from "@/components/account/personal-info-modal";
 import RecentOrdersModal from "@/components/account/recent-orders-modal";
 import SignOutModal from "@/components/account/sign-out-modal";
+import SignIn from "@/components/auth/sign-in";
 import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
@@ -12,7 +13,7 @@ import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 
 export default function Account() {
-  const { user } = useAuth();
+  const { user, userType } = useAuth();
 
   const [isPersonalInfoModalOpen, setIsPersonalInfoModalOpen] = useState(false);
   const [isPaymentMethodsModalOpen, setIsPaymentMethodsModalOpen] =
@@ -45,10 +46,9 @@ export default function Account() {
     },
   ];
 
-  // TODO: uncomment
-  // if (user === null || user.isAnonymous) {
-  //   return <SignIn />;
-  // }
+  if (user === null || user.isAnonymous || userType === null) {
+    return <SignIn />;
+  }
 
   return (
     <ThemedView style={{ flex: 1 }}>
@@ -57,8 +57,14 @@ export default function Account() {
       </ThemedHeaderView>
 
       <ThemedScrollView>
-        <ThemedText type="subtitle">Nick Gotsy</ThemedText>
-        <ThemedText style={{ marginTop: 10 }}>Nick.gotsy@gmail.com</ThemedText>
+        {userType.firstName && userType.lastName ? (
+          <View>
+            <ThemedText type="subtitle">{`${userType.firstName} ${userType.lastName}`}</ThemedText>
+            <ThemedText style={{ marginTop: 10 }}>{userType.email}</ThemedText>
+          </View>
+        ) : (
+          <ThemedText type="subtitle">{userType.email}</ThemedText>
+        )}
 
         <View style={{ marginTop: 40, gap: 5 }}>
           {options.map((option, index) => (

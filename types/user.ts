@@ -44,15 +44,17 @@ export interface PaymentMethod {
   isDefault: boolean;
 }
 
-export interface User {
+// not 'user' since conflicts with firebase auth
+export interface UserType {
   id?: string;
-  firstName: string;
-  lastName: string;
-  birthDate: Date;
-  addressLineOne: string;
-  addressLineTwo: string | null;
-  city: string;
-  postalCode: string;
-  state: string;
-  country: string;
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  birthDate?: Date;
+  addressLineOne?: string;
+  addressLineTwo?: string | null;
+  city?: string;
+  postalCode?: string;
+  state?: string;
+  country?: string;
 }

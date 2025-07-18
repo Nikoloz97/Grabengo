@@ -1,18 +1,22 @@
+import { UserType } from "@/types/user";
 import { onAuthStateChanged, signInAnonymously, User } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
-import { auth } from "../firebase/config";
+import { auth, db } from "../firebase/config";
 
 interface AuthContextType {
-  // TODO: user type needs additional properties
-  // firstName, lastName, email, password, birthDate, addressLineOne, addressLineTwo, city, zipCode, state, country
   user: User | null;
+  userType: UserType | null;
   isLoading: boolean;
+  setUserType: (user: UserType | null) => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
+  userType: null,
   isLoading: true,
+  setUserType: () => {},
 });
 
 interface AuthProviderProps {
@@ -21,38 +25,47 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [userType, setUserType] = useState<UserType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        // User is already signed in
+      if (user && !user.isAnonymous) {
         setUser(user);
         setIsLoading(false);
-        console.log(
-          "User authenticated:",
-          user.uid,
-          "Anonymous:",
-          user.isAnonymous
-        );
+        await fetchUserType(user.uid);
+        // already signed in anonymously (e.g. app restart)
+      } else if (user && user.isAnonymous) {
+        setUser(user);
+        setUserType(null);
+        // first time sign in
       } else {
         try {
           console.log("No user found, signing in anonymously...");
           const userCredential = await signInAnonymously(auth);
           setUser(userCredential.user);
-          console.log("Anonymous sign-in successful:", userCredential.user.uid);
         } catch (error) {
           console.error("Anonymous sign-in failed:", error);
-          // Still set loading to false even if sign-in fails
           setUser(null);
-        } finally {
-          setIsLoading(false);
+          setUserType(null);
         }
       }
+      setIsLoading(false);
     });
 
     return unsubscribe;
   }, []);
+
+  const fetchUserType = async (uid: string) => {
+    try {
+      const userDoc = await getDoc(doc(db, "users", uid));
+      if (userDoc.exists()) {
+        setUserType({ id: uid, ...userDoc.data() } as UserType);
+      }
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -71,7 +84,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, isLoading }}>
+    <AuthContext.Provider value={{ user, userType, setUserType, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

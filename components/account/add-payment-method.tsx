@@ -1,8 +1,8 @@
+import { errorToast, successToast } from "@/hooks/default-toasts";
 import useFormValidation from "@/hooks/useFormValidation";
 import { addPaymentMethodSchema } from "@/schemas/add-payment-method";
 import React, { useState } from "react";
 import { Switch, View } from "react-native";
-import Toast from "react-native-toast-message";
 import { z } from "zod";
 import { ThemedButton } from "../themed-button";
 import { ThemedSecureTextInput } from "../themed-secure-text-input";
@@ -35,17 +35,9 @@ export default function AddPaymentMethodForm({
     if (!validatedData) return;
 
     try {
-      Toast.show({
-        type: "success",
-        text1: "Success",
-        text2: "Payment Method Added!",
-      });
+      successToast("Payment Method Added!");
     } catch (error) {
-      Toast.show({
-        type: "error",
-        text1: "Error",
-        text2: "Failed to process. Please try again.",
-      });
+      errorToast(error, "Failed to process payment method");
     } finally {
       closeModal();
     }
