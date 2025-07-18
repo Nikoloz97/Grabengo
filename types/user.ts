@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface NewCardDetails {
   cardNumber: string;
   securityCode: string;
@@ -50,7 +52,7 @@ export interface UserType {
   email: string;
   firstName?: string;
   lastName?: string;
-  birthDate?: Date;
+  birthDate?: Timestamp;
   addressLineOne?: string;
   addressLineTwo?: string | null;
   city?: string;

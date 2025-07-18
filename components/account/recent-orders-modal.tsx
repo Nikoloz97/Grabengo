@@ -1,11 +1,12 @@
 import { recentOrders } from "@/constants/temporary/recent-orders";
+import { errorToast, successToast } from "@/hooks/default-toasts";
 import { dollarFormatter } from "@/hooks/formatters";
+import { UserType } from "@/types/user";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { format } from "date-fns";
 import React from "react";
 import { Platform, ScrollView, TouchableOpacity, View } from "react-native";
-import Toast from "react-native-toast-message";
 import { ThemedModal } from "../themed-modal";
 import { ThemedText } from "../themed-text";
 import { ThemedView } from "../themed-view";
@@ -14,27 +15,21 @@ import { IconSymbol } from "../ui/IconSymbol";
 interface RecentOrdersModalProps {
   isVisible: boolean;
   closeModal: () => void;
+  userType: UserType;
 }
 
 export default function RecentOrdersModal({
   isVisible,
   closeModal,
+  userType,
 }: RecentOrdersModalProps) {
   const { colors } = useTheme();
 
   const handleAddToOrder = () => {
     try {
-      Toast.show({
-        type: "success",
-        text1: "Success",
-        text2: "Order added to cart!",
-      });
+      successToast("Added to cart!");
     } catch (error) {
-      Toast.show({
-        type: "error",
-        text1: "Error",
-        text2: "Failed to process. Please try again.",
-      });
+      errorToast(error);
     } finally {
       closeModal();
     }

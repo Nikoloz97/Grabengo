@@ -1,3 +1,4 @@
+import { UserType } from "@/types/user";
 import { router } from "expo-router";
 import React from "react";
 import { Alert, ScrollView, View } from "react-native";
@@ -8,11 +9,13 @@ import { ThemedText } from "../themed-text";
 interface DeleteAccountModalProps {
   isVisible: boolean;
   closeModal: () => void;
+  userType: UserType;
 }
 
 export default function DeleteAccountModal({
   isVisible,
   closeModal,
+  userType,
 }: DeleteAccountModalProps) {
   const deleteAccount = () => {
     closeModal();

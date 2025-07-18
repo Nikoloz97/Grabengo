@@ -50,62 +50,70 @@ export default function Account() {
     return <SignIn />;
   }
 
-  return (
-    <ThemedView style={{ flex: 1 }}>
-      <ThemedHeaderView>
-        <ThemedText type="title">ACCOUNT</ThemedText>
-      </ThemedHeaderView>
+  if (userType) {
+    return (
+      <ThemedView style={{ flex: 1 }}>
+        <ThemedHeaderView>
+          <ThemedText type="title">ACCOUNT</ThemedText>
+        </ThemedHeaderView>
 
-      <ThemedScrollView>
-        {userType.firstName && userType.lastName ? (
-          <View>
-            <ThemedText type="subtitle">{`${userType.firstName} ${userType.lastName}`}</ThemedText>
-            <ThemedText style={{ marginTop: 10 }}>{userType.email}</ThemedText>
+        <ThemedScrollView>
+          {userType.firstName && userType.lastName ? (
+            <View>
+              <ThemedText type="subtitle">{`${userType.firstName} ${userType.lastName}`}</ThemedText>
+              <ThemedText style={{ marginTop: 10 }}>
+                {userType.email}
+              </ThemedText>
+            </View>
+          ) : (
+            <ThemedText type="subtitle">{userType.email}</ThemedText>
+          )}
+
+          <View style={{ marginTop: 40, gap: 5 }}>
+            {options.map((option, index) => (
+              <TouchableOpacity key={index} onPress={option.onPress}>
+                <ThemedView
+                  type="card"
+                  style={{
+                    padding: 15,
+                  }}
+                >
+                  <ThemedText>{option.text}</ThemedText>
+                </ThemedView>
+              </TouchableOpacity>
+            ))}
           </View>
-        ) : (
-          <ThemedText type="subtitle">{userType.email}</ThemedText>
-        )}
+        </ThemedScrollView>
 
-        <View style={{ marginTop: 40, gap: 5 }}>
-          {options.map((option, index) => (
-            <TouchableOpacity key={index} onPress={option.onPress}>
-              <ThemedView
-                type="card"
-                style={{
-                  padding: 15,
-                }}
-              >
-                <ThemedText>{option.text}</ThemedText>
-              </ThemedView>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </ThemedScrollView>
+        {/* modals*/}
+        <PersonalInfoModal
+          isVisible={isPersonalInfoModalOpen}
+          closeModal={() => setIsPersonalInfoModalOpen(false)}
+          userType={userType}
+        />
 
-      {/* modals*/}
-      <PersonalInfoModal
-        isVisible={isPersonalInfoModalOpen}
-        closeModal={() => setIsPersonalInfoModalOpen(false)}
-      />
+        <PaymentMethodsModal
+          isVisible={isPaymentMethodsModalOpen}
+          closeModal={() => setIsPaymentMethodsModalOpen(false)}
+          userType={userType}
+        />
 
-      <PaymentMethodsModal
-        isVisible={isPaymentMethodsModalOpen}
-        closeModal={() => setIsPaymentMethodsModalOpen(false)}
-      />
+        <RecentOrdersModal
+          isVisible={isRecentOrdersModalOpen}
+          closeModal={() => setIsRecentOrdersModalOpen(false)}
+          userType={userType}
+        />
 
-      <RecentOrdersModal
-        isVisible={isRecentOrdersModalOpen}
-        closeModal={() => setIsRecentOrdersModalOpen(false)}
-      />
-
-      <SignOutModal
-        isVisible={isSignOutModalOpen}
-        closeModal={() => setIsSignOutModalOpen(false)}
-      />
-      <DeleteAccountModal
-        isVisible={isDeleteAccountModalOpen}
-        closeModal={() => setIsDeleteAccountModalOpen(false)}
-      />
-    </ThemedView>
-  );
+        <SignOutModal
+          isVisible={isSignOutModalOpen}
+          closeModal={() => setIsSignOutModalOpen(false)}
+        />
+        <DeleteAccountModal
+          isVisible={isDeleteAccountModalOpen}
+          closeModal={() => setIsDeleteAccountModalOpen(false)}
+          userType={userType}
+        />
+      </ThemedView>
+    );
+  }
 }

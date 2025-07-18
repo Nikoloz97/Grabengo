@@ -5,6 +5,7 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { auth, db } from "@/firebase/config";
 import { errorToast, successToast } from "@/hooks/default-toasts";
+import { stringToDate } from "@/hooks/formatters";
 import useFormValidation from "@/hooks/useFormValidation";
 import { signUpSchema } from "@/schemas/signup";
 import { useTheme } from "@react-navigation/native";
@@ -58,7 +59,7 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
         email: user.email,
         firstName: userData.firstName,
         lastName: userData.lastName,
-        birthDate: userData.birthDate,
+        birthDate: userData.birthDate && stringToDate(userData.birthDate),
         addressLineOne: userData.addressLineOne,
         addressLineTwo: userData.addressLineTwo,
         city: userData.city,

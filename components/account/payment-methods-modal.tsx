@@ -1,4 +1,4 @@
-import { PaymentMethod } from "@/types/user";
+import { PaymentMethod, UserType } from "@/types/user";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import React, { useState } from "react";
@@ -11,11 +11,13 @@ import PaymentMethodOptions from "./payment-method-options";
 interface PaymentMethodsModalProps {
   isVisible: boolean;
   closeModal: () => void;
+  userType: UserType;
 }
 
 export default function PaymentMethodsModal({
   isVisible,
   closeModal,
+  userType,
 }: PaymentMethodsModalProps) {
   const { colors } = useTheme();
 

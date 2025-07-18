@@ -1,7 +1,7 @@
-import { user } from "@/constants/temporary/user";
 import { errorToast, successToast } from "@/hooks/default-toasts";
 import useFormValidation from "@/hooks/useFormValidation";
 import { personalInfoSchema } from "@/schemas/personal-info";
+import { UserType } from "@/types/user";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { format } from "date-fns";
@@ -17,6 +17,7 @@ import { ThemedTextInputMask } from "../themed-text-input-mask";
 interface PersonalInfoModalProps {
   isVisible: boolean;
   closeModal: () => void;
+  userType: UserType;
 }
 
 type PersonalInfoFields = z.infer<typeof personalInfoSchema>;
@@ -24,39 +25,44 @@ type PersonalInfoFields = z.infer<typeof personalInfoSchema>;
 export default function PersonalInfoModal({
   isVisible,
   closeModal,
+  userType,
 }: PersonalInfoModalProps) {
   const { colors } = useTheme();
 
-  const [firstName, setFirstName] = useState(user.firstName || "");
-  const [lastName, setLastName] = useState(user.lastName || "");
+  const [firstName, setFirstName] = useState(userType.firstName || "");
+  const [lastName, setLastName] = useState(userType.lastName || "");
   const [birthDate, setBirthDate] = useState(
-    format(user.birthDate, "MM/dd/yyyy") || ""
+    (userType.birthDate && format(userType.birthDate.toDate(), "MM/dd/yyyy")) ||
+      ""
   );
   const [addressLineOne, setAddressLineOne] = useState(
-    user.addressLineOne || ""
+    userType.addressLineOne || ""
   );
   const [addressLineTwo, setAddressLineTwo] = useState(
-    user.addressLineTwo || ""
+    userType.addressLineTwo || ""
   );
-  const [city, setCity] = useState(user.city || "");
-  const [postalCode, setPostalCode] = useState(user.postalCode || "");
-  const [state, setState] = useState(user.state || "");
-  const [country, setCountry] = useState(user.country || "");
+  const [city, setCity] = useState(userType.city || "");
+  const [postalCode, setPostalCode] = useState(userType.postalCode || "");
+  const [state, setState] = useState(userType.state || "");
+  const [country, setCountry] = useState(userType.country || "");
 
   const { errors, validateForm, clearFieldError } =
     useFormValidation<PersonalInfoFields>();
 
   const originalValues = useMemo(
     () => ({
-      firstName: user.firstName || "",
-      lastName: user.lastName || "",
-      birthDate: format(user.birthDate, "MM/dd/yyyy") || "",
-      addressLineOne: user.addressLineOne || "",
-      addressLineTwo: user.addressLineTwo || "",
-      city: user.city || "",
-      postalCode: user.postalCode || "",
-      state: user.state || "",
-      country: user.country || "",
+      firstName: userType.firstName || "",
+      lastName: userType.lastName || "",
+      birthDate:
+        (userType.birthDate &&
+          format(userType.birthDate.toDate(), "MM/dd/yyyy")) ||
+        "",
+      addressLineOne: userType.addressLineOne || "",
+      addressLineTwo: userType.addressLineTwo || "",
+      city: userType.city || "",
+      postalCode: userType.postalCode || "",
+      state: userType.state || "",
+      country: userType.country || "",
     }),
     []
   );
@@ -105,11 +111,11 @@ export default function PersonalInfoModal({
     const validatedData = validateForm(personalInfoSchema, updatedUser);
     if (!validatedData) return;
     try {
-      closeModal();
       successToast("Personal info updated!");
     } catch (error) {
-      closeModal();
       errorToast(error);
+    } finally {
+      closeModal();
     }
   };
 
