@@ -90,6 +90,7 @@ export default function Account() {
           isVisible={isPersonalInfoModalOpen}
           closeModal={() => setIsPersonalInfoModalOpen(false)}
           userType={userType}
+          userId={user.uid}
         />
 
         <PaymentMethodsModal

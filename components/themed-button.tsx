@@ -89,7 +89,7 @@ export function ThemedButton(props: ThemedButtonProps) {
       style={[
         getButtonStyle(),
         style,
-        disabled && { opacity: 0.5 },
+        (disabled || isLoading) && { opacity: 0.5 },
         Platform.select({
           ios: {
             shadowColor: "rgb(0, 0, 0)",

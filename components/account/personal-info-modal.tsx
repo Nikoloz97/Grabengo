@@ -1,10 +1,13 @@
+import { db } from "@/firebase/config";
 import { errorToast, successToast } from "@/hooks/default-toasts";
+import { stringToDate } from "@/hooks/formatters";
 import useFormValidation from "@/hooks/useFormValidation";
 import { personalInfoSchema } from "@/schemas/personal-info";
 import { UserType } from "@/types/user";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { format } from "date-fns";
+import { doc, Timestamp, updateDoc } from "firebase/firestore";
 import React, { useEffect, useMemo, useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { z } from "zod";
@@ -17,7 +20,9 @@ import { ThemedTextInputMask } from "../themed-text-input-mask";
 interface PersonalInfoModalProps {
   isVisible: boolean;
   closeModal: () => void;
+  // TODO: rename userType variable to something else (sounds confusing)
   userType: UserType;
+  userId: string;
 }
 
 type PersonalInfoFields = z.infer<typeof personalInfoSchema>;
@@ -26,6 +31,7 @@ export default function PersonalInfoModal({
   isVisible,
   closeModal,
   userType,
+  userId,
 }: PersonalInfoModalProps) {
   const { colors } = useTheme();
 
@@ -45,6 +51,8 @@ export default function PersonalInfoModal({
   const [postalCode, setPostalCode] = useState(userType.postalCode || "");
   const [state, setState] = useState(userType.state || "");
   const [country, setCountry] = useState(userType.country || "");
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const { errors, validateForm, clearFieldError } =
     useFormValidation<PersonalInfoFields>();
@@ -107,15 +115,38 @@ export default function PersonalInfoModal({
     originalValues,
   ]);
 
-  const handlePersonalInfoEdit = (updatedUser: PersonalInfoFields) => {
+  const handlePersonalInfoEdit = async (updatedUser: PersonalInfoFields) => {
+    setIsLoading(true);
     const validatedData = validateForm(personalInfoSchema, updatedUser);
-    if (!validatedData) return;
+    if (!validatedData) {
+      errorToast(null, "Please address invalid form input");
+      setIsLoading(false);
+      return;
+    }
     try {
+      // no spread operator due to birthDate field
+      let dataToUpdate = {
+        firstName: validatedData.firstName,
+        lastName: validatedData.lastName,
+        birthDate:
+          validatedData.birthDate &&
+          Timestamp.fromDate(stringToDate(validatedData.birthDate)),
+        addressLineOne: validatedData.addressLineOne,
+        addressLineTwo: validatedData.addressLineTwo,
+        city: validatedData.city,
+        postalCode: validatedData.postalCode,
+        state: validatedData.state,
+        country: validatedData.country,
+      };
+
+      const userDoc = doc(db, "users", userId);
+      await updateDoc(userDoc, dataToUpdate);
       successToast("Personal info updated!");
     } catch (error) {
       errorToast(error);
     } finally {
       closeModal();
+      setIsLoading(false);
     }
   };
 
@@ -252,6 +283,7 @@ export default function PersonalInfoModal({
         <ThemedButton
           title="Save Changes"
           style={{ marginTop: 20 }}
+          isLoading={isLoading}
           disabled={!hasChanges}
           onPress={() =>
             handlePersonalInfoEdit({
