@@ -66,7 +66,7 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
         state: userData.state,
         country: userData.country,
       });
-      successToast(`${process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID}`);
+      successToast("Signed up!");
       setIsSignUpPressed(false);
     } catch (error) {
       errorToast(error);
