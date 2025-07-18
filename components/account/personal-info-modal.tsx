@@ -1,4 +1,5 @@
 import { user } from "@/constants/temporary/user";
+import { errorToast, successToast } from "@/hooks/default-toasts";
 import useFormValidation from "@/hooks/useFormValidation";
 import { personalInfoSchema } from "@/schemas/personal-info";
 import { Ionicons } from "@expo/vector-icons";
@@ -6,7 +7,6 @@ import { useTheme } from "@react-navigation/native";
 import { format } from "date-fns";
 import React, { useEffect, useMemo, useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
-import Toast from "react-native-toast-message";
 import { z } from "zod";
 import { ThemedButton } from "../themed-button";
 import { ThemedModal } from "../themed-modal";
@@ -106,18 +106,10 @@ export default function PersonalInfoModal({
     if (!validatedData) return;
     try {
       closeModal();
-      Toast.show({
-        type: "success",
-        text1: "Success",
-        text2: "Personal info updated!",
-      });
+      successToast("Personal info updated!");
     } catch (error) {
       closeModal();
-      Toast.show({
-        type: "error",
-        text1: "Error",
-        text2: "Failed to process. Please try again.",
-      });
+      errorToast(error);
     }
   };
 

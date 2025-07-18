@@ -40,9 +40,7 @@ export default function SignIn() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-
       router.push("/");
-
       successToast("Signed in!");
     } catch (error) {
       errorToast(error);
