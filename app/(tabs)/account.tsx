@@ -111,7 +111,7 @@ export default function Account() {
         <DeleteAccountModal
           isVisible={isDeleteAccountModalOpen}
           closeModal={() => setIsDeleteAccountModalOpen(false)}
-          userType={userType}
+          user={user}
         />
       </ThemedView>
     );

@@ -1,5 +1,8 @@
-import { UserType } from "@/types/user";
+import { auth, db } from "@/firebase/config";
+import { errorToast } from "@/hooks/default-toasts";
 import { router } from "expo-router";
+import { deleteUser, User } from "firebase/auth";
+import { deleteDoc, doc } from "firebase/firestore";
 import React from "react";
 import { Alert, ScrollView, View } from "react-native";
 import { ThemedButton } from "../themed-button";
@@ -9,27 +12,42 @@ import { ThemedText } from "../themed-text";
 interface DeleteAccountModalProps {
   isVisible: boolean;
   closeModal: () => void;
-  userType: UserType;
+  user: User;
 }
 
 export default function DeleteAccountModal({
   isVisible,
   closeModal,
-  userType,
+  user,
 }: DeleteAccountModalProps) {
-  const deleteAccount = () => {
-    closeModal();
-    router.push("/");
-    Alert.alert(
-      "Account Deleted!",
-      "If this was a mistake, please contact support",
-      [
-        {
-          text: "OK",
-          onPress: () => {},
-        },
-      ]
-    );
+  const deleteAccount = async () => {
+    try {
+      if (!auth.currentUser) {
+        errorToast(null, "No user is currently signed in");
+      }
+
+      // delete from firestore
+      await deleteDoc(doc(db, "users", user.uid));
+
+      // delete from firebase auth
+      await deleteUser(user);
+
+      router.push("/");
+      Alert.alert(
+        "Account Deleted!",
+        "If this was a mistake, please contact support",
+        [
+          {
+            text: "OK",
+            onPress: () => {},
+          },
+        ]
+      );
+    } catch (error) {
+      errorToast(error, "There was an issue deleting your account");
+    } finally {
+      closeModal();
+    }
   };
 
   return (

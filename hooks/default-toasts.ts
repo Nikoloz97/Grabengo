@@ -16,6 +16,10 @@ export const deriveErrorMessage = (error: unknown, defaultMessage?: string) => {
         case "auth/weak-password":
           message = "The password is too weak.";
           break;
+        case "auth/requires-recent-login":
+          message =
+            "For security reasons, please sign in again before deleting your account.";
+          break;
         default:
           message = defaultMessage ? defaultMessage : "Something went wrong";
           break;
@@ -34,10 +38,10 @@ export const successToast = (customText?: string) => {
   });
 };
 
-export const errorToast = (error: unknown, defaultMessage?: string) => {
+export const errorToast = (error: unknown | null, defaultMessage?: string) => {
   Toast.show({
     type: "error",
     text1: "Error",
-    text2: deriveErrorMessage(error, defaultMessage),
+    text2: error ? deriveErrorMessage(error, defaultMessage) : defaultMessage,
   });
 };
