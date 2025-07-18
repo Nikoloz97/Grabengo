@@ -29,14 +29,19 @@ export default function SignIn() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const { errors, validateForm, clearFieldError } =
     useFormValidation<SignInFields>();
 
   const handleSignIn = async () => {
+    setIsLoading(true);
     const validatedData = validateForm(signInSchema, { email, password });
-
-    if (!validatedData) return;
+    if (!validatedData) {
+      errorToast(null, "Please address invalid form input");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -44,6 +49,8 @@ export default function SignIn() {
       successToast("Signed in!");
     } catch (error) {
       errorToast(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -88,6 +95,7 @@ export default function SignIn() {
 
         <ThemedButton
           title="Sign in"
+          isLoading={isLoading}
           onPress={handleSignIn}
           style={{ marginTop: 20 }}
         />

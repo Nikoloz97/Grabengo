@@ -20,6 +20,9 @@ export const deriveErrorMessage = (error: unknown, defaultMessage?: string) => {
           message =
             "For security reasons, please sign in again before deleting your account.";
           break;
+        case "auth/invalid-credential":
+          message = "Invalid email address or password";
+          break;
         default:
           message = defaultMessage ? defaultMessage : "Something went wrong";
           break;

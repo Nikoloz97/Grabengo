@@ -31,7 +31,7 @@ export default function RootLayout() {
         {...props}
         style={{
           fontFamily: "DMSans_600SemiBold",
-          backgroundColor: colors.colors.background,
+          backgroundColor: colors.colors.primary,
           borderLeftWidth: 0,
           borderRadius: 12,
           marginHorizontal: 20,
@@ -51,7 +51,7 @@ export default function RootLayout() {
         text1Style={{
           fontSize: 20,
           fontWeight: "600",
-          color: colors.colors.primary,
+          color: colors.colors.text,
         }}
         // text
         text2Style={{
