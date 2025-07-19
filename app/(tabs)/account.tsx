@@ -13,7 +13,7 @@ import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 
 export default function Account() {
-  const { user, userType } = useAuth();
+  const { user, userType, refetchUserType } = useAuth();
 
   const [isPersonalInfoModalOpen, setIsPersonalInfoModalOpen] = useState(false);
   const [isPaymentMethodsModalOpen, setIsPaymentMethodsModalOpen] =
@@ -22,6 +22,16 @@ export default function Account() {
   const [isSignOutModalOpen, setIsSignOutModalOpen] = useState(false);
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] =
     useState(false);
+
+  const handlePersonalInfoEdit = () => {
+    setIsPersonalInfoModalOpen(false);
+    refetchUserType();
+  };
+
+    const handlePaymentMethodsEdit = () => {
+    setIsPaymentMethodsModalOpen(false);
+    refetchUserType();
+  };
 
   const options = [
     {
@@ -85,10 +95,10 @@ export default function Account() {
           </View>
         </ThemedScrollView>
 
-        {/* modals*/}
         <PersonalInfoModal
           isVisible={isPersonalInfoModalOpen}
           closeModal={() => setIsPersonalInfoModalOpen(false)}
+          closeModalAndRefetch={handlePersonalInfoEdit}
           userType={userType}
           userId={user.uid}
         />
@@ -96,6 +106,7 @@ export default function Account() {
         <PaymentMethodsModal
           isVisible={isPaymentMethodsModalOpen}
           closeModal={() => setIsPaymentMethodsModalOpen(false)}
+          closeModalAndRefetch={handlePaymentMethodsEdit}
           userType={userType}
         />
 

@@ -11,12 +11,14 @@ import PaymentMethodOptions from "./payment-method-options";
 interface PaymentMethodsModalProps {
   isVisible: boolean;
   closeModal: () => void;
+  closeModalAndRefetch: () => void;
   userType: UserType;
 }
 
 export default function PaymentMethodsModal({
   isVisible,
   closeModal,
+  closeModalAndRefetch,
   userType,
 }: PaymentMethodsModalProps) {
   const { colors } = useTheme();

@@ -10,6 +10,7 @@ interface AuthContextType {
   userType: UserType | null;
   isLoading: boolean;
   setUserType: (user: UserType | null) => void;
+  refetchUserType: () => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -17,6 +18,7 @@ const AuthContext = createContext<AuthContextType>({
   userType: null,
   isLoading: true,
   setUserType: () => {},
+  refetchUserType: () => {},
 });
 
 interface AuthProviderProps {
@@ -67,6 +69,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const refetchUserType = async () => {
+    if (user && !user.isAnonymous) {
+      await fetchUserType(user.uid);
+    }
+  };
+
   if (isLoading) {
     return (
       <View
@@ -84,7 +92,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, userType, setUserType, isLoading }}>
+    <AuthContext.Provider
+      value={{ user, userType, setUserType, isLoading, refetchUserType }}
+    >
       {children}
     </AuthContext.Provider>
   );

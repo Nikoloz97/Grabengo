@@ -20,6 +20,7 @@ import { ThemedTextInputMask } from "../themed-text-input-mask";
 interface PersonalInfoModalProps {
   isVisible: boolean;
   closeModal: () => void;
+  closeModalAndRefetch: () => void;
   // TODO: rename userType variable to something else (sounds confusing)
   userType: UserType;
   userId: string;
@@ -30,6 +31,7 @@ type PersonalInfoFields = z.infer<typeof personalInfoSchema>;
 export default function PersonalInfoModal({
   isVisible,
   closeModal,
+  closeModalAndRefetch,
   userType,
   userId,
 }: PersonalInfoModalProps) {
@@ -72,7 +74,7 @@ export default function PersonalInfoModal({
       state: userType.state || "",
       country: userType.country || "",
     }),
-    []
+    [userType]
   );
 
   // Reset form fields when modal opens
@@ -145,7 +147,7 @@ export default function PersonalInfoModal({
     } catch (error) {
       errorToast(error);
     } finally {
-      closeModal();
+      closeModalAndRefetch();
       setIsLoading(false);
     }
   };

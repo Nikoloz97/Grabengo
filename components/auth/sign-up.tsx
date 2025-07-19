@@ -63,6 +63,7 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
       );
       const user = userCredential.user;
 
+      // no spread due to string to date conversion
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         firstName: userData.firstName,

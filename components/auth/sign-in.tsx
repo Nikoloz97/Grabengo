@@ -37,6 +37,7 @@ export default function SignIn() {
   const handleSignIn = async () => {
     setIsLoading(true);
     const validatedData = validateForm(signInSchema, { email, password });
+    // TODO: make this a reusable hook??
     if (!validatedData) {
       errorToast(null, "Please address invalid form input");
       setIsLoading(false);
