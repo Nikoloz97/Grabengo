@@ -1,5 +1,6 @@
 import { PaymentMethod } from "@/types/user";
 
+// TODO: delete this file
 export const userPaymentMethods: PaymentMethod[] = [
   {
     id: "pm_1NXABC1234567890abcdEFGH", // stripe payment method Id

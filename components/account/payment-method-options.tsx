@@ -1,4 +1,3 @@
-import { userPaymentMethods } from "@/constants/temporary/payment-methods";
 import { capitalizeWord } from "@/hooks/formatters";
 import { PaymentMethod } from "@/types/user";
 import { Ionicons } from "@expo/vector-icons";
@@ -10,11 +9,13 @@ import { ThemedText } from "../themed-text";
 interface PaymentMethodOptionsProps {
   setSelectedPaymentMethod: (method: PaymentMethod) => void;
   setIsAddPaymentChosen: (isChosen: boolean) => void;
+  paymentMethods: PaymentMethod[];
 }
 
 export default function PaymentMethodsOptions({
   setSelectedPaymentMethod,
   setIsAddPaymentChosen,
+  paymentMethods,
 }: PaymentMethodOptionsProps) {
   const { colors } = useTheme();
 
@@ -27,9 +28,9 @@ export default function PaymentMethodsOptions({
         Payment Methods
       </ThemedText>
       {/* Edit payment option */}
-      {userPaymentMethods.map((method, index) => (
+      {paymentMethods.map((method) => (
         <TouchableOpacity
-          key={index}
+          key={method.id}
           style={{
             backgroundColor: colors.card,
             padding: 16,

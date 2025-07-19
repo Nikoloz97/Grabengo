@@ -59,4 +59,5 @@ export interface UserType {
   postalCode?: string;
   state?: string;
   country?: string;
+  paymentMethods: PaymentMethod[];
 }

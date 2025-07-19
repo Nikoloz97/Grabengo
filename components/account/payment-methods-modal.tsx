@@ -85,6 +85,7 @@ export default function PaymentMethodsModal({
           <PaymentMethodOptions
             setSelectedPaymentMethod={setSelectedPaymentMethod}
             setIsAddPaymentChosen={setIsAddPaymentChosen}
+            paymentMethods={userType.paymentMethods}
           />
         )}
       </ScrollView>
