@@ -119,10 +119,12 @@ export default function PersonalInfoModal({
 
   const handlePersonalInfoEdit = async (updatedUser: PersonalInfoFields) => {
     setIsLoading(true);
-    const validatedData = validateForm(personalInfoSchema, updatedUser);
+    const validatedData = validateForm(
+      personalInfoSchema,
+      updatedUser,
+      setIsLoading
+    );
     if (!validatedData) {
-      errorToast(null, "Please address invalid form input");
-      setIsLoading(false);
       return;
     }
     try {

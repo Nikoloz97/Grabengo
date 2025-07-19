@@ -1,10 +1,10 @@
+import { errorToast, successToast } from "@/hooks/default-toasts";
 import { capitalizeWord } from "@/hooks/formatters";
 import useFormValidation from "@/hooks/useFormValidation";
 import { editPaymentMethodSchema } from "@/schemas/edit-payment-method";
 import { PaymentMethod } from "@/types/user";
 import React, { useMemo, useState } from "react";
 import { Alert, Switch, View } from "react-native";
-import Toast from "react-native-toast-message";
 import { z } from "zod";
 import { ThemedButton } from "../themed-button";
 import { ThemedText } from "../themed-text";
@@ -38,6 +38,8 @@ export default function EditPaymentMethodForm({
     selectedPaymentMethod.isDefault || false
   );
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const { errors, validateForm, clearFieldError } =
     useFormValidation<EditPaymentMethodFields>();
 
@@ -66,26 +68,21 @@ export default function EditPaymentMethodForm({
   const handleEditPaymentMethod = (
     paymentMethodInput: EditPaymentMethodFields
   ) => {
+    setIsLoading(true);
     const validatedData = validateForm(
       editPaymentMethodSchema,
-      paymentMethodInput
+      paymentMethodInput,
+      setIsLoading
     );
     if (!validatedData) return;
 
     try {
-      Toast.show({
-        type: "success",
-        text1: "Success",
-        text2: "Payment Method Edited!",
-      });
+      successToast("Payment Method Edited!");
     } catch (error) {
-      Toast.show({
-        type: "error",
-        text1: "Error",
-        text2: "Failed to process. Please try again.",
-      });
+      errorToast(error);
     } finally {
       closeModal();
+      setIsLoading(false);
     }
   };
 
@@ -101,17 +98,12 @@ export default function EditPaymentMethodForm({
         text: "Confirm",
         onPress: () => {
           try {
-            Toast.show({
-              type: "success",
-              text1: "Success",
-              text2: "Payment Method Removed!",
-            });
+            successToast("Payment Method Removed!");
           } catch (error) {
-            Toast.show({
-              type: "error",
-              text1: "Error",
-              text2: "Failed to process. Please try again.",
-            });
+            errorToast(
+              error,
+              "Failed to delete payment method. Please try again."
+            );
           } finally {
             closeModal();
           }
@@ -203,6 +195,7 @@ export default function EditPaymentMethodForm({
         title="Save Changes"
         style={{ marginTop: 20 }}
         disabled={!hasChanges}
+        isLoading={isLoading}
         onPress={() =>
           handleEditPaymentMethod({
             name,

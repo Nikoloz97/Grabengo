@@ -26,20 +26,26 @@ export default function AddPaymentMethodForm({
   const [expYear, setExpYear] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [isDefault, setIsDefault] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { errors, validateForm, clearFieldError } =
     useFormValidation<AddPaymentMethodFields>();
 
   const addPaymentMethod = (input: AddPaymentMethodFields) => {
-    const validatedData = validateForm(addPaymentMethodSchema, input);
+    setIsLoading(true);
+    const validatedData = validateForm(
+      addPaymentMethodSchema,
+      input,
+      setIsLoading
+    );
     if (!validatedData) return;
-
     try {
       successToast("Payment Method Added!");
     } catch (error) {
       errorToast(error, "Failed to process payment method");
     } finally {
       closeModal();
+      setIsLoading(false);
     }
   };
 
@@ -136,6 +142,7 @@ export default function AddPaymentMethodForm({
       <ThemedButton
         title="Add Card"
         style={{ marginTop: 20 }}
+        isLoading={isLoading}
         onPress={() =>
           addPaymentMethod({
             cardNumber,

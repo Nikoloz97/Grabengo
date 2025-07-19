@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { z } from "zod";
+import { errorToast } from "./default-toasts";
 
 export default function useFormValidation<T extends Record<string, any>>() {
   const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({});
 
   const validateForm = <Schema extends z.ZodSchema>(
     schema: Schema,
-    data: T
+    data: T,
+    setIsLoading: (input: boolean) => void
   ): z.infer<Schema> | null => {
     const result = schema.safeParse(data);
 
@@ -19,8 +21,9 @@ export default function useFormValidation<T extends Record<string, any>>() {
           fieldErrors[field] = issue.message;
         }
       }
-
+      errorToast(null, "Please address invalid form input");
       setErrors(fieldErrors);
+      setIsLoading(false);
       return null;
     }
 

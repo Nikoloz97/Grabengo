@@ -48,12 +48,8 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
 
   const handleSignup = async (userData: SignUpFields) => {
     setIsLoading(true);
-    const validatedData = validateForm(signUpSchema, userData);
-    if (!validatedData) {
-      errorToast(null, "Please address invalid form input");
-      setIsLoading(false);
-      return;
-    }
+    const validatedData = validateForm(signUpSchema, userData, setIsLoading);
+    if (!validatedData) return;
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
