@@ -124,18 +124,18 @@ export default function AddPaymentMethodForm({
           clearFieldError("name");
         }}
         error={errors.name}
+        style={{ marginTop: 20 }}
       />
 
       <CardField
         postalCodeEnabled={true}
         cardStyle={{
-          backgroundColor: "#FFFFFF",
+          backgroundColor: "#ffffffff",
           textColor: "#000000",
         }}
         style={{
           width: "100%",
           height: 50,
-          marginVertical: 30,
         }}
       />
 
@@ -143,7 +143,7 @@ export default function AddPaymentMethodForm({
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
-          marginTop: 20,
+          marginTop: 40,
         }}
       >
         <ThemedText>Set as Default?</ThemedText>
@@ -152,7 +152,7 @@ export default function AddPaymentMethodForm({
 
       <ThemedButton
         title="Add Card"
-        style={{ marginTop: 20 }}
+        style={{ marginTop: 40 }}
         isLoading={isLoading}
         onPress={() =>
           addPaymentMethod({
