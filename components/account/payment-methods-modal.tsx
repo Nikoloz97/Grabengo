@@ -32,8 +32,7 @@ export default function PaymentMethodsModal({
 
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
 
-  // TODO: set up loading
-  // const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleBack = () => {
     setSelectedPaymentMethod(null);
@@ -43,6 +42,8 @@ export default function PaymentMethodsModal({
   useEffect(() => {
     const fetchPaymentMethods = async () => {
       if (!isVisible) return;
+
+      setIsLoading(true);
 
       try {
         const getSavedPaymentMethods = httpsCallable(
@@ -60,6 +61,7 @@ export default function PaymentMethodsModal({
         console.error("Failed to load payment methods", err);
         setPaymentMethods([]);
       } finally {
+        setIsLoading(false);
       }
     };
 
@@ -123,6 +125,7 @@ export default function PaymentMethodsModal({
             setSelectedPaymentMethod={setSelectedPaymentMethod}
             setIsAddPaymentChosen={setIsAddPaymentChosen}
             paymentMethods={paymentMethods}
+            isLoading={isLoading}
           />
         )}
       </ScrollView>

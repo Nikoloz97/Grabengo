@@ -60,8 +60,6 @@ export default function AddPaymentMethodForm({
 
       const { clientSecret } = result.data as {
         clientSecret: string;
-        setupIntentId: string;
-        customerId: string;
       };
 
       // Confirm the setup intent with Stripe using card form
@@ -111,7 +109,7 @@ export default function AddPaymentMethodForm({
     <View style={{ marginBottom: 300 }}>
       <ThemedText
         type="subtitle"
-        style={{ marginBottom: 20, textAlign: "center" }}
+        style={{ marginBottom: 40, textAlign: "center" }}
       >
         Add Payment Method
       </ThemedText>
@@ -124,7 +122,6 @@ export default function AddPaymentMethodForm({
           clearFieldError("name");
         }}
         error={errors.name}
-        style={{ marginTop: 20 }}
       />
 
       <CardField
