@@ -4,7 +4,7 @@ import { TextInput, TextInputProps, View } from "react-native";
 import { ThemedText } from "./themed-text";
 
 interface ThemedTextInputProps extends TextInputProps {
-  error: string | undefined;
+  error?: string | undefined;
 }
 
 export function ThemedTextInput(props: ThemedTextInputProps) {
@@ -13,6 +13,7 @@ export function ThemedTextInput(props: ThemedTextInputProps) {
     placeholder,
     keyboardType = "default",
     error,
+    readOnly = false,
     ...otherProps
   } = props;
   const { colors } = useTheme();
@@ -23,6 +24,7 @@ export function ThemedTextInput(props: ThemedTextInputProps) {
         placeholderTextColor={colors.border}
         placeholder={placeholder}
         keyboardType={keyboardType}
+        readOnly={readOnly}
         style={[
           {
             fontSize: 18,

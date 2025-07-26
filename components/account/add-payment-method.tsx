@@ -34,6 +34,18 @@ export default function AddPaymentMethodForm({
     useFormValidation<AddPaymentMethodFields>();
   const { confirmSetupIntent } = useStripe();
 
+  const setAsDefaultPaymentMethod = async (paymentMethodId: string) => {
+    try {
+      const setDefaultPaymentMethod = httpsCallable(
+        functions,
+        "setDefaultPaymentMethod"
+      );
+      await setDefaultPaymentMethod({ paymentMethodId });
+    } catch (error) {
+      console.error("Failed to set as default:", error);
+    }
+  };
+
   const addPaymentMethod = async (input: AddPaymentMethodFields) => {
     setIsLoading(true);
     const validatedData = validateForm(
@@ -89,18 +101,6 @@ export default function AddPaymentMethodForm({
       closeModal();
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const setAsDefaultPaymentMethod = async (paymentMethodId: string) => {
-    try {
-      const setDefaultPaymentMethod = httpsCallable(
-        functions,
-        "setDefaultPaymentMethod"
-      );
-      await setDefaultPaymentMethod({ paymentMethodId });
-    } catch (error) {
-      console.error("Failed to set as default:", error);
     }
   };
 

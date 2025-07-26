@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { ThemedModal } from "../themed-modal";
 import AddPaymentMethodForm from "./add-payment-method";
-import EditPaymentMethodForm from "./edit-payment-method";
+import PaymentMethodDetails from "./payment-method-details";
 import PaymentMethodOptions from "./payment-method-options";
 
 interface PaymentMethodsModalProps {
@@ -110,9 +110,9 @@ export default function PaymentMethodsModal({
         }}
       >
         {selectedPaymentMethod ? (
-          <EditPaymentMethodForm
+          <PaymentMethodDetails
             selectedPaymentMethod={selectedPaymentMethod}
-            closeModal={closeModal}
+            closeModalAndRefetch={closeModalAndRefetch}
           />
         ) : isAddPaymentChosen ? (
           <AddPaymentMethodForm
