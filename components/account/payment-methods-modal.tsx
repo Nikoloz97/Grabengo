@@ -113,12 +113,14 @@ export default function PaymentMethodsModal({
           <PaymentMethodDetails
             selectedPaymentMethod={selectedPaymentMethod}
             closeModalAndRefetch={closeModalAndRefetch}
+            resetModal={handleBack}
           />
         ) : isAddPaymentChosen ? (
           <AddPaymentMethodForm
             closeModal={closeModal}
             userType={userType}
             closeModalAndRefetch={closeModalAndRefetch}
+            resetModal={handleBack}
           />
         ) : (
           <PaymentMethodOptions

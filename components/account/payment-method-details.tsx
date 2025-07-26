@@ -12,11 +12,13 @@ import { ThemedTextInput } from "../themed-text-input";
 interface PaymentMethodDetailsProps {
   selectedPaymentMethod: PaymentMethod;
   closeModalAndRefetch: () => void;
+  resetModal: () => void;
 }
 
 export default function PaymentMethodDetails({
   selectedPaymentMethod,
   closeModalAndRefetch,
+  resetModal,
 }: PaymentMethodDetailsProps) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -30,8 +32,16 @@ export default function PaymentMethodDetails({
       },
       {
         text: "Confirm",
-        onPress: () => {
+        onPress: async () => {
           try {
+            setIsLoading(true);
+
+            const deletePaymentMethod = httpsCallable(
+              functions,
+              "deletePaymentMethod"
+            );
+
+            await deletePaymentMethod({ paymentMethodId });
             successToast("Payment Method Removed!");
           } catch (error) {
             errorToast(
@@ -39,7 +49,9 @@ export default function PaymentMethodDetails({
               "Failed to delete payment method. Please try again later."
             );
           } finally {
+            setIsLoading(false);
             closeModalAndRefetch();
+            resetModal();
           }
         },
       },
@@ -64,6 +76,7 @@ export default function PaymentMethodDetails({
     } finally {
       closeModalAndRefetch();
       setIsLoading(false);
+      resetModal();
     }
   };
   return (
@@ -114,6 +127,7 @@ export default function PaymentMethodDetails({
 
       <ThemedButton
         title="Remove Card"
+        isLoading={isLoading}
         type="danger"
         onPress={() => handleDeletePaymentMethod(selectedPaymentMethod.id)}
         style={{ marginTop: 20 }}

@@ -285,7 +285,7 @@ export const getSavedPaymentMethods = onCall(
   }
 );
 
-export const deleteSavedPaymentMethod = onCall(
+export const deletePaymentMethod = onCall(
   { secrets: [stripeSecret] },
   async (request: CallableRequest<{ paymentMethodId: string }>) => {
     try {

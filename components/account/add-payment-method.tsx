@@ -17,6 +17,7 @@ interface AddPaymentMethodFormProps {
   closeModal: () => void;
   userType: UserType;
   closeModalAndRefetch: () => void;
+  resetModal: () => void;
 }
 
 type AddPaymentMethodFields = z.infer<typeof addPaymentMethodSchema>;
@@ -25,6 +26,7 @@ export default function AddPaymentMethodForm({
   closeModal,
   userType,
   closeModalAndRefetch,
+  resetModal,
 }: AddPaymentMethodFormProps) {
   const [name, setName] = useState("");
   const [isDefault, setIsDefault] = useState(false);
@@ -101,6 +103,7 @@ export default function AddPaymentMethodForm({
       closeModal();
     } finally {
       setIsLoading(false);
+      resetModal();
     }
   };
 
