@@ -1,7 +1,9 @@
+import { functions } from "@/firebase/config";
 import { PaymentMethod, UserType } from "@/types/user";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
-import React, { useState } from "react";
+import { httpsCallable } from "firebase/functions";
+import React, { useEffect, useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { ThemedModal } from "../themed-modal";
 import AddPaymentMethodForm from "./add-payment-method";
@@ -28,10 +30,41 @@ export default function PaymentMethodsModal({
 
   const [isAddPaymentChosen, setIsAddPaymentChosen] = useState<boolean>(false);
 
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
+
+  // TODO: set up loading
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const handleBack = () => {
     setSelectedPaymentMethod(null);
     setIsAddPaymentChosen(false);
   };
+
+  useEffect(() => {
+    const fetchPaymentMethods = async () => {
+      if (!isVisible) return;
+
+      try {
+        const getSavedPaymentMethods = httpsCallable(
+          functions,
+          "getSavedPaymentMethods"
+        );
+        const response = await getSavedPaymentMethods({});
+        const result = response.data as {
+          paymentMethods: PaymentMethod[];
+          customerId: string;
+        };
+
+        setPaymentMethods(result.paymentMethods);
+      } catch (err) {
+        console.error("Failed to load payment methods", err);
+        setPaymentMethods([]);
+      } finally {
+      }
+    };
+
+    fetchPaymentMethods();
+  }, [isVisible]);
 
   return (
     <ThemedModal
@@ -80,12 +113,16 @@ export default function PaymentMethodsModal({
             closeModal={closeModal}
           />
         ) : isAddPaymentChosen ? (
-          <AddPaymentMethodForm closeModal={closeModal} />
+          <AddPaymentMethodForm
+            closeModal={closeModal}
+            userType={userType}
+            closeModalAndRefetch={closeModalAndRefetch}
+          />
         ) : (
           <PaymentMethodOptions
             setSelectedPaymentMethod={setSelectedPaymentMethod}
             setIsAddPaymentChosen={setIsAddPaymentChosen}
-            paymentMethods={userType.paymentMethods}
+            paymentMethods={paymentMethods}
           />
         )}
       </ScrollView>

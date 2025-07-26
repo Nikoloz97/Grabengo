@@ -1,4 +1,5 @@
 import { functions } from "@/firebase/config";
+import { errorToast } from "@/hooks/default-toasts";
 import { useStripe } from "@stripe/stripe-react-native";
 import { httpsCallable } from "firebase/functions";
 import React, { useState } from "react";
@@ -101,11 +102,11 @@ export const PaymentButton: React.FC<PaymentComponentProps> = ({
         allowsDelayedPaymentMethods: true,
       });
 
-      if (initError) {
-        // TODO: eventually remove
-        console.error("Failed to initialize payment sheet:", initError);
-        throw new Error(`Payment setup failed: ${initError.message}`);
-      }
+      // TODO: replace with logs? Feel these are too technical for user
+      errorToast(
+        initError,
+        `Failed to initialize payment sheet: ${initError?.message}`
+      );
 
       const { error: presentError } = await presentPaymentSheet();
 
@@ -115,17 +116,20 @@ export const PaymentButton: React.FC<PaymentComponentProps> = ({
           console.log("Payment was canceled by user");
           return;
         }
-        // TODO: eventually remove
-        console.error("Payment presentation failed:", presentError);
-        throw new Error(`Payment failed: ${presentError.message}`);
+
+        errorToast(
+          presentError,
+          `Payment presentation failed: ${presentError?.message}`
+        );
       }
 
       onPaymentSuccess?.();
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Payment failed";
-      // TODO: eventually remove
-      console.error("Payment error:", error);
+
+      errorToast(errorMessage, `Payment presentation failed: ${errorMessage}`);
+
       Alert.alert("Payment Failed", errorMessage);
       onPaymentError?.(errorMessage);
     } finally {

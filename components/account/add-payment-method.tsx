@@ -1,51 +1,108 @@
+import { functions } from "@/firebase/config";
 import { errorToast, successToast } from "@/hooks/default-toasts";
 import useFormValidation from "@/hooks/useFormValidation";
 import { addPaymentMethodSchema } from "@/schemas/add-payment-method";
+import { UserType } from "@/types/user";
+import { CardField, useStripe } from "@stripe/stripe-react-native";
+import { httpsCallable } from "firebase/functions";
 import React, { useState } from "react";
 import { Switch, View } from "react-native";
 import { z } from "zod";
 import { ThemedButton } from "../themed-button";
-import { ThemedSecureTextInput } from "../themed-secure-text-input";
 import { ThemedText } from "../themed-text";
 import { ThemedTextInput } from "../themed-text-input";
 import { ThemedView } from "../themed-view";
 
 interface AddPaymentMethodFormProps {
   closeModal: () => void;
+  userType: UserType;
+  closeModalAndRefetch: () => void;
 }
 
 type AddPaymentMethodFields = z.infer<typeof addPaymentMethodSchema>;
 
 export default function AddPaymentMethodForm({
   closeModal,
+  userType,
+  closeModalAndRefetch,
 }: AddPaymentMethodFormProps) {
-  const [cardNumber, setCardNumber] = useState("");
-  const [securityCode, setSecurityCode] = useState("");
   const [name, setName] = useState("");
-  const [expMonth, setExpMonth] = useState("");
-  const [expYear, setExpYear] = useState("");
-  const [postalCode, setPostalCode] = useState("");
   const [isDefault, setIsDefault] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const { errors, validateForm, clearFieldError } =
     useFormValidation<AddPaymentMethodFields>();
+  const { confirmSetupIntent } = useStripe();
 
-  const addPaymentMethod = (input: AddPaymentMethodFields) => {
+  const addPaymentMethod = async (input: AddPaymentMethodFields) => {
     setIsLoading(true);
     const validatedData = validateForm(
       addPaymentMethodSchema,
       input,
       setIsLoading
     );
+
     if (!validatedData) return;
+
     try {
-      successToast("Payment Method Added!");
+      const createSetupIntent = httpsCallable(functions, "createSetupIntent");
+
+      const customerName =
+        (userType.firstName &&
+          userType.lastName &&
+          `${userType.firstName} ${userType.lastName}`) ||
+        userType.email.split("@")[0];
+
+      const result = await createSetupIntent({
+        customerEmail: userType.email,
+        customerName: customerName,
+      });
+
+      const { clientSecret } = result.data as {
+        clientSecret: string;
+        setupIntentId: string;
+        customerId: string;
+      };
+
+      // Confirm the setup intent with Stripe using card form
+      const { setupIntent, error } = await confirmSetupIntent(clientSecret, {
+        paymentMethodType: "Card",
+        paymentMethodData: {
+          billingDetails: {
+            email: userType.email,
+            name: validatedData.name,
+          },
+        },
+      });
+
+      if (error) {
+        throw new Error(`Setup failed: ${error.message}`);
+      }
+
+      if (setupIntent.status === "Succeeded") {
+        if (validatedData.isDefault && setupIntent.paymentMethod?.id) {
+          await setAsDefaultPaymentMethod(setupIntent.paymentMethod?.id);
+        }
+        closeModalAndRefetch();
+        successToast("Payment Method Added!");
+      }
     } catch (error) {
       errorToast(error, "Failed to process payment method");
-    } finally {
       closeModal();
+    } finally {
       setIsLoading(false);
+    }
+  };
+
+  const setAsDefaultPaymentMethod = async (paymentMethodId: string) => {
+    try {
+      const setDefaultPaymentMethod = httpsCallable(
+        functions,
+        "setDefaultPaymentMethod"
+      );
+      await setDefaultPaymentMethod({ paymentMethodId });
+    } catch (error) {
+      console.error("Failed to set as default:", error);
     }
   };
 
@@ -59,28 +116,6 @@ export default function AddPaymentMethodForm({
         Add Payment Method
       </ThemedText>
 
-      <ThemedSecureTextInput
-        placeholder="Card Number"
-        keyboardType="numeric"
-        value={cardNumber}
-        onChangeText={(text) => {
-          setCardNumber(text);
-          clearFieldError("cardNumber");
-        }}
-        error={errors.cardNumber}
-      />
-
-      <ThemedSecureTextInput
-        placeholder="Security Code"
-        keyboardType="numeric"
-        value={securityCode}
-        onChangeText={(text) => {
-          setSecurityCode(text);
-          clearFieldError("securityCode");
-        }}
-        error={errors.securityCode}
-      />
-
       <ThemedTextInput
         placeholder="Cardholder Name"
         value={name}
@@ -91,41 +126,17 @@ export default function AddPaymentMethodForm({
         error={errors.name}
       />
 
-      <View style={{ flexDirection: "row", gap: 10 }}>
-        <ThemedTextInput
-          placeholder="MM"
-          keyboardType="numeric"
-          value={expMonth}
-          onChangeText={(text) => {
-            setExpMonth(text);
-            clearFieldError("expMonth");
-          }}
-          error={errors.expMonth}
-          style={{ flex: 1, padding: 10 }}
-        />
-
-        <ThemedTextInput
-          placeholder="YYYY"
-          value={expYear}
-          keyboardType="numeric"
-          onChangeText={(text) => {
-            setExpYear(text);
-            clearFieldError("expYear");
-          }}
-          error={errors.expYear}
-          style={{ flex: 2, padding: 10 }}
-        />
-      </View>
-
-      <ThemedTextInput
-        keyboardType="numeric"
-        placeholder="Postal Code"
-        value={postalCode}
-        onChangeText={(text) => {
-          setPostalCode(text);
-          clearFieldError("postalCode");
+      <CardField
+        postalCodeEnabled={true}
+        cardStyle={{
+          backgroundColor: "#FFFFFF",
+          textColor: "#000000",
         }}
-        error={errors.postalCode}
+        style={{
+          width: "100%",
+          height: 50,
+          marginVertical: 30,
+        }}
       />
 
       <ThemedView
@@ -145,24 +156,11 @@ export default function AddPaymentMethodForm({
         isLoading={isLoading}
         onPress={() =>
           addPaymentMethod({
-            cardNumber,
-            securityCode,
             name,
-            expMonth,
-            expYear,
-            postalCode,
             isDefault,
           })
         }
       />
-
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginTop: 20,
-        }}
-      ></View>
     </View>
   );
 }

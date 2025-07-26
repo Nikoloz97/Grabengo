@@ -63,7 +63,7 @@ export default function PaymentMethodsOptions({
             <Text
               style={{ fontSize: 16, fontWeight: "500", color: colors.text }}
             >
-              {capitalizeWord(method.card.brand)} ••••{method.card.last4}
+              {capitalizeWord(method.brand)} ••••{method.last4}
             </Text>
             {method.isDefault && <ThemedText type="faint">Default</ThemedText>}
           </View>

@@ -41,10 +41,10 @@ export const successToast = (customText?: string) => {
   });
 };
 
-export const errorToast = (error: unknown | null, defaultMessage?: string) => {
+export const errorToast = (error: unknown | null, customMessage?: string) => {
   Toast.show({
     type: "error",
     text1: "Error",
-    text2: error ? deriveErrorMessage(error, defaultMessage) : defaultMessage,
+    text2: error ? deriveErrorMessage(error, customMessage) : customMessage,
   });
 };

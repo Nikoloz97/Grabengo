@@ -31,18 +31,15 @@ export interface AddressDetails {
   country: string;
 }
 
-export interface BillingDetails {
-  name: string;
-  email: string;
-  phone: string;
-  address: AddressDetails;
-}
-
 export interface PaymentMethod {
   id: string;
-  type: string;
-  card: CardDetails;
-  billing_details: BillingDetails;
+  brand: string;
+  last4: string;
+  expMonth: string;
+  expYear: string;
+  funding: string;
+  name: string;
+  postalCode: string;
   isDefault: boolean;
 }
 
@@ -59,5 +56,4 @@ export interface UserType {
   postalCode?: string;
   state?: string;
   country?: string;
-  paymentMethods: PaymentMethod[];
 }

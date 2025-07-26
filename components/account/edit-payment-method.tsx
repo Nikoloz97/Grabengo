@@ -22,17 +22,13 @@ export default function EditPaymentMethodForm({
   selectedPaymentMethod,
   closeModal,
 }: EditPaymentMethodFormProps) {
-  const [name, setName] = useState(
-    selectedPaymentMethod.billing_details.name || ""
-  );
+  const [name, setName] = useState(selectedPaymentMethod.name || "");
   const [expMonth, setExpMonth] = useState(
-    String(selectedPaymentMethod.card.exp_month)
+    String(selectedPaymentMethod.expMonth)
   );
-  const [expYear, setExpYear] = useState(
-    String(selectedPaymentMethod.card.exp_year)
-  );
+  const [expYear, setExpYear] = useState(String(selectedPaymentMethod.expYear));
   const [postalCode, setPostalCode] = useState(
-    selectedPaymentMethod.billing_details.address.postal_code || ""
+    selectedPaymentMethod.postalCode || ""
   );
   const [isDefault, setIsDefault] = useState(
     selectedPaymentMethod.isDefault || false
@@ -45,11 +41,10 @@ export default function EditPaymentMethodForm({
 
   const originalValues = useMemo(
     () => ({
-      name: selectedPaymentMethod.billing_details.name || "",
-      expMonth: String(selectedPaymentMethod.card.exp_month),
-      expYear: String(selectedPaymentMethod.card.exp_year),
-      postalCode:
-        selectedPaymentMethod.billing_details.address.postal_code || "",
+      name: selectedPaymentMethod.name || "",
+      expMonth: String(selectedPaymentMethod.expMonth),
+      expYear: String(selectedPaymentMethod.expYear),
+      postalCode: selectedPaymentMethod.postalCode || "",
       isDefault: selectedPaymentMethod.isDefault || false,
     }),
     [selectedPaymentMethod]
@@ -126,8 +121,8 @@ export default function EditPaymentMethodForm({
         type="faint"
         style={{ fontSize: 25, fontWeight: "600", marginBottom: 20 }}
       >
-        {capitalizeWord(selectedPaymentMethod.card.brand)} ••••
-        {selectedPaymentMethod.card.last4}
+        {capitalizeWord(selectedPaymentMethod.brand)} ••••
+        {selectedPaymentMethod.last4}
       </ThemedText>
 
       <ThemedTextInput
