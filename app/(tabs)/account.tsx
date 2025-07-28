@@ -28,7 +28,7 @@ export default function Account() {
     refetchUserType();
   };
 
-    const handlePaymentMethodsEdit = () => {
+  const handlePaymentMethodsEdit = () => {
     setIsPaymentMethodsModalOpen(false);
     refetchUserType();
   };
@@ -68,16 +68,10 @@ export default function Account() {
         </ThemedHeaderView>
 
         <ThemedScrollView>
-          {userType.firstName && userType.lastName ? (
-            <View>
-              <ThemedText type="subtitle">{`${userType.firstName} ${userType.lastName}`}</ThemedText>
-              <ThemedText style={{ marginTop: 10 }}>
-                {userType.email}
-              </ThemedText>
-            </View>
-          ) : (
-            <ThemedText type="subtitle">{userType.email}</ThemedText>
-          )}
+          <View>
+            <ThemedText type="subtitle">{userType.name}</ThemedText>
+            <ThemedText style={{ marginTop: 10 }}>{userType.email}</ThemedText>
+          </View>
 
           <View style={{ marginTop: 40, gap: 5 }}>
             {options.map((option, index) => (

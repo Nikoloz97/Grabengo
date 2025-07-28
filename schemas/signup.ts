@@ -73,8 +73,10 @@ export const signUpSchema = z
     email: z.email({ message: "Invalid email address" }),
     password: passwordSchema,
     confirmPassword: z.string(),
-    firstName: trimmedString(undefined, 50).optional(),
-    lastName: trimmedString(undefined, 50).optional(),
+    name: z
+      .string()
+      .min(4, { message: "Name must be at least 4 characters" })
+      .max(128, { message: "Name must be less than 128 characters" }),
     birthDate: birthDateSchema,
     addressLineOne: trimmedString(undefined, 100).optional(),
     addressLineTwo: trimmedString(undefined, 100).optional(),

@@ -102,23 +102,20 @@ export const PaymentButton: React.FC<PaymentComponentProps> = ({
         allowsDelayedPaymentMethods: true,
       });
 
-      // TODO: replace with logs? Feel these are too technical for user
-      errorToast(
-        initError,
-        `Failed to initialize payment sheet: ${initError?.message}`
-      );
+      errorToast(null, `Failed to create payment sheet: ${initError?.message}`);
+
+      console.log(`Failed to create payment sheet: ${initError?.message}`);
 
       const { error: presentError } = await presentPaymentSheet();
 
       if (presentError) {
         if (presentError.code === "Canceled") {
-          // TODO: eventually remove
           console.log("Payment was canceled by user");
           return;
         }
 
         errorToast(
-          presentError,
+          null,
           `Payment presentation failed: ${presentError?.message}`
         );
       }
@@ -128,8 +125,7 @@ export const PaymentButton: React.FC<PaymentComponentProps> = ({
       const errorMessage =
         error instanceof Error ? error.message : "Payment failed";
 
-      errorToast(errorMessage, `Payment presentation failed: ${errorMessage}`);
-
+      errorToast(null, `Payment failed: ${errorMessage}`);
       Alert.alert("Payment Failed", errorMessage);
       onPaymentError?.(errorMessage);
     } finally {

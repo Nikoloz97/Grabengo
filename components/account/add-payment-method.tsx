@@ -61,11 +61,7 @@ export default function AddPaymentMethodForm({
     try {
       const createSetupIntent = httpsCallable(functions, "createSetupIntent");
 
-      const customerName =
-        (userType.firstName &&
-          userType.lastName &&
-          `${userType.firstName} ${userType.lastName}`) ||
-        userType.email.split("@")[0];
+      const customerName = userType.name;
 
       const result = await createSetupIntent({
         customerEmail: userType.email,
@@ -76,7 +72,6 @@ export default function AddPaymentMethodForm({
         clientSecret: string;
       };
 
-      // Confirm the setup intent with Stripe using card form
       const { setupIntent, error } = await confirmSetupIntent(clientSecret, {
         paymentMethodType: "Card",
         paymentMethodData: {

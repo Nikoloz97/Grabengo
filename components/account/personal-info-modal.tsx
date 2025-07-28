@@ -37,8 +37,7 @@ export default function PersonalInfoModal({
 }: PersonalInfoModalProps) {
   const { colors } = useTheme();
 
-  const [firstName, setFirstName] = useState(userType.firstName || "");
-  const [lastName, setLastName] = useState(userType.lastName || "");
+  const [name, setName] = useState(userType.name || "");
   const [birthDate, setBirthDate] = useState(
     (userType.birthDate && format(userType.birthDate.toDate(), "MM/dd/yyyy")) ||
       ""
@@ -61,8 +60,7 @@ export default function PersonalInfoModal({
 
   const originalValues = useMemo(
     () => ({
-      firstName: userType.firstName || "",
-      lastName: userType.lastName || "",
+      name: userType.name || "",
       birthDate:
         (userType.birthDate &&
           format(userType.birthDate.toDate(), "MM/dd/yyyy")) ||
@@ -80,8 +78,7 @@ export default function PersonalInfoModal({
   // Reset form fields when modal opens
   useEffect(() => {
     if (isVisible) {
-      setFirstName(originalValues.firstName);
-      setLastName(originalValues.lastName);
+      setName(originalValues.name);
       setBirthDate(originalValues.birthDate);
       setAddressLineOne(originalValues.addressLineOne);
       setAddressLineTwo(originalValues.addressLineTwo);
@@ -94,8 +91,7 @@ export default function PersonalInfoModal({
 
   const hasChanges = useMemo(() => {
     return (
-      firstName !== originalValues.firstName ||
-      lastName !== originalValues.lastName ||
+      name !== originalValues.name ||
       birthDate !== originalValues.birthDate ||
       addressLineOne !== originalValues.addressLineOne ||
       addressLineTwo !== originalValues.addressLineTwo ||
@@ -105,8 +101,7 @@ export default function PersonalInfoModal({
       country !== originalValues.country
     );
   }, [
-    firstName,
-    lastName,
+    name,
     birthDate,
     addressLineOne,
     addressLineTwo,
@@ -130,8 +125,7 @@ export default function PersonalInfoModal({
     try {
       // no spread operator due to birthDate field
       let dataToUpdate = {
-        firstName: validatedData.firstName,
-        lastName: validatedData.lastName,
+        name: validatedData.name,
         birthDate:
           validatedData.birthDate &&
           Timestamp.fromDate(stringToDate(validatedData.birthDate)),
@@ -189,23 +183,13 @@ export default function PersonalInfoModal({
         </ThemedText>
         <View style={{ flexDirection: "row", gap: 10 }}>
           <ThemedTextInput
-            placeholder="First Name"
-            value={firstName}
+            placeholder="Full Name"
+            value={name}
             onChangeText={(text) => {
-              setFirstName(text);
-              clearFieldError("firstName");
+              setName(text);
+              clearFieldError("name");
             }}
-            error={errors.firstName}
-            style={{ flex: 1 }}
-          />
-          <ThemedTextInput
-            placeholder="Last Name"
-            value={lastName}
-            onChangeText={(text) => {
-              setLastName(text);
-              clearFieldError("lastName");
-            }}
-            error={errors.lastName}
+            error={errors.name}
             style={{ flex: 1 }}
           />
         </View>
@@ -291,8 +275,7 @@ export default function PersonalInfoModal({
           disabled={!hasChanges}
           onPress={() =>
             handlePersonalInfoEdit({
-              firstName,
-              lastName,
+              name,
               birthDate,
               addressLineOne,
               addressLineTwo,

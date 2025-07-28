@@ -31,8 +31,7 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [name, setName] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [addressLineOne, setAddressLineOne] = useState("");
   const [addressLineTwo, setAddressLineTwo] = useState("");
@@ -62,8 +61,7 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
       // no spread due to string to date conversion
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
-        firstName: userData.firstName,
-        lastName: userData.lastName,
+        name: userData.name,
         birthDate: userData.birthDate && stringToDate(userData.birthDate),
         addressLineOne: userData.addressLineOne,
         addressLineTwo: userData.addressLineTwo,
@@ -125,23 +123,13 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
 
         <View style={{ flexDirection: "row", gap: 10 }}>
           <ThemedTextInput
-            placeholder="First Name"
-            value={firstName}
+            placeholder="*Full Name"
+            value={name}
             onChangeText={(text) => {
-              setFirstName(text);
-              clearFieldError("firstName");
+              setName(text);
+              clearFieldError("name");
             }}
-            error={errors.firstName}
-            style={{ flex: 1 }}
-          />
-          <ThemedTextInput
-            placeholder="Last Name"
-            value={lastName}
-            onChangeText={(text) => {
-              setLastName(text);
-              clearFieldError("lastName");
-            }}
-            error={errors.lastName}
+            error={errors.name}
             style={{ flex: 1 }}
           />
         </View>
@@ -232,8 +220,7 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
               email,
               password,
               confirmPassword,
-              firstName,
-              lastName,
+              name,
               birthDate,
               addressLineOne,
               addressLineTwo,

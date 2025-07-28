@@ -25,8 +25,6 @@ export const createPaymentIntent = onCall(
   async (request: CallableRequest<PaymentData>) => {
     try {
       const { amount, currency = "usd", guestEmail, guestName } = request.data;
-      // TODO: check if this userId actually gets passed down
-      // (make a payment and see if id appears on stripe dashboard)
       const userId = request.auth?.uid;
 
       const stripe = new Stripe(stripeSecret.value());
@@ -59,6 +57,7 @@ export const createPaymentIntent = onCall(
         currency,
         metadata,
         automatic_payment_methods: {
+          // enables default payment
           enabled: true,
         },
       });
@@ -101,10 +100,8 @@ export const createSetupIntent = onCall(
 
       let customer;
 
-      // check if customer exists in database
       const userDoc = await db.collection("users").doc(userId).get();
       const userData = userDoc.data();
-
       if (userData === undefined) throw new Error("User doesn't exist");
 
       if (userData.stripeCustomerId) {
@@ -151,8 +148,6 @@ export const createSetupIntent = onCall(
 
       return {
         clientSecret: setupIntent.client_secret,
-        setupIntentId: setupIntent.id,
-        customerId: customer.id,
       };
     } catch (error) {
       console.error("Setup intent creation failed:", error);

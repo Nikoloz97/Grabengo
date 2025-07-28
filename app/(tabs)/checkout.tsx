@@ -42,7 +42,7 @@ export default function CheckoutScreen() {
         style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
       >
         <ThemedHeaderView>
-          <ThemedText type="title">GUEST CHECKOUT </ThemedText>
+          <ThemedText type="title">CHECKOUT </ThemedText>
         </ThemedHeaderView>
         <ThemedText>Your cart is empty :(</ThemedText>
       </ThemedView>
@@ -52,7 +52,7 @@ export default function CheckoutScreen() {
   return (
     <ThemedView style={{ flex: 1 }}>
       <ThemedHeaderView>
-        <ThemedText type="title">GUEST CHECKOUT </ThemedText>
+        <ThemedText type="title"> CHECKOUT </ThemedText>
       </ThemedHeaderView>
 
       <ThemedScrollView
@@ -193,10 +193,8 @@ export default function CheckoutScreen() {
         </ThemedView>
 
         <View style={{ marginTop: 30 }}>
-          {/* TODO: pass guest info props if user not signed in?? (email + name) */}
           <PaymentButton
             orderAmount={cartTotal}
-            currency="usd"
             onPaymentSuccess={handlePaymentSuccess}
           />
         </View>

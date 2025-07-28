@@ -47,8 +47,7 @@ export interface PaymentMethod {
 export interface UserType {
   id?: string;
   email: string;
-  firstName?: string;
-  lastName?: string;
+  name: string;
   birthDate?: Timestamp;
   addressLineOne?: string;
   addressLineTwo?: string | null;
