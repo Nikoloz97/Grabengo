@@ -5,7 +5,7 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { auth, db } from "@/firebase/config";
 import { errorToast, successToast } from "@/hooks/default-toasts";
-import { stringToDate } from "@/hooks/formatters";
+import { formatPhoneNumber, stringToDate } from "@/hooks/formatters";
 import useFormValidation from "@/hooks/useFormValidation";
 import { signUpSchema } from "@/schemas/signup";
 import { useTheme } from "@react-navigation/native";
@@ -32,6 +32,7 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [addressLineOne, setAddressLineOne] = useState("");
   const [addressLineTwo, setAddressLineTwo] = useState("");
@@ -62,6 +63,7 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         name: userData.name,
+        phone: userData.phone && formatPhoneNumber(userData.phone),
         birthDate: userData.birthDate && stringToDate(userData.birthDate),
         addressLineOne: userData.addressLineOne,
         addressLineTwo: userData.addressLineTwo,
@@ -133,6 +135,18 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
             style={{ flex: 1 }}
           />
         </View>
+        <ThemedTextInput
+          placeholder="Phone"
+          value={phone}
+          keyboardType="phone-pad"
+          onChangeText={(text) => {
+            const formatted = formatPhoneNumber(text);
+            setPhone(formatted);
+            clearFieldError("phone");
+          }}
+          error={errors.phone}
+          style={{ flex: 1 }}
+        />
         <ThemedTextInputMask
           type="datetime"
           options={{
@@ -176,7 +190,6 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
             error={errors.city}
             style={{ flex: 1 }}
           />
-          {/* TODO: dropdown options */}
           <ThemedTextInput
             placeholder="State"
             value={state}
@@ -221,6 +234,7 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
               password,
               confirmPassword,
               name,
+              phone,
               birthDate,
               addressLineOne,
               addressLineTwo,

@@ -34,6 +34,9 @@ export function ThemedTextInput(props: ThemedTextInputProps) {
             borderColor: colors.border,
             color: colors.text,
             paddingVertical: 5,
+            ...(readOnly && {
+              color: colors.border,
+            }),
           },
           style, // overrides
         ]}

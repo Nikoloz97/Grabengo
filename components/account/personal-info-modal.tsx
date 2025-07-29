@@ -1,6 +1,6 @@
 import { db } from "@/firebase/config";
 import { errorToast, successToast } from "@/hooks/default-toasts";
-import { stringToDate } from "@/hooks/formatters";
+import { formatPhoneNumber, stringToDate } from "@/hooks/formatters";
 import useFormValidation from "@/hooks/useFormValidation";
 import { personalInfoSchema } from "@/schemas/personal-info";
 import { UserType } from "@/types/user";
@@ -38,6 +38,9 @@ export default function PersonalInfoModal({
   const { colors } = useTheme();
 
   const [name, setName] = useState(userType.name || "");
+  const [phone, setPhone] = useState(
+    (userType.phone && formatPhoneNumber(userType.phone)) || ""
+  );
   const [birthDate, setBirthDate] = useState(
     (userType.birthDate && format(userType.birthDate.toDate(), "MM/dd/yyyy")) ||
       ""
@@ -61,6 +64,7 @@ export default function PersonalInfoModal({
   const originalValues = useMemo(
     () => ({
       name: userType.name || "",
+      phone: (userType.phone && formatPhoneNumber(userType.phone)) || "",
       birthDate:
         (userType.birthDate &&
           format(userType.birthDate.toDate(), "MM/dd/yyyy")) ||
@@ -79,6 +83,7 @@ export default function PersonalInfoModal({
   useEffect(() => {
     if (isVisible) {
       setName(originalValues.name);
+      setPhone(originalValues.phone);
       setBirthDate(originalValues.birthDate);
       setAddressLineOne(originalValues.addressLineOne);
       setAddressLineTwo(originalValues.addressLineTwo);
@@ -92,6 +97,7 @@ export default function PersonalInfoModal({
   const hasChanges = useMemo(() => {
     return (
       name !== originalValues.name ||
+      phone !== originalValues.phone ||
       birthDate !== originalValues.birthDate ||
       addressLineOne !== originalValues.addressLineOne ||
       addressLineTwo !== originalValues.addressLineTwo ||
@@ -102,6 +108,7 @@ export default function PersonalInfoModal({
     );
   }, [
     name,
+    phone,
     birthDate,
     addressLineOne,
     addressLineTwo,
@@ -126,6 +133,7 @@ export default function PersonalInfoModal({
       // no spread operator due to birthDate field
       let dataToUpdate = {
         name: validatedData.name,
+        phone: validatedData.phone,
         birthDate:
           validatedData.birthDate &&
           Timestamp.fromDate(stringToDate(validatedData.birthDate)),
@@ -181,18 +189,28 @@ export default function PersonalInfoModal({
         >
           Personal Info
         </ThemedText>
-        <View style={{ flexDirection: "row", gap: 10 }}>
-          <ThemedTextInput
-            placeholder="Full Name"
-            value={name}
-            onChangeText={(text) => {
-              setName(text);
-              clearFieldError("name");
-            }}
-            error={errors.name}
-            style={{ flex: 1 }}
-          />
-        </View>
+        <ThemedTextInput
+          placeholder="Full Name"
+          value={name}
+          onChangeText={(text) => {
+            setName(text);
+            clearFieldError("name");
+          }}
+          error={errors.name}
+          style={{ flex: 1 }}
+        />
+        <ThemedTextInput
+          placeholder="Phone"
+          value={phone}
+          keyboardType="phone-pad"
+          onChangeText={(text) => {
+            const formatted = formatPhoneNumber(text);
+            setPhone(formatted);
+            clearFieldError("phone");
+          }}
+          error={errors.phone}
+          style={{ flex: 1 }}
+        />
         <ThemedTextInputMask
           type="datetime"
           options={{
@@ -276,6 +294,7 @@ export default function PersonalInfoModal({
           onPress={() =>
             handlePersonalInfoEdit({
               name,
+              phone,
               birthDate,
               addressLineOne,
               addressLineTwo,

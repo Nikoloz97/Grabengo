@@ -48,6 +48,7 @@ export interface UserType {
   id?: string;
   email: string;
   name: string;
+  phone?: string;
   birthDate?: Timestamp;
   addressLineOne?: string;
   addressLineTwo?: string | null;
