@@ -59,24 +59,41 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
       );
       const user = userCredential.user;
 
-      // no spread due to string to date conversion
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         name: userData.name,
-        phone: userData.phone && formatPhoneNumber(userData.phone),
-        birthDate: userData.birthDate && stringToDate(userData.birthDate),
-        addressLineOne: userData.addressLineOne,
-        addressLineTwo: userData.addressLineTwo,
-        city: userData.city,
-        postalCode: userData.postalCode,
-        state: userData.state,
-        country: userData.country,
+        ...(userData.phone && { phone: formatPhoneNumber(userData.phone) }),
+        ...(userData.birthDate && {
+          birthDate: stringToDate(userData.birthDate),
+        }),
+        ...(userData.addressLineOne && {
+          addressLineOne: userData.addressLineOne,
+        }),
+
+        ...(userData.addressLineTwo && {
+          addressLineOne: userData.addressLineTwo,
+        }),
+        ...(userData.city && { addressLineOne: userData.city }),
+        ...(userData.postalCode && { addressLineOne: userData.postalCode }),
+        ...(userData.state && { addressLineOne: userData.state }),
+        ...(userData.country && { addressLineOne: userData.country }),
       });
       router.push("/");
       successToast("Signed up!");
       setIsSignUpPressed(false);
     } catch (error) {
       errorToast(error);
+      console.log(error);
+      if (auth.currentUser) {
+        try {
+          await auth.currentUser.delete(); // clean up Firebase Auth
+        } catch (deleteError) {
+          console.error(
+            "Rollback failed: couldn't delete auth user",
+            deleteError
+          );
+        }
+      }
     } finally {
       setIsLoading(false);
     }
