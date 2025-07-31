@@ -1,10 +1,10 @@
 import { auth, db } from "@/firebase/config";
 import { errorToast } from "@/hooks/default-toasts";
-import { router } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { deleteUser, User } from "firebase/auth";
 import { deleteDoc, doc } from "firebase/firestore";
 import React from "react";
-import { Alert, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { ThemedButton } from "../themed-button";
 import { ThemedModal } from "../themed-modal";
 import { ThemedText } from "../themed-text";
@@ -25,26 +25,16 @@ export default function DeleteAccountModal({
       if (!auth.currentUser) {
         errorToast(null, "No user is currently signed in");
       }
-
-      // delete from firestore
-      await deleteDoc(doc(db, "users", user.uid));
+      await AsyncStorage.setItem("deletionInProgress", "true");
 
       // delete from firebase auth
       await deleteUser(user);
 
-      router.push("/");
-      Alert.alert(
-        "Account Deleted!",
-        "If this was a mistake, please contact support",
-        [
-          {
-            text: "OK",
-            onPress: () => {},
-          },
-        ]
-      );
+      // delete from firestore
+      await deleteDoc(doc(db, "users", user.uid));
     } catch (error) {
       errorToast(error, "There was an issue deleting your account");
+      await AsyncStorage.removeItem("deletionInProgress");
     } finally {
       closeModal();
     }

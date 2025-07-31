@@ -1,8 +1,10 @@
 import { UserType } from "@/types/user";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
 import { onAuthStateChanged, signInAnonymously, User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, Alert, Text, View } from "react-native";
 import { auth, db } from "../firebase/config";
 
 interface AuthContextType {
@@ -40,12 +42,32 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       } else if (user && user.isAnonymous) {
         setUser(user);
         setUserType(null);
-        // first time sign in
       } else {
+        const deletionFlag = await AsyncStorage.getItem("deletionInProgress");
+        console.log("deletion flag:", deletionFlag);
+        if (deletionFlag === "true") {
+          await AsyncStorage.removeItem("deletionInProgress");
+
+          // account deletion
+          console.log("User account was deleted");
+          router.push("/");
+          Alert.alert(
+            "Account Deleted!",
+            "If this was a mistake, please contact support",
+            [
+              {
+                text: "OK",
+                onPress: () => {},
+              },
+            ]
+          );
+        }
+        // sign in anonymously
         try {
-          console.log("No user found, signing in anonymously...");
+          console.log("signing in anonymously...");
           const userCredential = await signInAnonymously(auth);
           setUser(userCredential.user);
+          console.log(`Anonymously signed in as: ${userCredential.user.uid}`);
         } catch (error) {
           console.error("Anonymous sign-in failed:", error);
           setUser(null);
