@@ -34,13 +34,9 @@ export default function SignIn() {
   const { errors, validateForm, clearFieldError } =
     useFormValidation<SignInFields>();
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (input: SignInFields) => {
     setIsLoading(true);
-    const validatedData = validateForm(
-      signInSchema,
-      { email, password },
-      setIsLoading
-    );
+    const validatedData = validateForm(signInSchema, input, setIsLoading);
     if (!validatedData) return;
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -95,7 +91,12 @@ export default function SignIn() {
         <ThemedButton
           title="Sign in"
           isLoading={isLoading}
-          onPress={handleSignIn}
+          onPress={() =>
+            handleSignIn({
+              email,
+              password,
+            })
+          }
           style={{ marginTop: 20 }}
         />
 

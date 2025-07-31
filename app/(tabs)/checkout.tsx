@@ -1,25 +1,138 @@
 import DeleteItemModal from "@/components/checkout/delete-item-modal";
 import EditItemModal from "@/components/checkout/edit-item-modal";
-import { PaymentButton } from "@/components/checkout/payment-button";
+import GuestPaymentModal from "@/components/checkout/guest-payment-modal";
+import PaymentButton from "@/components/checkout/payment-button";
 import { ThemedHeaderView } from "@/components/themed-header-view";
 import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { useCart } from "@/contexts/cart-context";
+import { functions } from "@/firebase/config";
+import { errorToast } from "@/hooks/default-toasts";
 import { dollarFormatter } from "@/hooks/formatters";
+import { GuestInfo } from "@/types/checkout";
 import { CartItem } from "@/types/menu";
 import { useTheme } from "@react-navigation/native";
+import {
+  initPaymentSheet,
+  presentPaymentSheet,
+} from "@stripe/stripe-react-native";
 import { Image } from "expo-image";
 import { router } from "expo-router";
+import { httpsCallable } from "firebase/functions";
 import React, { useState } from "react";
 import { Alert, Platform, TouchableOpacity, View } from "react-native";
+
+interface PaymentIntentRequest {
+  amount: number;
+  currency: string;
+  guestEmail?: string;
+  guestName?: string;
+}
+
+interface PaymentIntentData {
+  clientSecret: string;
+  paymentIntentId: string;
+}
 
 export default function CheckoutScreen() {
   const { cart, cartTotal, clearCart } = useCart();
   const [itemToEdit, setItemToEdit] = useState<CartItem | null>(null);
   const [itemToDelete, setItemToDelete] = useState<CartItem | null>(null);
+  const [isGuestPaymentModalOpen, setIsGuestPaymentModalOpen] =
+    useState<boolean>(false);
+  const [isPaymentButtonLoading, setIsPaymentButtonLoading] =
+    useState<boolean>(false);
   const { colors } = useTheme();
+
+  const displayPayment = async (guestInfo?: GuestInfo) => {
+    try {
+      setIsPaymentButtonLoading(true);
+      if (!cartTotal || cartTotal <= 0) {
+        throw new Error("Invalid order amount");
+      }
+      // creates payment intent for server (input = paymentIntentRequest; output = paymentIntentData)
+      const createPaymentIntent = httpsCallable<
+        PaymentIntentRequest,
+        PaymentIntentData
+      >(functions, "createPaymentIntent"); // string input = corresponding index.ts function
+
+      const paymentData: PaymentIntentRequest = {
+        amount: cartTotal,
+        currency: "usd",
+      };
+
+      if (guestInfo) {
+        paymentData.guestEmail = guestInfo.email;
+        paymentData.guestName = guestInfo.name;
+      }
+
+      const { data } = await createPaymentIntent(paymentData);
+
+      if (!data?.clientSecret) {
+        throw new Error(
+          "Failed to create payment intent - no client secret received"
+        );
+      }
+
+      const { error: initError } = await initPaymentSheet({
+        merchantDisplayName: "Grabengo",
+        paymentIntentClientSecret: data.clientSecret,
+        defaultBillingDetails: {
+          name: guestInfo?.name,
+          email: guestInfo?.email,
+          phone: guestInfo?.phone,
+        },
+        appearance: {
+          colors: {
+            // need to use hex values (see colors constant)
+            primary: "#fcfcfc",
+            background: "#1f1f1f",
+            componentBackground: "#1f1f1f",
+            componentBorder: "#fcfcfc",
+            componentDivider: "#fcfcfc",
+            primaryText: "#fcfcfc",
+            secondaryText: "#fcfcfc",
+            componentText: "#fcfcfc",
+            placeholderText: "#999999",
+          },
+          primaryButton: {
+            colors: {
+              background: "#6bd815",
+              text: "#fcfcfc",
+            },
+          },
+        },
+        allowsDelayedPaymentMethods: true,
+      });
+
+      console.log(`Failed to create payment sheet: ${initError?.message}`);
+
+      const { error: presentError } = await presentPaymentSheet();
+
+      if (presentError) {
+        if (presentError.code === "Canceled") {
+          console.log("Payment was canceled by user");
+          return;
+        }
+
+        errorToast(
+          null,
+          `Payment presentation failed: ${presentError?.message}`
+        );
+      }
+      handlePaymentSuccess();
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Payment failed";
+
+      errorToast(null, `Payment failed: ${errorMessage}`);
+      Alert.alert("Payment Failed", errorMessage);
+    } finally {
+      setIsPaymentButtonLoading(false);
+    }
+  };
 
   const handlePaymentSuccess = () => {
     clearCart();
@@ -195,25 +308,34 @@ export default function CheckoutScreen() {
         <View style={{ marginTop: 30 }}>
           <PaymentButton
             orderAmount={cartTotal}
-            onPaymentSuccess={handlePaymentSuccess}
+            setIsGuestPaymentModalOpen={setIsGuestPaymentModalOpen}
+            displayPayment={displayPayment}
+            isLoading={isPaymentButtonLoading}
           />
         </View>
       </ThemedScrollView>
-      {/* item modals*/}
+      {/* modals*/}
       {itemToEdit && (
         <EditItemModal
           isVisible={itemToEdit !== null}
-          item={itemToEdit}
+          item={itemToEdit!} // won't be visible without it
           setItem={setItemToEdit}
         />
       )}
+
       {itemToDelete && (
         <DeleteItemModal
           isVisible={itemToDelete !== null}
-          item={itemToDelete}
+          item={itemToDelete!} // won't be visible without it
           setItem={setItemToDelete}
         />
       )}
+
+      <GuestPaymentModal
+        isVisible={isGuestPaymentModalOpen}
+        setIsVisible={setIsGuestPaymentModalOpen}
+        displayPayment={displayPayment}
+      />
     </ThemedView>
   );
 }

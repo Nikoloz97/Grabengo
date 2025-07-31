@@ -28,18 +28,18 @@ type SignUpFields = z.infer<typeof signUpSchema>;
 export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
   const { colors } = useTheme();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [birthDate, setBirthDate] = useState("");
-  const [addressLineOne, setAddressLineOne] = useState("");
-  const [addressLineTwo, setAddressLineTwo] = useState("");
-  const [city, setCity] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [state, setState] = useState("");
-  const [country, setCountry] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [phone, setPhone] = useState<string | undefined>();
+  const [birthDate, setBirthDate] = useState<string | undefined>();
+  const [addressLineOne, setAddressLineOne] = useState<string | undefined>();
+  const [addressLineTwo, setAddressLineTwo] = useState<string | undefined>();
+  const [city, setCity] = useState<string | undefined>();
+  const [postalCode, setPostalCode] = useState<string | undefined>();
+  const [state, setState] = useState<string | undefined>();
+  const [country, setCountry] = useState<string | undefined>();
 
   const [isLoading, setIsLoading] = useState(false);
 
