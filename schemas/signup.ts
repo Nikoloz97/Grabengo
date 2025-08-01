@@ -91,13 +91,34 @@ export const signUpSchema = z
         message: "Phone number must be 10-15 digits long",
       })
       .optional(),
-    birthDate: birthDateSchema,
-    addressLineOne: trimmedString(undefined, 100).optional(),
-    addressLineTwo: trimmedString(undefined, 100).optional(),
-    city: trimmedString(undefined, 50).optional(),
-    postalCode: trimmedString(undefined, 10).optional(),
-    state: trimmedString(undefined, 50).optional(),
-    country: trimmedString(undefined, 56).optional(),
+    birthDate: z.preprocess((val) => {
+      if (typeof val === "string" && val.trim() === "") return undefined;
+      return val;
+    }, birthDateSchema),
+    addressLineOne: z.preprocess((val) => {
+      if (typeof val === "string" && val.trim() === "") return undefined;
+      return val;
+    }, trimmedString(undefined, 100).optional()),
+    addressLineTwo: z.preprocess((val) => {
+      if (typeof val === "string" && val.trim() === "") return undefined;
+      return val;
+    }, trimmedString(undefined, 100).optional()),
+    city: z.preprocess((val) => {
+      if (typeof val === "string" && val.trim() === "") return undefined;
+      return val;
+    }, trimmedString(undefined, 50).optional()),
+    postalCode: z.preprocess((val) => {
+      if (typeof val === "string" && val.trim() === "") return undefined;
+      return val;
+    }, trimmedString(undefined, 10).optional()),
+    state: z.preprocess((val) => {
+      if (typeof val === "string" && val.trim() === "") return undefined;
+      return val;
+    }, trimmedString(undefined, 50).optional()),
+    country: z.preprocess((val) => {
+      if (typeof val === "string" && val.trim() === "") return undefined;
+      return val;
+    }, trimmedString(undefined, 56).optional()),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",

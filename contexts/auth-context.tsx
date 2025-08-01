@@ -38,6 +38,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setUser(user);
         setIsLoading(false);
         await fetchUserType(user.uid);
+        console.log(`Signed in as: ${userType?.email}`);
         // already signed in anonymously (e.g. app restart)
       } else if (user && user.isAnonymous) {
         setUser(user);

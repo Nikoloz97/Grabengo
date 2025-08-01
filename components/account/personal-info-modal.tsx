@@ -7,7 +7,7 @@ import { UserType } from "@/types/user";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { format } from "date-fns";
-import { doc, Timestamp, updateDoc } from "firebase/firestore";
+import { deleteField, doc, Timestamp, updateDoc } from "firebase/firestore";
 import React, { useEffect, useMemo, useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { z } from "zod";
@@ -37,24 +37,25 @@ export default function PersonalInfoModal({
 }: PersonalInfoModalProps) {
   const { colors } = useTheme();
 
-  const [name, setName] = useState(userType.name || "");
-  const [phone, setPhone] = useState(
-    (userType.phone && formatPhoneNumber(userType.phone)) || ""
+  const [name, setName] = useState<string>(userType.name || "");
+  const [phone, setPhone] = useState<string | undefined>(
+    userType.phone && formatPhoneNumber(userType.phone)
   );
-  const [birthDate, setBirthDate] = useState(
-    (userType.birthDate && format(userType.birthDate.toDate(), "MM/dd/yyyy")) ||
-      ""
+  const [birthDate, setBirthDate] = useState<string | undefined>(
+    userType.birthDate && format(userType.birthDate.toDate(), "MM/dd/yyyy")
   );
-  const [addressLineOne, setAddressLineOne] = useState(
-    userType.addressLineOne || ""
+  const [addressLineOne, setAddressLineOne] = useState<string | undefined>(
+    userType.addressLineOne
   );
-  const [addressLineTwo, setAddressLineTwo] = useState(
-    userType.addressLineTwo || ""
+  const [addressLineTwo, setAddressLineTwo] = useState<string | undefined>(
+    userType.addressLineTwo
   );
-  const [city, setCity] = useState(userType.city || "");
-  const [postalCode, setPostalCode] = useState(userType.postalCode || "");
-  const [state, setState] = useState(userType.state || "");
-  const [country, setCountry] = useState(userType.country || "");
+  const [city, setCity] = useState<string | undefined>(userType.city);
+  const [postalCode, setPostalCode] = useState<string | undefined>(
+    userType.postalCode
+  );
+  const [state, setState] = useState<string | undefined>(userType.state);
+  const [country, setCountry] = useState<string | undefined>(userType.country);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -63,23 +64,21 @@ export default function PersonalInfoModal({
 
   const originalValues = useMemo(
     () => ({
-      name: userType.name || "",
-      phone: (userType.phone && formatPhoneNumber(userType.phone)) || "",
+      name: userType.name,
+      phone: userType.phone && formatPhoneNumber(userType.phone),
       birthDate:
-        (userType.birthDate &&
-          format(userType.birthDate.toDate(), "MM/dd/yyyy")) ||
-        "",
-      addressLineOne: userType.addressLineOne || "",
-      addressLineTwo: userType.addressLineTwo || "",
-      city: userType.city || "",
-      postalCode: userType.postalCode || "",
-      state: userType.state || "",
-      country: userType.country || "",
+        userType.birthDate && format(userType.birthDate.toDate(), "MM/dd/yyyy"),
+      addressLineOne: userType.addressLineOne,
+      addressLineTwo: userType.addressLineTwo,
+      city: userType.city,
+      postalCode: userType.postalCode,
+      state: userType.state,
+      country: userType.country,
     }),
     [userType]
   );
 
-  // Reset form fields when modal opens
+  // Reset form fields when modal reopens
   useEffect(() => {
     if (isVisible) {
       setName(originalValues.name);
@@ -129,22 +128,23 @@ export default function PersonalInfoModal({
     if (!validatedData) {
       return;
     }
+
     try {
-      // no spread operator due to birthDate field
       let dataToUpdate = {
         name: validatedData.name,
-        phone: validatedData.phone,
-        birthDate:
-          validatedData.birthDate &&
-          Timestamp.fromDate(stringToDate(validatedData.birthDate)),
-        addressLineOne: validatedData.addressLineOne,
-        addressLineTwo: validatedData.addressLineTwo,
-        city: validatedData.city,
-        postalCode: validatedData.postalCode,
-        state: validatedData.state,
-        country: validatedData.country,
+        phone: validatedData.phone
+          ? formatPhoneNumber(validatedData.phone)
+          : deleteField(),
+        birthDate: validatedData.birthDate
+          ? Timestamp.fromDate(stringToDate(validatedData.birthDate))
+          : deleteField(),
+        addressLineOne: validatedData.addressLineOne ?? deleteField(),
+        addressLineTwo: validatedData.addressLineTwo ?? deleteField(),
+        city: validatedData.city ?? deleteField(),
+        postalCode: validatedData.postalCode ?? deleteField(),
+        state: validatedData.state ?? deleteField(),
+        country: validatedData.country ?? deleteField(),
       };
-
       const userDoc = doc(db, "users", userId);
       await updateDoc(userDoc, dataToUpdate);
       successToast("Personal info updated!");

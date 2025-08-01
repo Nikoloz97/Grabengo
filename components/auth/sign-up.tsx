@@ -69,7 +69,6 @@ export default function SignUp({ setIsSignUpPressed }: SignUpProps) {
         ...(userData.addressLineOne && {
           addressLineOne: userData.addressLineOne,
         }),
-
         ...(userData.addressLineTwo && {
           addressLineOne: userData.addressLineTwo,
         }),

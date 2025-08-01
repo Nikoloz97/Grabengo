@@ -49,25 +49,52 @@ export const personalInfoSchema = z.object({
     .string()
     .min(4, { message: "Name must be at least 4 characters" })
     .max(128, { message: "Name must be less than 128 characters" }),
-  phone: z
-    .string()
-    .regex(
-      /^[\d\s\-\(\)\+\.]+$/,
-      "Phone number can only contain digits, spaces, hyphens, parentheses, plus signs, and periods"
-    )
-    .regex(/\d/, "Phone number must contain at least one digit")
-    .min(10, "Phone number must be at least 10 digits")
-    .max(20, "Phone number is too long")
-    .transform((val) => val.replace(/\D/g, "")) // remove all non-digits for storage
-    .refine((val) => val.length >= 10 && val.length <= 15, {
-      message: "Phone number must be 10-15 digits long",
-    })
-    .optional(),
-  birthDate: birthDateSchema,
-  addressLineOne: trimmedString(undefined, 100).optional(),
-  addressLineTwo: trimmedString(undefined, 100).optional(),
-  city: trimmedString(undefined, 50).optional(),
-  postalCode: trimmedString(undefined, 10).optional(),
-  state: trimmedString(undefined, 50).optional(),
-  country: trimmedString(undefined, 56).optional(),
+  phone: z.preprocess(
+    (val) => {
+      if (typeof val === "string" && val.trim() === "") return undefined;
+      return val;
+    },
+    z
+      .string()
+      .regex(
+        /^[\d\s\-\(\)\+\.]+$/,
+        "Phone number can only contain digits, spaces, hyphens, parentheses, plus signs, and periods"
+      )
+      .regex(/\d/, "Phone number must contain at least one digit")
+      .min(10, "Phone number must be at least 10 digits")
+      .max(20, "Phone number is too long")
+      .transform((val) => val.replace(/\D/g, "")) // remove all non-digits for storage
+      .refine((val) => val.length >= 10 && val.length <= 15, {
+        message: "Phone number must be 10-15 digits long",
+      })
+      .optional()
+  ),
+  birthDate: z.preprocess((val) => {
+    if (typeof val === "string" && val.trim() === "") return undefined;
+    return val;
+  }, birthDateSchema),
+  addressLineOne: z.preprocess((val) => {
+    if (typeof val === "string" && val.trim() === "") return undefined;
+    return val;
+  }, trimmedString(undefined, 100).optional()),
+  addressLineTwo: z.preprocess((val) => {
+    if (typeof val === "string" && val.trim() === "") return undefined;
+    return val;
+  }, trimmedString(undefined, 100).optional()),
+  city: z.preprocess((val) => {
+    if (typeof val === "string" && val.trim() === "") return undefined;
+    return val;
+  }, trimmedString(undefined, 50).optional()),
+  postalCode: z.preprocess((val) => {
+    if (typeof val === "string" && val.trim() === "") return undefined;
+    return val;
+  }, trimmedString(undefined, 10).optional()),
+  state: z.preprocess((val) => {
+    if (typeof val === "string" && val.trim() === "") return undefined;
+    return val;
+  }, trimmedString(undefined, 50).optional()),
+  country: z.preprocess((val) => {
+    if (typeof val === "string" && val.trim() === "") return undefined;
+    return val;
+  }, trimmedString(undefined, 56).optional()),
 });
