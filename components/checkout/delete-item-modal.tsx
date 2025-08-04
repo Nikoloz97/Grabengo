@@ -1,6 +1,6 @@
 import { useCart } from "@/contexts/cart-context";
-import { dollarFormatter } from "@/hooks/formatters";
 import { CartItem } from "@/types/menu";
+import { dollarFormatter } from "@/utils/formatters";
 import { Image } from "expo-image";
 import React from "react";
 import { ScrollView, View } from "react-native";

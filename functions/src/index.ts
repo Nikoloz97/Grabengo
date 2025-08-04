@@ -62,6 +62,8 @@ export const createPaymentIntent = onCall(
         },
       });
 
+      // TODO: implement FCM push notification here??
+
       return {
         clientSecret: paymentIntent.client_secret,
         paymentIntentId: paymentIntent.id,

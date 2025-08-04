@@ -1,5 +1,5 @@
-import { capitalizeWord } from "@/hooks/formatters";
 import { PaymentMethod } from "@/types/user";
+import { capitalizeWord } from "@/utils/formatters";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import React from "react";

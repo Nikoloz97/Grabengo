@@ -1,6 +1,6 @@
 import { useCart } from "@/contexts/cart-context";
-import { dollarFormatter } from "@/hooks/formatters";
 import { CartItem } from "@/types/menu";
+import { dollarFormatter } from "@/utils/formatters";
 import { useTheme } from "@react-navigation/native";
 import { Image } from "expo-image";
 import React, { useEffect, useMemo, useState } from "react";

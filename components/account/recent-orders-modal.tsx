@@ -1,7 +1,7 @@
 import { recentOrders } from "@/constants/temporary/recent-orders";
-import { errorToast, successToast } from "@/hooks/default-toasts";
-import { dollarFormatter } from "@/hooks/formatters";
 import { UserType } from "@/types/user";
+import { errorToast, successToast } from "@/utils/default-toasts";
+import { dollarFormatter } from "@/utils/formatters";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { format } from "date-fns";

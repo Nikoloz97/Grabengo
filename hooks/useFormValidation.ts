@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { z } from "zod";
-import { errorToast } from "./default-toasts";
+import { errorToast } from "../utils/default-toasts";
 
 export default function useFormValidation<T extends Record<string, any>>() {
   const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({});

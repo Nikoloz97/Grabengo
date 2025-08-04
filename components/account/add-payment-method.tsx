@@ -1,8 +1,8 @@
 import { functions } from "@/firebase/config";
-import { errorToast, successToast } from "@/hooks/default-toasts";
 import useFormValidation from "@/hooks/useFormValidation";
 import { addPaymentMethodSchema } from "@/schemas/add-payment-method";
 import { UserType } from "@/types/user";
+import { errorToast, successToast } from "@/utils/default-toasts";
 import { CardField, useStripe } from "@stripe/stripe-react-native";
 import { httpsCallable } from "firebase/functions";
 import React, { useState } from "react";

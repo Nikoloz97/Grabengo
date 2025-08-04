@@ -9,10 +9,10 @@ import { ThemedView } from "@/components/themed-view";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { useCart } from "@/contexts/cart-context";
 import { functions } from "@/firebase/config";
-import { errorToast } from "@/hooks/default-toasts";
-import { dollarFormatter } from "@/hooks/formatters";
 import { GuestInfo } from "@/types/checkout";
 import { CartItem } from "@/types/menu";
+import { errorToast } from "@/utils/default-toasts";
+import { dollarFormatter } from "@/utils/formatters";
 import { useTheme } from "@react-navigation/native";
 import {
   initPaymentSheet,

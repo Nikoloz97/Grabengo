@@ -1,8 +1,8 @@
 import { ThemedButton } from "@/components/themed-button";
-import { formatPhoneNumber } from "@/hooks/formatters";
 import useFormValidation from "@/hooks/useFormValidation";
 import { guestPaymentSchema } from "@/schemas/guest-payment-modal";
 import { GuestInfo } from "@/types/checkout";
+import { formatPhoneNumber } from "@/utils/formatters";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { useState } from "react";

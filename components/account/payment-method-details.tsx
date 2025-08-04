@@ -1,7 +1,7 @@
 import { functions } from "@/firebase/config";
-import { errorToast, successToast } from "@/hooks/default-toasts";
-import { capitalizeWord } from "@/hooks/formatters";
 import { PaymentMethod } from "@/types/user";
+import { errorToast, successToast } from "@/utils/default-toasts";
+import { capitalizeWord } from "@/utils/formatters";
 import { httpsCallable } from "firebase/functions";
 import React, { useState } from "react";
 import { Alert, View } from "react-native";

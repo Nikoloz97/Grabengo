@@ -1,5 +1,5 @@
 import { auth } from "@/firebase/config";
-import { errorToast, successToast } from "@/hooks/default-toasts";
+import { errorToast, successToast } from "@/utils/default-toasts";
 import { signOut } from "firebase/auth";
 import React from "react";
 import { ScrollView, View } from "react-native";
@@ -45,12 +45,12 @@ export default function SignOutModal({
             marginBottom: 30,
           }}
         >
+          <ThemedButton title="Cancel" type="primary" onPress={closeModal} />
           <ThemedButton
             title="Confirm"
             type="primary"
             onPress={handleSignOut}
           />
-          <ThemedButton title="Cancel" type="primary" onPress={closeModal} />
         </View>
       </ScrollView>
     </ThemedModal>

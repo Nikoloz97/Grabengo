@@ -1,5 +1,5 @@
 import { auth, db } from "@/firebase/config";
-import { errorToast } from "@/hooks/default-toasts";
+import { errorToast } from "@/utils/default-toasts";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { deleteUser, User } from "firebase/auth";
 import { deleteDoc, doc } from "firebase/firestore";
