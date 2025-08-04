@@ -9,11 +9,13 @@ import { ThemedScrollView } from "@/components/themed-scroll-view";
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useAuth } from "@/contexts/auth-context";
+import { useTheme } from "@react-navigation/native";
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 
 export default function Account() {
   const { user, userType, refetchUserType } = useAuth();
+  const { colors } = useTheme();
 
   const [isPersonalInfoModalOpen, setIsPersonalInfoModalOpen] = useState(false);
   const [isPaymentMethodsModalOpen, setIsPaymentMethodsModalOpen] =
@@ -50,10 +52,6 @@ export default function Account() {
       text: "Sign Out",
       onPress: () => setIsSignOutModalOpen(true),
     },
-    {
-      text: "Delete Account",
-      onPress: () => setIsDeleteAccountModalOpen(true),
-    },
   ];
 
   if (user === null || user.isAnonymous || userType === null) {
@@ -86,6 +84,21 @@ export default function Account() {
                 </ThemedView>
               </TouchableOpacity>
             ))}
+
+            <TouchableOpacity
+              style={{ maxWidth: 150 }}
+              onPress={() => setIsDeleteAccountModalOpen(true)}
+            >
+              <ThemedView
+                style={{
+                  paddingHorizontal: 15,
+                }}
+              >
+                <ThemedText style={{ color: colors.notification }}>
+                  Delete Account
+                </ThemedText>
+              </ThemedView>
+            </TouchableOpacity>
           </View>
         </ThemedScrollView>
 

@@ -60,11 +60,7 @@ export default function DeleteAccountModal({
             marginBottom: 30,
           }}
         >
-          <ThemedButton
-            title="Confirm"
-            type="primary"
-            onPress={deleteAccount}
-          />
+          <ThemedButton title="Confirm" type="danger" onPress={deleteAccount} />
           <ThemedButton title="Cancel" type="primary" onPress={closeModal} />
         </View>
       </ScrollView>
